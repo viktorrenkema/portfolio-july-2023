@@ -4,6 +4,9 @@ import styled from "styled-components";
 const FlexColumn = styled.div`
   display: flex;
   flex-direction: column;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 720px;
 `;
 
 export default function Home() {
