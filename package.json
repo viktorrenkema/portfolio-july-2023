@@ -6,8 +6,10 @@
     "start": "next start"
   },
   "dependencies": {
+    "@motionone/utils": "^10.15.1",
+    "babel-plugin-styled-components": "^2.1.4",
     "framer-motion": "^10.12.18",
-    "next": "latest",
+    "next": "^12",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "styled-components": "^6.0.1"
