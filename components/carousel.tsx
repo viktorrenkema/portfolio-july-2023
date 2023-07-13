@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { forwardRef, useEffect, useRef, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { styled } from "styled-components";
 import CompanyLogo from "./company-logo";
@@ -12,7 +12,7 @@ const Row = styled(motion.ul)`
   list-style-type: none;
 `;
 
-const CarouselWrapper = styled.div`
+const CarouselWrapper = styled(motion.div)`
   display: flex;
   flex-direction: column;
   gap: 2rem;
@@ -35,9 +35,7 @@ const FramerText = styled.span`
   font-size: 32px;
 `;
 
-const cardWidth = 385;
-
-const variants = {
+const variantsCompanyLogo = {
   active: {
     opacity: 1,
     filter: "grayscale(0)",
@@ -48,18 +46,23 @@ const variants = {
   },
 };
 
-export const Carousel = () => {
+const cardWidth = 385;
+
+interface Props {
+  animate: string;
+  variants: any;
+  initial: string;
+}
+
+export const Carousel = forwardRef<HTMLDivElement, Props>((props, ref) => {
+  const { animate, variants, initial } = props;
   const [activeCompany, setActiveCompany] = useState("gitbook");
   const [startAndEndOfSticky, setStartAndEndOfSticky] = useState([0, 0]);
   const { scrollYProgress } = useScroll();
 
-  const ref = useRef();
-
   useEffect(() => {
     const refElement = ref.current;
     const { top, height, width } = refElement.getBoundingClientRect();
-
-    console.log(height);
 
     const documentHeight =
       document.documentElement.scrollHeight || document.body.scrollHeight;
@@ -90,7 +93,7 @@ export const Carousel = () => {
         "Within my team we had full responsibility over the buy-flow on the platform. We worked on features like ticket personalization, allowing custom currencies, and much more.",
       dates: "May 2022 - June 2023",
       link: "https://www.ticketswap.com",
-      accentColor: "#21498d",
+      accentColor: "#18376c",
       secondaryColor: "#122649",
     },
     {
@@ -142,12 +145,17 @@ export const Carousel = () => {
   );
 
   return (
-    <CarouselWrapper ref={ref}>
+    <CarouselWrapper
+      ref={ref}
+      animate={animate}
+      initial={initial}
+      variants={variants}
+    >
       <Companies style={{ x: logosX }}>
         <CompanyLogo
           animate={activeCompany === "gitbook" ? "active" : "inactive"}
           initial={activeCompany === "gitbook" ? "active" : "inactive"}
-          variants={variants}
+          variants={variantsCompanyLogo}
           tint="rgba(144, 176, 255, 0.2) 0%, hsla(203, 100%, 78%, 0.2) 100%"
           logo={<GitbookLogo />}
         />
@@ -155,14 +163,14 @@ export const Carousel = () => {
           tint="rgba(0, 182, 240, 0.2) 0%, hsla(223, 100%, 47%, 0.2) 100%"
           animate={activeCompany === "ticketswap" ? "active" : "inactive"}
           initial={activeCompany === "ticketswap" ? "active" : "inactive"}
-          variants={variants}
+          variants={variantsCompanyLogo}
           logo={<TicketswapLogo />}
         />
         <CompanyLogo
           tint="#0099ff2e 0%, #cc00ff33 100%"
           animate={activeCompany === "framer" ? "active" : "inactive"}
           initial={activeCompany === "framer" ? "active" : "inactive"}
-          variants={variants}
+          variants={variantsCompanyLogo}
           logo={<FramerLogo />}
         />
       </Companies>
@@ -173,13 +181,14 @@ export const Carousel = () => {
               roleEntry={roleEntry}
               activeCompany={activeCompany}
               setActiveCompany={setActiveCompany}
+              key={roleEntry.id}
             />
           );
         })}
       </Row>
     </CarouselWrapper>
   );
-};
+});
 
 function FramerLogo() {
   return (

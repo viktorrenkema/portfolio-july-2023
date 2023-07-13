@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 
 const BorderWrapper = styled(motion.li)`
   display: flex;
-  padding: 0.2rem;
+  padding: 0.1rem;
   background: #ebebeb;
   align-items: center;
   justify-content: center;
@@ -44,16 +44,16 @@ const Noise = styled(motion.div)`
   pointer-events: none;
 `;
 
-interface RoleH1Props {
-  $heading: string;
+interface CopyProps {
+  $accentColor: string;
 }
 
-const RoleH1 = styled(motion.h1)`
+const Role: React.FC<CopyProps> = styled(motion.h1)<CopyProps>`
   font-size: 18px;
   color: ${({ $accentColor }) => $accentColor};
 `;
 
-const DatesH2 = styled(motion.h2)`
+const Dates: React.FC<CopyProps> = styled(motion.h2)<CopyProps>`
   font-size: 12px;
   font-weight: 400;
   font-family: "Inter", sans-serif;
@@ -62,18 +62,14 @@ const DatesH2 = styled(motion.h2)`
   border-radius: 10px;
   border: 1px solid #ffffff3b;
   backdrop-filter: blur(0px);
-  color: ${({ accentColor }) => `${accentColor}6e`};
+  color: ${({ $accentColor }) => `${$accentColor}6e`};
   text-transform: uppercase;
   height: fit-content;
-  padding: 2px 6px;
+  padding: 2px 8px;
   white-space: nowrap;
 `;
 
-interface DescriptionProps {
-  secondaryColor: string;
-}
-
-const Description = styled(motion.span)`
+const Description: React.FC<CopyProps> = styled(motion.span)<CopyProps>`
   font-size: 14px;
   font-weight: 300;
   color: ${({ $secondaryColor }) => `${$secondaryColor}`};
@@ -92,6 +88,7 @@ const Hyperlink: React.FC<HyperlinkProps> = styled(motion.a)<HyperlinkProps>`
   display: flex;
   gap: 5px;
   align-items: center;
+  margin-top: auto;
 `;
 
 const Arrow = styled(motion.a)`
@@ -118,21 +115,15 @@ type Entry = {
 };
 
 const colorMap = {
-  // nice colors: #ff80b54d & rgb(234 194 255)
-  gitbook: "rgb(194 217 255) 0%, rgb(208 205 255) 100%",
-  ticketswap: "rgb(179 237 255) 0%, rgb(184 204 255) 100%",
-  framer: "rgb(188 228 255) 0%, rgb(243 195 255) 100%",
-
-  // with alpha channels, wont work anymore when overlapping framer cards
-  // gitbook: "#d380ff4d 0%, #9089fc40 100%",
-  // ticketswap: "#00b6f02e 0%, #0044f02e 100%",
-  // framer: "#0099ff2e 0%, #cc00ff33 100%",
+  gitbook: "rgb(237 244 255) 0%, rgb(228 226 255) 100%",
+  ticketswap: "rgb(232 250 255) 0%, rgb(218 228 255) 100%",
+  framer: "rgb(232 246 255) 0%, rgb(250 229 255) 100%",
 };
 
 const colorMapBorder = {
-  gitbook: "rgb(223 235 255) 0%, rgb(234 233 255)  100%",
-  ticketswap: "#00b6f02e 0%, #0044f02e 100%",
-  framer: "rgb(213 238 255) 0%, rgb(249 227 255) 100%",
+  gitbook: "rgb(142 184 255 / 60%) 0%, rgb(142 139 255 / 60%) 100%",
+  ticketswap: "rgb(0 182 240 / 46%) 0%, rgb(0 68 240 / 44%) 100%",
+  framer: "rgb(145 211 255 / 60%) 0%, rgb(231 151 253 / 60%) 100%",
 };
 
 export default function PreviousJobCard<Props>({
@@ -228,15 +219,15 @@ export default function PreviousJobCard<Props>({
         ref={elementRef}
       >
         <FlexRow>
-          <RoleH1 $accentColor={accentColor}>{role}</RoleH1>
-          <DatesH2 $accentColor={accentColor}>{dates}</DatesH2>
+          <Role $accentColor={accentColor}>{role}</Role>
+          <Dates $accentColor={accentColor}>{dates}</Dates>
         </FlexRow>
         <Description $secondaryColor={secondaryColor}>
           {description}
         </Description>
         <Hyperlink
-          href="www.gitbook.com"
           target="_blank"
+          href={link}
           $accentColor={accentColor}
           onHoverStart={() => setHovered(true)}
           onHoverEnd={() => setHovered(false)}
