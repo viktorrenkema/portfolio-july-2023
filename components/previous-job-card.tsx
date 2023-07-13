@@ -39,7 +39,7 @@ const Noise = styled(motion.div)`
   position: absolute;
   top: calc(49.95648389904267% - 100% / 2);
   width: 100%;
-  mix-blend-mode: overlay;
+  /* mix-blend-mode: overlay; */
   border-radius: 12px;
   pointer-events: none;
 `;
@@ -121,9 +121,9 @@ const colorMap = {
 };
 
 const colorMapBorder = {
-  gitbook: "rgb(142 184 255 / 60%) 0%, rgb(142 139 255 / 60%) 100%",
-  ticketswap: "rgb(0 182 240 / 46%) 0%, rgb(0 68 240 / 44%) 100%",
-  framer: "rgb(145 211 255 / 60%) 0%, rgb(231 151 253 / 60%) 100%",
+  gitbook: "rgb(223 235 255) 0%, rgb(234 233 255)  100%",
+  ticketswap: "#00b6f02e 0%, #0044f02e 100%",
+  framer: "rgb(213 238 255) 0%, rgb(249 227 255) 100%",
 };
 
 export default function PreviousJobCard<Props>({

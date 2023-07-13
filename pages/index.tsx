@@ -3,9 +3,9 @@ import Headline from "../components/headline";
 import Meta from "../components/meta";
 import { motion, useInView } from "framer-motion";
 import { H1, H2 } from "../components/typography/headings";
-import { Carousel } from "../components/Carousel";
 import { useRef } from "react";
 import InvoicerCard from "../components/invoicer-card";
+import { Carousel } from "../components/carousel";
 
 const Main = styled(motion.main)`
   display: flex;
