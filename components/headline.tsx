@@ -62,7 +62,7 @@ export default function Headline() {
           initial="initial"
           transition={{ duration: 0.75, delay: 0.25 }}
         >
-          Viktor Renkema
+          Hey, I'm Viktor.
         </H1>
         <Paragraph
           animate="show"

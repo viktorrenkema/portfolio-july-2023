@@ -3,6 +3,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { styled } from "styled-components";
 import CompanyLogo from "./company-logo";
 import PreviousJobCard from "./previous-job-card";
+import { Paragraph } from "./typography/paragraphs";
 
 const Row = styled(motion.ul)`
   display: flex;
@@ -10,15 +11,16 @@ const Row = styled(motion.ul)`
   gap: 20px;
   will-change: transform;
   list-style-type: none;
+  margin-top: 2rem;
 `;
 
 const CarouselWrapper = styled(motion.div)`
   display: flex;
   flex-direction: column;
-  gap: 2rem;
-  overflow: hidden;
+  /* gap: 2rem; */
   flex-wrap: nowrap;
   align-items: center;
+  overflow: visible;
 `;
 
 const Companies = styled(motion.div)`
@@ -52,10 +54,11 @@ interface Props {
   animate: string;
   variants: any;
   initial: string;
+  isCarouselFullyInView: boolean;
 }
 
 export const Carousel = forwardRef<HTMLDivElement, Props>((props, ref) => {
-  const { animate, variants, initial } = props;
+  const { animate, variants, initial, isCarouselFullyInView } = props;
   const [activeCompany, setActiveCompany] = useState("gitbook");
   const [startAndEndOfSticky, setStartAndEndOfSticky] = useState([0, 0]);
   const { scrollYProgress } = useScroll();
@@ -78,45 +81,45 @@ export const Carousel = forwardRef<HTMLDivElement, Props>((props, ref) => {
       role: "Product Engineer",
       id: 5,
       company: "gitbook",
+      companyDescription:
+        "GitBook makes it easy to plan, centralize and share knowledge, from start to ship.",
       description:
-        "I work on the product team at Gitbook, where I build features that help our users create and share knowledge.",
+        "In my team we focus on building features that allow users to distribute their documentation, e.g. through publishing to sites.",
       dates: "2023 - Present",
       link: "https://www.gitbook.com",
-      accentColor: "#445379",
-      secondaryColor: "#232b3f",
     },
     {
       role: "Frontend Engineer",
       id: 4,
       company: "ticketswap",
+      companyDescription:
+        "Ticketswap has become a household name in the Netherlands as the safest marketplace to buy and sell tickets for concerts and festivals.",
       description:
-        "Within my team we had full responsibility over the buy-flow on the platform. We worked on features like ticket personalization, allowing custom currencies, and much more.",
+        "I was responsible for the platform's buy-flow on web. We worked on features like ticket personalization, custom currencies, and more.",
       dates: "May 2022 - June 2023",
       link: "https://www.ticketswap.com",
-      accentColor: "#18376c",
-      secondaryColor: "#122649",
     },
     {
       role: "Lead Product Specialist",
       id: 3,
       company: "framer",
+      companyDescription:
+        "Framer is a web-based design tool that allows code to make incredibly powerful interactive sites or prototypes.",
       description:
-        "As lead, I was responsible for our top Enterprise teams like Microsoft, Airbnb, Spotify, Shopify, Amazon, and many more. Next to regular product specialist tasks, I also focused on long-term strategy for the team.",
+        "As lead, I was responsible for our top Enterprise teams like Spotify, Airbnb, Shopify and many more. Next to regular product specialist tasks, I also focused on long-term strategy for the team.",
       dates: "Oct. 2021 - Apr. 2022",
       link: "https://www.framer.com",
-      accentColor: "#322148",
-      secondaryColor: "#37254e",
     },
     {
       role: "Product Specialist",
       id: 2,
       company: "framer",
+      companyDescription:
+        "As product specialist, I helped our Enterprise teams to get the most out of design and code features in Framer.",
       description:
-        "I helped unlock our Enterprise teams to get the most out of design and code features in Framer, like building a React gamepad component for Rockstar or getting Airbus' design system into Framer.",
+        "For example, I built a React component to connect gamepads to prototypes for EA Games, helped Airbus get their React design system into Framer, and helped Shopify connect barcode scanners to their prototypes.",
       dates: "Jan. 2020 - Oct. 2021",
       link: "https://www.framer.com",
-      accentColor: "#322148",
-      secondaryColor: "#37254e",
     },
     {
       role: "Community & Support",
@@ -124,10 +127,10 @@ export const Carousel = forwardRef<HTMLDivElement, Props>((props, ref) => {
       company: "framer",
       description:
         "At Framer I started out in a role dedicated to writing tutorials, recording videos, and providing project support.",
+      companyDescription:
+        "Realizing support at Framer required me to know code, I ramped up and learned Javascript and React. This sparked a passion for coding that I still have today.",
       dates: "Apr. 2019 - Dec. 2019",
       link: "https://www.framer.com",
-      accentColor: "#322148",
-      secondaryColor: "#37254e",
     },
   ];
 
@@ -156,24 +159,31 @@ export const Carousel = forwardRef<HTMLDivElement, Props>((props, ref) => {
           animate={activeCompany === "gitbook" ? "active" : "inactive"}
           initial={activeCompany === "gitbook" ? "active" : "inactive"}
           variants={variantsCompanyLogo}
-          tint="rgba(144, 176, 255, 0.2) 0%, hsla(203, 100%, 78%, 0.2) 100%"
           logo={<GitbookLogo />}
+          linkColor="#dde5f9"
+          iconOffset={0}
+          link="https://www.gitbook.com"
         />
         <CompanyLogo
-          tint="rgba(0, 182, 240, 0.2) 0%, hsla(223, 100%, 47%, 0.2) 100%"
           animate={activeCompany === "ticketswap" ? "active" : "inactive"}
           initial={activeCompany === "ticketswap" ? "active" : "inactive"}
           variants={variantsCompanyLogo}
           logo={<TicketswapLogo />}
+          linkColor="#bde5ff"
+          iconOffset={-20}
+          link="https://www.ticketswap.com"
         />
         <CompanyLogo
-          tint="#0099ff2e 0%, #cc00ff33 100%"
           animate={activeCompany === "framer" ? "active" : "inactive"}
           initial={activeCompany === "framer" ? "active" : "inactive"}
           variants={variantsCompanyLogo}
           logo={<FramerLogo />}
+          linkColor="#d8d8d8"
+          iconOffset={15}
+          link="https://www.framer.com"
         />
       </Companies>
+
       <Row style={{ x }}>
         {roles.map((roleEntry) => {
           return (
@@ -182,6 +192,7 @@ export const Carousel = forwardRef<HTMLDivElement, Props>((props, ref) => {
               activeCompany={activeCompany}
               setActiveCompany={setActiveCompany}
               key={roleEntry.id}
+              isCarouselFullyInView={isCarouselFullyInView}
             />
           );
         })}

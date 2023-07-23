@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import { Variants, motion } from "framer-motion";
+import React from "react";
+import { Arrow, ArrowRounded } from "./reusable/icons";
 
 const Container = styled(motion.div)`
   display: flex;
@@ -10,6 +12,7 @@ const Container = styled(motion.div)`
 
 interface LogoBackgroundProps {
   tint: string;
+  children: React.JSX.Element;
 }
 
 const LogoBackground = styled(motion.div)<LogoBackgroundProps>`
@@ -20,31 +23,63 @@ const LogoBackground = styled(motion.div)<LogoBackgroundProps>`
   border-radius: 50%;
   width: 250px;
   height: 90px;
-  /* background: ${({ tint }) => `linear-gradient(
-    135deg,
-    ${tint}
-  );`};
-  border-radius: 12px; */
+`;
+
+const LinkIndicator = styled(motion.div)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  right: ${({ iconOffset }) => `${iconOffset}px`};
+  pointer-events: ${({ active }) => (active ? "auto" : "none")};
+  top: 30px;
 `;
 
 interface Props {
-  logo: string;
-  tint: string;
-  animate: object;
-  variants: Variants;
   initial: string;
+  animate: string;
+  variants: Variants;
+  logo: React.JSX.Element;
+  linkColor: string;
+  iconOffset: number;
+  link: string;
 }
 
 export default function CompanyLogo({
   logo,
-  tint,
   animate,
   variants,
   initial,
+  linkColor,
+  iconOffset,
+  link,
 }: Props) {
+  const [hovered, setHovered] = React.useState(false);
+
   return (
-    <Container variants={variants} animate={animate} initial={initial}>
-      <LogoBackground tint={tint}>{logo}</LogoBackground>
-    </Container>
+    <motion.a target="_blank" href={link}>
+      <Container
+        variants={variants}
+        animate={animate}
+        initial={initial}
+        onHoverStart={() => {
+          setHovered(true);
+        }}
+        onHoverEnd={() => {
+          setHovered(false);
+        }}
+      >
+        <LogoBackground>{logo}</LogoBackground>
+        <LinkIndicator
+          animate={hovered ? { opacity: 1, x: 10 } : { opacity: 0, x: 0 }}
+          iconOffset={iconOffset}
+        >
+          <ArrowRounded color={linkColor} />
+        </LinkIndicator>
+      </Container>
+    </motion.a>
   );
 }
