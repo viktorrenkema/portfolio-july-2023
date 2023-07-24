@@ -119,7 +119,7 @@ export default function PreviousJobCard<Props>({
     },
   };
 
-  const offsetCard = id === 1 ? -620 : -310;
+  const offsetCard = id === 5 ? -620 : -310;
   const { scrollYProgress } = useScroll();
   const x = useTransform(scrollYProgress, [0.55, 0.75], [0, offsetCard]);
 
@@ -183,7 +183,7 @@ export default function PreviousJobCard<Props>({
           )}
         </AnimatePresence>
         <AnimatePresence>
-          {cardIsActive && company === "framer" && id === 2 && (
+          {cardIsActive && company === "framer" && id === 5 && (
             <Cursor
               username="Viktor"
               right

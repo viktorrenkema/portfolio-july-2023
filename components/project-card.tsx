@@ -11,25 +11,23 @@ import { H2 } from "./typography/headings";
 import Image from "next/image";
 import { Paragraph } from "./typography/paragraphs";
 import { Arrow } from "./reusable/icons";
+import { device } from "../styles/theme";
+import useViewport from "./hooks/useViewport";
+import { test } from "node:test";
 
 const Container = styled(motion.div)`
   display: flex;
-  flex-direction: column;
+  flex: none;
+  flex-direction: row;
+  flex-wrap: nowrap;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
   background: #f7f7f7;
   height: auto;
   box-shadow: rgba(0, 0, 0, 0.07) 2.2px 2.2px 16.9px,
     rgba(0, 0, 0, 0.067) 5.1px 5.1px 44.4px, rgba(0, 0, 0, 0.07) 10px 10px 136px;
   padding: 2rem;
-  //
-  display: flex;
-  flex: none;
-  flex-direction: row;
-  flex-wrap: nowrap;
   gap: 20px;
-  /* height: 828px; */
-  justify-content: center;
   width: 100vw;
   max-width: 1440px;
   overflow: visible;
@@ -37,7 +35,11 @@ const Container = styled(motion.div)`
   position: relative;
   user-select: none;
   z-index: 3;
-  border-radius: 14px;
+  border-radius: 8px;
+
+  @media ${device.tablet} {
+    border-radius: 14px;
+  }
 `;
 
 const StyledImage = styled(Image)`
@@ -65,16 +67,25 @@ export const ImageContainer = styled(motion.div)`
   justify-content: center;
   flex-direction: column;
   backdrop-filter: blur(2px);
-  border-radius: 12px;
+  border-radius: 6px;
   overflow: hidden;
-  height: 710px;
   position: relative;
+  height: ${({ $height }) => `${$height}px`};
+  max-height: 710px;
+
+  @media ${device.tablet} {
+    border-radius: 12px;
+  }
 `;
 
 const StyledParagraph = styled(Paragraph)`
-  width: 70%;
   text-align: center;
   font-size: 0.9rem;
+  width: 90%;
+
+  @media ${device.tablet} {
+    width: 60%;
+  }
 `;
 
 interface HyperlinkProps {
@@ -135,9 +146,11 @@ export default function ProjectCard({
   const { scrollYProgress } = useScroll();
   const [startAndEndOfSticky, setStartAndEndOfSticky] = useState([0, 0]);
   const [isAboveThreshold, setIsAboveThreshold] = useState(false);
+  const { calculatedImageHeight } = useViewport();
   const ref = useRef();
   const isProjectsInView = useInView(ref, { amount: 0.3 });
   const [hovered, setHovered] = useState(false);
+  const [imageHeight, setImageHeight] = useState(0);
 
   const scaleTransform = useTransform(
     scrollYProgress,
@@ -154,7 +167,6 @@ export default function ProjectCard({
     [startAndEndOfSticky[0] + 0.1, startAndEndOfSticky[1]],
     [0, 1]
   );
-  console.log(title, startAndEndOfSticky[0], startAndEndOfSticky[1]);
 
   const scale = useMotionTemplate`${scaleTransform}`;
   const rotateX = useMotionTemplate`${rotateTransform}deg`;
@@ -187,7 +199,14 @@ export default function ProjectCard({
     return () => {
       scrollYProgress.on("change", checkForThreshold);
     };
-  }, []);
+  }, [imageHeight]);
+
+  // Somehow passing the `height` from the useViewport hook directly to <ImageContainer/> caused
+  // an issue where all css styles of the styled components were not injected into the DOM. If I
+  // have time, I will look into this issue.
+  useEffect(() => {
+    setImageHeight(calculatedImageHeight);
+  }, [calculatedImageHeight]);
 
   return (
     <OutterContainer style={{ opacity: opacityTransform }}>
@@ -212,7 +231,7 @@ export default function ProjectCard({
       </Column>
 
       <Container style={{ scale, rotateX }} ref={ref}>
-        <ImageContainer>
+        <ImageContainer $height={imageHeight}>
           <StyledImage
             alt={alt}
             src={asset}

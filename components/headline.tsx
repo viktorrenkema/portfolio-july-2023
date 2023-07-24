@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import SocialButton from "./social-button";
 import { Avatar } from "./avatar";
 import { H1 } from "./typography/headings";
+import { device } from "../styles/theme";
 
 const HeadlineContainer = styled(motion.div)`
   height: 100vh;
@@ -34,6 +35,11 @@ const Paragraph = styled(motion.p)`
   margin-block-start: 0.5em;
   text-align: center;
   color: #646464;
+  width: 60%;
+
+  @media ${device.mobile} {
+    width: 100%;
+  }
 `;
 
 const SerifParagraph = styled(Paragraph)`

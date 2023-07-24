@@ -4,6 +4,7 @@ import { styled } from "styled-components";
 import CompanyLogo from "./company-logo";
 import PreviousJobCard from "./previous-job-card";
 import { Paragraph } from "./typography/paragraphs";
+import useViewport from "./hooks/useViewport";
 
 const Row = styled(motion.ul)`
   display: flex;
@@ -59,9 +60,12 @@ interface Props {
 
 export const Carousel = forwardRef<HTMLDivElement, Props>((props, ref) => {
   const { animate, variants, initial, isCarouselFullyInView } = props;
+
   const [activeCompany, setActiveCompany] = useState("gitbook");
   const [startAndEndOfSticky, setStartAndEndOfSticky] = useState([0, 0]);
+
   const { scrollYProgress } = useScroll();
+  const { viewportWidth } = useViewport();
 
   useEffect(() => {
     const refElement = ref.current;
@@ -79,7 +83,7 @@ export const Carousel = forwardRef<HTMLDivElement, Props>((props, ref) => {
   const roles = [
     {
       role: "Product Engineer",
-      id: 5,
+      id: 1,
       company: "gitbook",
       companyDescription:
         "GitBook makes it easy to plan, centralize and share knowledge, from start to ship.",
@@ -90,7 +94,7 @@ export const Carousel = forwardRef<HTMLDivElement, Props>((props, ref) => {
     },
     {
       role: "Frontend Engineer",
-      id: 4,
+      id: 2,
       company: "ticketswap",
       companyDescription:
         "Ticketswap has become a household name in the Netherlands as the safest marketplace to buy and sell tickets for concerts and festivals.",
@@ -112,7 +116,7 @@ export const Carousel = forwardRef<HTMLDivElement, Props>((props, ref) => {
     },
     {
       role: "Product Specialist",
-      id: 2,
+      id: 4,
       company: "framer",
       companyDescription:
         "As product specialist, I helped our Enterprise teams to get the most out of design and code features in Framer.",
@@ -123,7 +127,7 @@ export const Carousel = forwardRef<HTMLDivElement, Props>((props, ref) => {
     },
     {
       role: "Community & Support",
-      id: 1,
+      id: 5,
       company: "framer",
       description:
         "At Framer I started out in a role dedicated to writing tutorials, recording videos, and providing project support.",
@@ -134,18 +138,25 @@ export const Carousel = forwardRef<HTMLDivElement, Props>((props, ref) => {
     },
   ];
 
+  const startingPositionRow = viewportWidth < 768 ? 945 : 908;
   const x = useTransform(
     scrollYProgress,
-    [startAndEndOfSticky[0], 1],
-    [908, -(cardWidth * (roles.length - 1.5))]
-    // 908 used to be 800 with 375x240px old size of previous-job-card
+    [startAndEndOfSticky[0] - 0.15, 1],
+    [startingPositionRow, -(cardWidth * (roles.length - 1.5))]
+    // startingPositionRow used to be 800 with 375x240px old size of previous-job-card
   );
 
   const logosX = useTransform(
     scrollYProgress,
-    [startAndEndOfSticky[0], 0.5],
+    [startAndEndOfSticky[0] - 0.15, 0.5],
     [272, -272]
   );
+
+  console.log([
+    startAndEndOfSticky[0] - 0.15,
+    (startAndEndOfSticky[0] + 0.5) / 2,
+    0.5,
+  ]);
 
   return (
     <CarouselWrapper
