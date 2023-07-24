@@ -26,7 +26,7 @@ const arrowVariants = {
   },
 };
 
-export function Arrow({ hovered, accentColor }) {
+export function Arrow({ hovered }) {
   return (
     <motion.svg
       width="14"
@@ -39,8 +39,7 @@ export function Arrow({ hovered, accentColor }) {
         d="M 4.75 0 L 0 4.5 L 4.75 9 M 12.75 4.5 L 0.25 4.5"
         transform="translate(0.5 0.5) rotate(180 6.375 4.5)"
         fill="transparent"
-        stroke="#7d7d7d"
-        // stroke={accentColor}
+        stroke="#0055ff"
         strokeMiterlimit="10"
       ></motion.path>
     </motion.svg>

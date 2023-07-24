@@ -2,11 +2,9 @@ import styled from "styled-components";
 import Headline from "../components/headline";
 import Meta from "../components/meta";
 import { motion, useInView } from "framer-motion";
-import { H1, H2 } from "../components/typography/headings";
+import { H1 } from "../components/typography/headings";
 import { useRef } from "react";
-import InvoicerCard from "../components/project-card";
 import { Carousel } from "../components/carousel";
-import { Paragraph } from "../components/typography/paragraphs";
 import ProjectCard from "../components/project-card";
 
 const Main = styled(motion.main)`
@@ -16,7 +14,7 @@ const Main = styled(motion.main)`
 `;
 
 const StickyRolesContainer = styled(motion.div)`
-  min-height: 350vh;
+  min-height: 450vh;
   width: 100%;
   overflow: clip;
   overflow-y: visible; // remove this if this leads to scroll animation issues, it only impacts the framer cursor
@@ -104,7 +102,7 @@ export default function Home() {
         <ProjectsContainer>
           <ProjectCard
             title="Invoicer.studio"
-            description="I built Invoicer in Q1 2023 with the aim of building a full product
+            firstDescription="I built Invoicer in Q1 2023 with the aim of building a full product
           that will at least get a single (symbolic) Euro in revenue."
             link="https://invoicer.studio"
             asset="/images/projects/invoicer-full.png"
@@ -114,13 +112,21 @@ export default function Home() {
         <ProjectsContainer>
           <ProjectCard
             title="Workout tracker"
-            description="As a frequent gym visitor, I wanted to track my workouts. Building my own PWA allowed me to build exactly the features I want myself."
-            link="https://invoicer.studio"
+            firstDescription="As a frequent gym visitor, I wanted to track my workouts. Building my own PWA allowed me to build exactly the features I want myself."
+            link="https://esteem-app.vercel.app"
             asset="/images/projects/workout-tracker.png"
             alt="A screenshot of the workout app"
           />
         </ProjectsContainer>
-        {/* <div style={{ height: "100vh" }}></div> */}
+        <ProjectsContainer>
+          <ProjectCard
+            title="Trust factors on Ticketswap"
+            firstDescription="At Ticketswap we were working to shorten the buy-flow, possibly eliminating a page that displayed trust factors."
+            secondDescription="For a hackathon day, I wanted to see if I could display them sooner in the flow while also making the platform more fun and interactive."
+            asset="/images/projects/ticketswap.gif"
+            alt="An animated image of a popover displaying trust factors on hover"
+          />
+        </ProjectsContainer>
       </Main>
     </div>
   );

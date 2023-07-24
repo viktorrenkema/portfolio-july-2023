@@ -93,7 +93,7 @@ interface HyperlinkProps {
 }
 
 export const Hyperlink: React.FC<HyperlinkProps> = styled(motion.a)`
-  color: ${({ $accentColor }) => `${$accentColor}`};
+  color: #0055ff;
   font-size: 14px;
   font-weight: 400;
   border-bottom: 1px solid ${({ $accentColor }) => `${$accentColor}82`};
@@ -131,15 +131,17 @@ const item = {
 interface Props {
   asset: string;
   title: string;
-  description: string;
-  link: string;
   alt: string;
+  firstDescription: string;
+  secondDescription?: string;
+  link?: string;
 }
 
 export default function ProjectCard({
   asset,
   title,
-  description,
+  firstDescription,
+  secondDescription,
   link,
   alt,
 }: Props) {
@@ -216,18 +218,23 @@ export default function ProjectCard({
         initial="hidden"
       >
         <H2 variants={item}>{title}</H2>
-        <StyledParagraph variants={item}>{description}</StyledParagraph>
-        <Hyperlink
-          target="_blank"
-          href={link}
-          $accentColor="#959595"
-          onHoverStart={() => setHovered(true)}
-          onHoverEnd={() => setHovered(false)}
-          variants={item}
-        >
-          visit site
-          <Arrow hovered={hovered} accentColor="#959595" />
-        </Hyperlink>
+        <StyledParagraph variants={item}>{firstDescription}</StyledParagraph>
+        {secondDescription && (
+          <StyledParagraph variants={item}>{secondDescription}</StyledParagraph>
+        )}
+        {link && (
+          <Hyperlink
+            target="_blank"
+            href={link}
+            $accentColor="#959595"
+            onHoverStart={() => setHovered(true)}
+            onHoverEnd={() => setHovered(false)}
+            variants={item}
+          >
+            Visit
+            <Arrow hovered={hovered} />
+          </Hyperlink>
+        )}
       </Column>
 
       <Container style={{ scale, rotateX }} ref={ref}>
