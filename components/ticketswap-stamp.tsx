@@ -63,7 +63,38 @@ const Stamp = () => {
           d="M9.2147 33.1062C7.8229 26.6575 9.6329 19.6564 14.6447 14.6447C19.6565 9.6329 26.6575 7.8229 33.1062 9.21465C36.6819 3.67066 42.9123 0 50 0C57.0875 0 63.318 3.67066 66.894 9.2147C73.3425 7.8229 80.3435 9.6329 85.3555 14.6447C90.367 19.6565 92.177 26.6575 90.7855 33.1062C96.3295 36.6819 100 42.9123 100 50C100 57.0875 96.3295 63.318 90.7855 66.894C92.177 73.3425 90.367 80.3435 85.3555 85.3555C80.3435 90.367 73.3425 92.177 66.894 90.7855C63.318 96.3295 57.0875 100 50 100C42.9123 100 36.682 96.3295 33.1062 90.7855C26.6575 92.177 19.6565 90.367 14.6447 85.3555C9.6329 80.3435 7.8229 73.3425 9.2147 66.894C3.67066 63.318 0 57.0875 0 50C0 42.9123 3.67066 36.6819 9.2147 33.1062Z"
           fill="url(#paint0_linear_112_589)"
         />
-        <circle cx="50" cy="49" r="40" fill="#C1FFE5" />
+        {/* <circle cx="50" cy="49" r="40" fill="#C1FFE5" /> */}
+        <circle
+          cx="50"
+          cy="50"
+          r="39.5"
+          fill="url(#paint0_linear_1_154)"
+          stroke="url(#paint1_linear_1_154)"
+        />
+        <defs>
+          <linearGradient
+            id="paint0_linear_1_154"
+            x1="40"
+            y1="0"
+            x2="40"
+            y2="80"
+            gradientUnits="userSpaceOnUse"
+          >
+            <stop stop-color="white" />
+            <stop offset="1" stop-color="white" stop-opacity="0.73" />
+          </linearGradient>
+          <linearGradient
+            id="paint1_linear_1_154"
+            x1="16.5"
+            y1="64"
+            x2="66"
+            y2="13.5"
+            gradientUnits="userSpaceOnUse"
+          >
+            <stop stop-color="white" />
+            <stop offset="1" stop-color="#AAEBE8" />
+          </linearGradient>
+        </defs>
       </g>
       <defs>
         <linearGradient
@@ -74,10 +105,14 @@ const Stamp = () => {
           y2="8.64591"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stopColor="#C1FFE5" />
+          <stop stop-color="#C1FFE5" stop-opacity="0.5" />
+          <stop offset="0.314004" stop-color="#00C4D0" stop-opacity="0.5" />
+          <stop offset="0.637831" stop-color="#00D0AB" stop-opacity="0.5" />
+          <stop offset="1" stop-color="#00A3FF" stop-opacity="0.5" />
+          {/* <stop stopColor="#C1FFE5" />
           <stop offset="0.314004" stopColor="#C1FFE5" />
           <stop offset="0.637831" stopColor="#C1FFE5" />
-          <stop offset="1" stopColor="#C1FFE5" />
+          <stop offset="1" stopColor="#C1FFE5" /> */}
         </linearGradient>
       </defs>
     </svg>

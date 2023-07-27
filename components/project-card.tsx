@@ -13,7 +13,6 @@ import { Paragraph } from "./typography/paragraphs";
 import { Arrow } from "./reusable/icons";
 import { device } from "../styles/theme";
 import useViewport from "./hooks/useViewport";
-import { test } from "node:test";
 
 const Container = styled(motion.div)`
   display: flex;
@@ -96,11 +95,16 @@ export const Hyperlink: React.FC<HyperlinkProps> = styled(motion.a)`
   color: #0055ff;
   font-size: 14px;
   font-weight: 400;
-  border-bottom: 1px solid ${({ $accentColor }) => `${$accentColor}82`};
   display: flex;
   gap: 5px;
   align-items: center;
   margin-top: auto;
+  padding: 4px 8px;
+  border-radius: 8px;
+`;
+
+const LinkStaggerWrapper = styled(motion.div)`
+  margin-top: 0.25rem;
 `;
 
 const container = {
@@ -128,6 +132,24 @@ const item = {
   },
 };
 
+const hyperlinkVariants = {
+  hover: {
+    background: "#0055ff0d",
+    border: "0px solid #0055ff1f",
+    boxShadow: `0 0 0 2px #0055ff1f, 0 0 0 4px #0055ff1f`,
+  },
+  show: {
+    opacity: 1,
+    y: 0,
+    background: "#0055ff00",
+    boxShadow: `0 0 0 0px #0055ff00, 0 0 0 0px #0055ff5d`,
+    transition: {
+      duration: 0.5,
+      ease: "easeIn",
+    },
+  },
+};
+
 interface Props {
   asset: string;
   title: string;
@@ -144,13 +166,14 @@ export default function ProjectCard({
   secondDescription,
   link,
   alt,
+  linkText,
 }: Props) {
   const { scrollYProgress } = useScroll();
   const [startAndEndOfSticky, setStartAndEndOfSticky] = useState([0, 0]);
   const [isAboveThreshold, setIsAboveThreshold] = useState(false);
   const { calculatedImageHeight } = useViewport();
   const ref = useRef();
-  const isProjectsInView = useInView(ref, { amount: 0.3 });
+  const isProjectsInView = useInView(ref, { amount: 0.1 });
   const [hovered, setHovered] = useState(false);
   const [imageHeight, setImageHeight] = useState(0);
 
@@ -166,7 +189,7 @@ export default function ProjectCard({
   );
   const opacityTransform = useTransform(
     scrollYProgress,
-    [startAndEndOfSticky[0] + 0.1, startAndEndOfSticky[1]],
+    [startAndEndOfSticky[0] - 0.1, startAndEndOfSticky[1]],
     [0, 1]
   );
 
@@ -210,8 +233,9 @@ export default function ProjectCard({
     setImageHeight(calculatedImageHeight);
   }, [calculatedImageHeight]);
 
+  console.log(hovered);
   return (
-    <OutterContainer style={{ opacity: opacityTransform }}>
+    <OutterContainer style={{ opacity: opacityTransform }} ref={ref}>
       <Column
         variants={container}
         animate={isProjectsInView ? "show" : "hidden"}
@@ -223,21 +247,24 @@ export default function ProjectCard({
           <StyledParagraph variants={item}>{secondDescription}</StyledParagraph>
         )}
         {link && (
-          <Hyperlink
-            target="_blank"
-            href={link}
-            $accentColor="#959595"
-            onHoverStart={() => setHovered(true)}
-            onHoverEnd={() => setHovered(false)}
-            variants={item}
-          >
-            Visit
-            <Arrow hovered={hovered} />
-          </Hyperlink>
+          <LinkStaggerWrapper variants={item}>
+            <Hyperlink
+              target="_blank"
+              href={link}
+              $accentColor="#959595"
+              onHoverStart={() => setHovered(true)}
+              onHoverEnd={() => setHovered(false)}
+              variants={hyperlinkVariants}
+              animate={hovered ? "hover" : "show"}
+            >
+              {linkText}
+              <Arrow hovered={hovered} />
+            </Hyperlink>
+          </LinkStaggerWrapper>
         )}
       </Column>
 
-      <Container style={{ scale, rotateX }} ref={ref}>
+      <Container style={{ scale, rotateX }}>
         <ImageContainer $height={imageHeight}>
           <StyledImage
             alt={alt}

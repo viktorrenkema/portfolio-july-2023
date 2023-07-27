@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Headline from "../components/headline";
+import Headline, { Gradient } from "../components/headline";
 import Meta from "../components/meta";
 import { motion, useInView } from "framer-motion";
 import { H1 } from "../components/typography/headings";
@@ -97,6 +97,7 @@ export default function Home() {
               initial="hide"
               isCarouselFullyInView={isCarouselFullyInView}
             />
+            <Gradient />
           </CompaniesContainer>
         </StickyRolesContainer>
         <ProjectsContainer>
@@ -107,6 +108,7 @@ export default function Home() {
             link="https://invoicer.studio"
             asset="/images/projects/invoicer-full.png"
             alt="A screenshot of invoicer.studio, my invoice generator project"
+            linkText="Visit invoicer.studio"
           />
         </ProjectsContainer>
         <ProjectsContainer>
@@ -116,15 +118,18 @@ export default function Home() {
             link="https://esteem-app.vercel.app"
             asset="/images/projects/workout-tracker.png"
             alt="A screenshot of the workout app"
+            linkText="Visit the app (made for mobile)"
           />
         </ProjectsContainer>
         <ProjectsContainer>
           <ProjectCard
             title="Trust factors on Ticketswap"
-            firstDescription="At Ticketswap we were working to shorten the buy-flow, possibly eliminating a page that displayed trust factors."
-            secondDescription="For a hackathon day, I wanted to see if I could display them sooner in the flow while also making the platform more fun and interactive."
+            firstDescription="At Ticketswap, we were working to shorten the buy-flow, possibly eliminating a page that displayed trust factors. For a hackathon day, I explored with displaying these sooner in the flow in a fun and interactive way."
+            secondDescription="The project was instantly green-lit for production, but I didn't get to finish it before I left."
+            link="https://www.ticketswap.com"
             asset="/images/projects/ticketswap.gif"
             alt="An animated image of a popover displaying trust factors on hover"
+            linkText="Visit ticketswap.com"
           />
         </ProjectsContainer>
       </Main>

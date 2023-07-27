@@ -5,12 +5,38 @@ import { Avatar } from "./avatar";
 import { H1 } from "./typography/headings";
 import { device } from "../styles/theme";
 
+const StyledH1 = styled(H1)``;
+
+const Paragraph = styled(motion.p)`
+  font-size: 1rem;
+  margin-block-start: 0.5em;
+  text-align: center;
+  color: #646464;
+  width: 60%;
+
+  @media ${device.mobile} {
+    width: 100%;
+  }
+`;
+
+export const Gradient = styled(motion.div)`
+  background: url("/images/gradients/yellow-orange-red.png") no-repeat center
+    center;
+  width: 100vw;
+  height: 100vh;
+  background-size: contain;
+  position: absolute;
+  z-index: -1;
+`;
+
 const HeadlineContainer = styled(motion.div)`
   height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  overflow: visible;
+  z-index: 1;
 `;
 
 const FlexColumn = styled(motion.div)`
@@ -30,23 +56,6 @@ const FlexRow = styled(motion.div)`
   gap: 1rem;
 `;
 
-const Paragraph = styled(motion.p)`
-  font-size: 1rem;
-  margin-block-start: 0.5em;
-  text-align: center;
-  color: #646464;
-  width: 60%;
-
-  @media ${device.mobile} {
-    width: 100%;
-  }
-`;
-
-const SerifParagraph = styled(Paragraph)`
-  font-family: "Noto Serif Makasar", serif;
-  color: #a7a7a7;
-`;
-
 const variants = {
   initial: { opacity: 0, y: 20 },
   show: { opacity: 1, y: 0 },
@@ -62,14 +71,14 @@ export default function Headline() {
           initial="initial"
           transition={{ duration: 0.75 }}
         />
-        <H1
+        <StyledH1
           animate="show"
           variants={variants}
           initial="initial"
           transition={{ duration: 0.75, delay: 0.25 }}
         >
           Hey, I'm Viktor.
-        </H1>
+        </StyledH1>
         <Paragraph
           animate="show"
           variants={variants}
@@ -78,15 +87,6 @@ export default function Headline() {
         >
           Software engineer based in Amsterdam.
         </Paragraph>
-        {/* <SerifParagraph
-          animate="show"
-          variants={variants}
-          initial="initial"
-          transition={{ duration: 0.75, delay: 0.75 }}
-        >
-          I enjoy using Typescript, React and GraphQL, and love focussing on
-          interaction design and animations.
-        </SerifParagraph> */}
       </FlexColumn>
       <FlexRow>
         <SocialButton text="twitter" url="https://www.twitter.com/vrenkema" />
@@ -97,6 +97,7 @@ export default function Headline() {
         <SocialButton text="github" url="https://github.com/viktorrenkema" />
         <SocialButton text="email" url="mailto:vrenkema@gmail.com" />
       </FlexRow>
+      {/* <Gradient /> */}
     </HeadlineContainer>
   );
 }

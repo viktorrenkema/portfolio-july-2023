@@ -33,6 +33,8 @@ const Card = styled(motion.div)`
   gap: 0.75rem;
   padding: 1.5rem;
   position: relative;
+  backdrop-filter: blur(4px);
+  background: rgb(250 250 250 / 60%);
 `;
 
 interface CopyProps {
@@ -111,11 +113,9 @@ export default function PreviousJobCard<Props>({
   const variants = {
     hidden: {
       opacity: 0.2,
-      background: "#fafafa",
     },
     show: {
       opacity: 1,
-      background: "#fafafa",
     },
   };
 
