@@ -125,7 +125,7 @@ export default function Home() {
           <ProjectCard
             title="Trust factors on Ticketswap"
             firstDescription="At Ticketswap, we were working to shorten the buy-flow, possibly eliminating a page that displayed trust factors. For a hackathon day, I explored with displaying these sooner in the flow in a fun and interactive way."
-            secondDescription="The project was instantly green-lit for production, but I didn't get to finish it before I left."
+            secondDescription="The project was well-received and approved for production, but I didn't get to finish it before I left."
             link="https://www.ticketswap.com"
             asset="/images/projects/ticketswap.gif"
             alt="An animated image of a popover displaying trust factors on hover"

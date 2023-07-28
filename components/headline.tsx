@@ -22,11 +22,19 @@ const Paragraph = styled(motion.p)`
 export const Gradient = styled(motion.div)`
   background: url("/images/gradients/yellow-orange-red.png") no-repeat center
     center;
-  width: 100vw;
+  width: 180vw;
   height: 100vh;
   background-size: contain;
   position: absolute;
   z-index: -1;
+
+  @media ${device.tablet} {
+    width: 150vw;
+  }
+
+  @media ${device.laptopL} {
+    width: 100vw;
+  }
 `;
 
 const HeadlineContainer = styled(motion.div)`

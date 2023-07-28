@@ -1,21 +1,17 @@
 import styled from "styled-components";
 import { Variants, motion } from "framer-motion";
 import React from "react";
-import { Arrow, ArrowRounded } from "./reusable/icons";
+import { ArrowRounded } from "./reusable/icons";
 
 const Container = styled(motion.div)`
   display: flex;
   align-items: center;
   border-radius: 50%;
   gap: 1rem;
+  position: relative;
 `;
 
-interface LogoBackgroundProps {
-  tint: string;
-  children: React.JSX.Element;
-}
-
-const LogoBackground = styled(motion.div)<LogoBackgroundProps>`
+const LogoBackground = styled(motion.div)`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -25,7 +21,11 @@ const LogoBackground = styled(motion.div)<LogoBackgroundProps>`
   height: 90px;
 `;
 
-const LinkIndicator = styled(motion.div)`
+interface LinkIndicatorProps {
+  iconOffset: number;
+}
+
+const LinkIndicator = styled(motion.div)<LinkIndicatorProps>`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -34,7 +34,6 @@ const LinkIndicator = styled(motion.div)`
   height: fit-content;
   position: absolute;
   right: ${({ iconOffset }) => `${iconOffset}px`};
-  pointer-events: ${({ active }) => (active ? "auto" : "none")};
   top: 33px;
 `;
 
@@ -86,8 +85,6 @@ export default function CompanyLogo({
       boxShadow: `${colors[company][1]} 0px 0px 0px 0px, ${colors[company][2]} 0px 0px 0px 0px`,
     },
   };
-
-  console.log(company, hovered);
 
   return (
     <motion.a target="_blank" href={link}>

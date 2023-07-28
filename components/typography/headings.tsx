@@ -10,7 +10,6 @@ export const H1 = styled(motion.h1)`
 
   @media ${device.mobile} {
     font-size: 1.25rem;
-    width: 100%;
   }
 `;
 
