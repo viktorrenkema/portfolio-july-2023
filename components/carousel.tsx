@@ -130,11 +130,32 @@ export const Carousel = forwardRef<HTMLDivElement, Props>((props, ref) => {
       id: 5,
       company: "framer",
       description:
-        "At Framer I started out in a role dedicated to writing tutorials, recording videos, and providing project support.",
+        "Providing support at Framer required me to know code, so I ramped up and learned Javascript and React. This sparked a passion for coding that I still have today.",
       companyDescription:
-        "Realizing support at Framer required me to know code, I ramped up and learned Javascript and React. This sparked a passion for coding that I still have today.",
+        "At Framer I started out in a role dedicated to writing tutorials, recording videos, and providing project support.",
       dates: "Apr. 2019 - Dec. 2019",
       link: "https://www.framer.com",
+    },
+  ];
+
+  const companies = [
+    {
+      company: "gitbook",
+      link: "https://www.gitbook.com",
+      logo: <GitbookLogo />,
+      iconOffset: 0,
+    },
+    {
+      company: "ticketswap",
+      link: "https://www.ticketswap.com",
+      logo: <TicketswapLogo />,
+      iconOffset: -20,
+    },
+    {
+      company: "framer",
+      link: "https://www.framer.com",
+      logo: <FramerLogo />,
+      iconOffset: 15,
     },
   ];
 
@@ -152,12 +173,6 @@ export const Carousel = forwardRef<HTMLDivElement, Props>((props, ref) => {
     [272, -272]
   );
 
-  console.log([
-    startAndEndOfSticky[0] - 0.15,
-    (startAndEndOfSticky[0] + 0.5) / 2,
-    0.5,
-  ]);
-
   return (
     <CarouselWrapper
       ref={ref}
@@ -166,33 +181,18 @@ export const Carousel = forwardRef<HTMLDivElement, Props>((props, ref) => {
       variants={variants}
     >
       <Companies style={{ x: logosX }}>
-        <CompanyLogo
-          animate={activeCompany === "gitbook" ? "active" : "inactive"}
-          initial={activeCompany === "gitbook" ? "active" : "inactive"}
-          variants={variantsCompanyLogo}
-          logo={<GitbookLogo />}
-          linkColor="#dde5f9"
-          iconOffset={0}
-          link="https://www.gitbook.com"
-        />
-        <CompanyLogo
-          animate={activeCompany === "ticketswap" ? "active" : "inactive"}
-          initial={activeCompany === "ticketswap" ? "active" : "inactive"}
-          variants={variantsCompanyLogo}
-          logo={<TicketswapLogo />}
-          linkColor="#bde5ff"
-          iconOffset={-20}
-          link="https://www.ticketswap.com"
-        />
-        <CompanyLogo
-          animate={activeCompany === "framer" ? "active" : "inactive"}
-          initial={activeCompany === "framer" ? "active" : "inactive"}
-          variants={variantsCompanyLogo}
-          logo={<FramerLogo />}
-          linkColor="#d8d8d8"
-          iconOffset={15}
-          link="https://www.framer.com"
-        />
+        {companies.map(({ company, link, logo, iconOffset }) => (
+          <CompanyLogo
+            key={company}
+            company={company}
+            link={link}
+            logo={logo}
+            iconOffset={iconOffset}
+            animate={activeCompany === company ? "active" : "inactive"}
+            initial={"inactive"}
+            variants={variantsCompanyLogo}
+          />
+        ))}
       </Companies>
 
       <Row style={{ x }}>

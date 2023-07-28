@@ -13,12 +13,13 @@ import GitbookBranching from "./gitbook-branching";
 
 const BorderWrapper = styled(motion.li)`
   display: flex;
-  padding: 0.2rem;
+  padding: 0.35rem;
   align-items: center;
   justify-content: center;
   border-radius: 15px;
   height: 100%;
   z-index: ${({ id }) => id};
+  background: #ffffff4a;
 `;
 
 const Card = styled(motion.div)`

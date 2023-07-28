@@ -233,7 +233,6 @@ export default function ProjectCard({
     setImageHeight(calculatedImageHeight);
   }, [calculatedImageHeight]);
 
-  console.log(hovered);
   return (
     <OutterContainer style={{ opacity: opacityTransform }} ref={ref}>
       <Column

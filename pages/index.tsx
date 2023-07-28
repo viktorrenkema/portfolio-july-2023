@@ -86,7 +86,7 @@ export default function Home() {
                 initial="hide"
                 variants={appearVariants}
               >
-                I worked with some pretty amazing teams.
+                I've been part of some pretty amazing teams.
               </H1>
             </CompaniesHeadings>
 
