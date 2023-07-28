@@ -124,9 +124,9 @@ export default function PreviousJobCard<Props>({
   const { scrollYProgress } = useScroll();
   const x = useTransform(scrollYProgress, [0.55, 0.75], [0, offsetCard]);
 
-  const yCursor1 = useTransform(scrollYProgress, [0.55, 0.75], [0, -40]);
+  const yCursor1 = useTransform(scrollYProgress, [0.55, 0.75], [0, -60]);
+  const xCursor1 = useTransform(scrollYProgress, [0.55, 0.75], [0, 30]);
   const yCursor2 = useTransform(scrollYProgress, [0.55, 0.75], [0, -25]);
-  const xCursor1 = useTransform(scrollYProgress, [0.55, 0.75], [0, 20]);
   const xCursor2 = useTransform(scrollYProgress, [0.55, 0.75], [0, 50]);
   const stampRotation = useTransform(scrollYProgress, [0.2, 0.7], [0, 260]);
 

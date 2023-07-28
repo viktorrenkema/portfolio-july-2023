@@ -78,7 +78,7 @@ export default function CompanyLogo({
     hover: {
       boxShadow: `${colors[company][1]} 0px 0px 0px 3px, ${colors[company][2]} 0px 0px 0px 5px`,
       transition: {
-        duration: 0.5,
+        duration: 0.2,
         ease: "easeIn",
       },
     },

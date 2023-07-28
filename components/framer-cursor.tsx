@@ -16,7 +16,7 @@ const CursorBody = styled(motion.div)`
   padding: 8px 14px 8px 14px;
   box-shadow: 0px 0.6021873017743928px 0.6021873017743928px -1.25px rgba(0, 0, 0, 0.18),
     0px 2.288533303243457px 2.288533303243457px -2.5px rgba(0, 0, 0, 0.15889),
-    0px 10px 10px -3.75px rgba(0, 0, 0, 0.0625);
+    0px 10px 10px -3.75px rgba(0, 0, 0, 0.175);
   position: absolute;
   left: ${({ right }) => (right ? "24px" : "-58px")};
   bottom: ${({ right }) => (right ? "-19px" : "-17px")};
@@ -80,5 +80,3 @@ const CursorArrow = ({ right }) => {
     </svg>
   );
 };
-
-// fill="#00A3FF"

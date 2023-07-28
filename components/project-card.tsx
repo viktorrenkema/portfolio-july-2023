@@ -182,11 +182,7 @@ export default function ProjectCard({
     [startAndEndOfSticky[0] + 0.1, startAndEndOfSticky[1]],
     [0.5, 0.9]
   );
-  const rotateTransform = useTransform(
-    scrollYProgress,
-    [startAndEndOfSticky[0] + 0.1, startAndEndOfSticky[1]],
-    [320, 360]
-  );
+
   const opacityTransform = useTransform(
     scrollYProgress,
     [startAndEndOfSticky[0] - 0.1, startAndEndOfSticky[1]],
@@ -194,7 +190,6 @@ export default function ProjectCard({
   );
 
   const scale = useMotionTemplate`${scaleTransform}`;
-  const rotateX = useMotionTemplate`${rotateTransform}deg`;
 
   useEffect(() => {
     const refElement = ref.current;
@@ -263,7 +258,7 @@ export default function ProjectCard({
         )}
       </Column>
 
-      <Container style={{ scale, rotateX }}>
+      <Container style={{ scale }}>
         <ImageContainer $height={imageHeight}>
           <StyledImage
             alt={alt}
