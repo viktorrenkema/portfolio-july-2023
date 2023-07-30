@@ -27,6 +27,7 @@ export const Gradient = styled(motion.div)`
   background-size: contain;
   position: absolute;
   z-index: -1;
+  top: -110px;
 
   @media ${device.tablet} {
     width: 150vw;
@@ -85,7 +86,7 @@ export default function Headline() {
           initial="initial"
           transition={{ duration: 0.75, delay: 0.25 }}
         >
-          Hey, I'm Viktor.
+          Hey, I'm Viktor Renkema.
         </StyledH1>
         <Paragraph
           animate="show"

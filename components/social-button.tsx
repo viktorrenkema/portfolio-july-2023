@@ -52,7 +52,7 @@ export default function SocialButton({ text, url }: Props) {
   const buttonVariants = {
     default: {
       background:
-        "linear-gradient(0deg, rgb(242, 242, 242/0%) 0%, rgb(242, 242, 242/0%) 100%)",
+        "linear-gradient(0deg, rgb(242, 242, 242) 0%, rgb(242, 242, 242) 100%)",
       opacity: 1,
       transform: "scale(1)",
       boxShadow:

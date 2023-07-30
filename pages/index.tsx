@@ -106,7 +106,7 @@ export default function Home() {
             firstDescription="I built Invoicer in Q1 2023 with the aim of building a full product
           that will at least get a single (symbolic) Euro in revenue."
             link="https://invoicer.studio"
-            asset="/images/projects/invoicer-full.png"
+            asset="/images/projects/invoicer.png"
             alt="A screenshot of invoicer.studio, my invoice generator project"
             linkText="Visit invoicer.studio"
           />
