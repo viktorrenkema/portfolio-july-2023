@@ -1,12 +1,17 @@
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import { shadows } from "../styles/theme";
+import useViewport from "./hooks/useViewport";
 
 const Parallax = styled(motion.div)`
   position: absolute;
 `;
 
-const CursorBody = styled(motion.div)`
+interface CursorBodyProps {
+  right: boolean;
+}
+
+const CursorBody = styled(motion.div)<CursorBodyProps>`
   background: ${({ right }) => (right ? "#00A3FF" : "#fd7702")};
   color: white;
   border-radius: 50px;
@@ -22,24 +27,38 @@ const CursorBody = styled(motion.div)`
 `;
 
 export const Cursor = ({ right = false, username, style }) => {
-  const startingX = right ? 265 : 190;
-  const startingY = right ? 40 : 152;
+  const { isMobile } = useViewport();
+
+  const getCursorStartingX = () => {
+    if (isMobile) {
+      return right ? 235 : 190;
+    }
+    return right ? 265 : 190;
+  };
+
+  const getCursorStartingY = () => {
+    return right ? 40 : 152;
+  };
 
   return (
     <motion.div
-      initial={{ opacity: 0, x: startingX - 30, y: startingY - 40 }}
+      initial={{
+        opacity: 0,
+        x: getCursorStartingX() - 30,
+        y: getCursorStartingY() - 40,
+      }}
       animate={{
         opacity: 1,
-        x: startingX,
-        y: startingY,
+        x: getCursorStartingX(),
+        y: getCursorStartingY(),
         transition: {
           duration: 1.5,
         },
       }}
       exit={{
         opacity: 0,
-        x: startingX - 10,
-        y: startingY - 10,
+        x: getCursorStartingX() - 10,
+        y: getCursorStartingY() - 10,
         transition: {
           duration: 0.5,
         },

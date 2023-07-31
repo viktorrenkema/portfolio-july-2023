@@ -6,28 +6,22 @@ import {
   AnimatePresence,
   useMotionTemplate,
 } from "framer-motion";
-import {
-  AnchorHTMLAttributes,
-  useEffect,
-  useLayoutEffect,
-  useRef,
-  useState,
-} from "react";
+import { AnchorHTMLAttributes, useRef } from "react";
 import { Cursor } from "./framer-cursor";
 import { TicketswapStamp } from "./ticketswap-stamp";
 import GitbookBranching from "./gitbook-branching";
-import { shadows } from "../styles/theme";
+import { colors, device, radius, shadows } from "../styles/theme";
+import useViewport from "./hooks/useViewport";
 
 const BorderWrapper = styled(motion.li)`
   display: flex;
   padding: 0.35rem;
   align-items: center;
   justify-content: center;
-  border-radius: 15px;
+  border-radius: ${radius["xl"]};
   height: 100%;
   z-index: ${({ id }) => id};
-  /* background: maroon; */
-  background: #ffffff4a;
+  background: ${colors.cardBorderBackground};
 `;
 
 const Card = styled(motion.div)`
@@ -35,16 +29,16 @@ const Card = styled(motion.div)`
   min-width: 100px;
   justify-content: flex-start;
   align-items: flex-start;
-  border-radius: 12px;
+  border-radius: ${radius["lg"]};
   // Warning: if width gets changed, also do that for cardWidth in carousel.tsx
-  width: 420px;
-  height: 255px;
+  width: ${({ isMobile }) => (isMobile ? "355px" : "420px")};
+  height: ${({ isMobile }) => (isMobile ? "210px" : "255px")};
   flex-direction: column;
   gap: 0.75rem;
   padding: 1.5rem;
   position: relative;
   backdrop-filter: blur(4px);
-  background: rgb(250 250 250 / 60%);
+  background: ${colors.cardBackground};
   box-shadow: ${shadows.medium};
 `;
 
@@ -53,55 +47,43 @@ interface CopyProps {
 }
 
 const Role: React.FC<CopyProps> = styled(motion.h1)<CopyProps>`
-  font-size: 17px;
-  color: #000;
+  font-size: 15px;
+
+  @media ${device.mobileL} {
+    font-size: 17px;
+  }
 `;
 
 const Dates: React.FC<CopyProps> = styled(motion.h2)<CopyProps>`
-  font-size: 12px;
+  font-size: 10px;
   font-weight: 400;
   font-family: "Inter", sans-serif;
   text-align: center;
-  background: #fde5db24;
   border-radius: 8px;
-  border: 1px solid #ffffff3b;
   color: #707070;
   text-transform: uppercase;
   height: fit-content;
   padding: 3px 8px;
   white-space: nowrap;
+
+  @media ${device.mobileL} {
+    font-size: 12px;
+  }
 `;
 
 const Description: React.FC<CopyProps> = styled(motion.span)<CopyProps>`
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 300;
-  color: "#000";
+
+  @media ${device.mobileL} {
+    font-size: 14px;
+  }
 `;
 
 interface HyperlinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
   $accentColor: string;
   children: any[];
 }
-
-const Hyperlink: React.FC<HyperlinkProps> = styled(motion.a)<HyperlinkProps>`
-  font-size: 18px;
-  color: #7d7d7d;
-  font-size: 13px;
-  font-weight: 400;
-  border-bottom: 1px solid #d2d2d2;
-  display: flex;
-  gap: 5px;
-  align-items: center;
-  margin-top: auto;
-`;
-
-const Arrow = styled(motion.a)`
-  width: 20px;
-  height: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
 
 const FlexRow = styled.span`
   display: flex;
@@ -110,17 +92,13 @@ const FlexRow = styled.span`
   align-items: center;
 `;
 
-export default function PreviousJobCard<Props>({
-  roleEntry,
-  activeCompany,
-  setActiveCompany,
-  isCarouselFullyInView,
-}) {
+export default function PreviousJobCard({ roleEntry, activeCompany }) {
   const { role, company, companyDescription, description, dates, id } =
     roleEntry;
 
   const ref = useRef(null);
   const { scrollYProgress } = useScroll();
+  const { isMobile } = useViewport();
 
   const variants = {
     hidden: {
@@ -131,12 +109,23 @@ export default function PreviousJobCard<Props>({
     },
   };
 
-  const offsetCard = id === 5 ? -620 : -310;
+  const getOffsetLastFramerCards = () => {
+    if (isMobile) {
+      return id === 5 ? -520 : -420;
+    }
+
+    return id === 5 ? -620 : -310;
+  };
+
   const overlappingCard = activeCompany === "framer" && (id === 4 || id === 5);
   const cardIsActive = activeCompany === company;
 
   // Transform of translateX for the final 2 Framer cards
-  const x = useTransform(scrollYProgress, [0.55, 0.7], [0, offsetCard]);
+  const x = useTransform(
+    scrollYProgress,
+    [0.55, 0.7],
+    [0, getOffsetLastFramerCards()]
+  );
 
   // Transform for the stamp on Ticketswap and cursors on Framer cards
   const yCursor1 = useTransform(scrollYProgress, [0.3, 0.6], [40, -80]);
@@ -153,6 +142,7 @@ export default function PreviousJobCard<Props>({
         variants={variants}
         animate={activeCompany === company ? "show" : "hidden"}
         initial={activeCompany === company ? "show" : "hidden"}
+        isMobile={isMobile}
       >
         <FlexRow>
           <Role>{role}</Role>

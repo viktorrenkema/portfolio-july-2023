@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { Variants, motion } from "framer-motion";
 import React, { useEffect, useRef } from "react";
 import { ArrowRounded } from "./reusable/icons";
+import useViewport from "./hooks/useViewport";
 
 const Container = styled(motion.div)`
   display: flex;
@@ -17,7 +18,7 @@ const LogoBackground = styled(motion.div)`
   justify-content: flex-start;
   gap: 1rem;
   border-radius: 50%;
-  height: 90px;
+  height: fit-content;
 `;
 
 const LinkIndicator = styled(motion.div)`
@@ -47,23 +48,24 @@ interface Props {
   initial: string;
   animate: string;
   variants: Variants;
-  logo: React.JSX.Element;
-  linkColor: string;
+  logo: React.JSX.Element[];
   link: string;
   company: "ticketswap" | "framer" | "gitbook";
+  setActiveCompany: (company: string) => void;
 }
 
 export default function CompanyLogo({
-  logo,
+  initial,
   animate,
   variants,
-  initial,
+  logo,
   link,
   company,
   setActiveCompany,
 }: Props) {
   const [hovered, setHovered] = React.useState(false);
   const elementRef = useRef(null);
+  const { isMobile } = useViewport();
 
   const arrowVariants = {
     hover: {
@@ -86,11 +88,10 @@ export default function CompanyLogo({
         const windowWidth =
           window.innerWidth || document.documentElement.clientWidth;
 
-        const leftTwentyPercent = windowWidth * 0.2;
+        const leftTwentyPercent = windowWidth * (isMobile ? 0.1 : 0.22);
 
-        if (company === "framer") {
-          console.log(left, right, leftTwentyPercent);
-        }
+        console.log({ isMobile });
+
         // Check if the element has passed the left 20% edge of the viewport on the x-axis
         if (left <= leftTwentyPercent && right >= leftTwentyPercent) {
           setActiveCompany(company);
@@ -106,12 +107,7 @@ export default function CompanyLogo({
   }, []);
 
   return (
-    <motion.a
-      target="_blank"
-      href={link}
-      ref={elementRef}
-      // style={{ border: "1px solid maroon" }}
-    >
+    <motion.a target="_blank" href={link} ref={elementRef}>
       <Container
         variants={variants}
         animate={animate}
@@ -124,7 +120,7 @@ export default function CompanyLogo({
         }}
       >
         <LogoBackground>
-          {logo}
+          {logo[isMobile ? "mobile" : "desktop"]}
           <LinkIndicator
             animate={hovered ? "hover" : "default"}
             variants={arrowVariants}

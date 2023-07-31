@@ -1,10 +1,10 @@
-import { forwardRef, useEffect, useRef, useState } from "react";
+import { forwardRef, useEffect, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { styled } from "styled-components";
 import CompanyLogo from "./company-logo";
 import PreviousJobCard from "./previous-job-card";
-import useViewport from "./hooks/useViewport";
 import { device } from "../styles/theme";
+import useViewport from "./hooks/useViewport";
 
 const Row = styled(motion.ul)`
   display: flex;
@@ -24,6 +24,7 @@ const CarouselWrapper = styled(motion.div)`
   flex-wrap: nowrap;
   align-items: flex-start;
   overflow: visible;
+  gap: 1rem;
 `;
 
 const Companies = styled(motion.div)`
@@ -38,6 +39,10 @@ const FramerText = styled.span`
   font-weight: 700;
   color: #000000;
   font-size: 32px;
+`;
+
+const SmallerFramerText = styled(FramerText)`
+  font-size: 24px;
 `;
 
 const variantsCompanyLogo = {
@@ -72,6 +77,7 @@ export const Carousel = forwardRef<HTMLDivElement, Props>((props, ref) => {
     paddingLeft,
   } = props;
 
+  const { isMobile } = useViewport();
   const { scrollYProgress } = useScroll();
   const [activeCompany, setActiveCompany] = useState("gitbook");
   const [cardWidthRelativeToDocument, setCardWidthRelativeToDocument] =
@@ -92,7 +98,7 @@ export const Carousel = forwardRef<HTMLDivElement, Props>((props, ref) => {
       companyDescription:
         "GitBook makes it easy to plan, centralize and share knowledge, from start to ship.",
       description:
-        "In my team we focus on building features that allow users to distribute their documentation, e.g. through publishing to sites.",
+        "I help build features that allow users to distribute their docs, such as publishing it to sites or syncing with Github.",
       dates: "2023 - Present",
       link: "https://www.gitbook.com",
     },
@@ -101,9 +107,9 @@ export const Carousel = forwardRef<HTMLDivElement, Props>((props, ref) => {
       id: 2,
       company: "ticketswap",
       companyDescription:
-        "Ticketswap has become a household name in the Netherlands as the safest marketplace to buy and sell tickets for concerts and festivals.",
+        "Ticketswap is well-known in the Netherlands as the safest place to buy and sell tickets for events.",
       description:
-        "I was responsible for the platform's buy-flow on web. We worked on features like ticket personalization, custom currencies, and more.",
+        "I was responsible for the buy-flow, working on ticket personalization, custom currencies, and more.",
       dates: "May 2022 - June 2023",
       link: "https://www.ticketswap.com",
     },
@@ -112,9 +118,9 @@ export const Carousel = forwardRef<HTMLDivElement, Props>((props, ref) => {
       id: 3,
       company: "framer",
       companyDescription:
-        "Framer is a web-based design tool that allows code to make incredibly powerful interactive sites or prototypes.",
+        "Framer is a web-based design tool which also renders React code, allowing for powerful designs with real components and APIs.",
       description:
-        "As lead, I was responsible for our top Enterprise teams like Spotify, Airbnb, Shopify and many more. Next to regular product specialist tasks, I also focused on long-term strategy for the team.",
+        "As lead, I was responsible I received additional responsibilities like team strategy and onboarding new hires.",
       dates: "Oct. 2021 - Apr. 2022",
       link: "https://www.framer.com",
     },
@@ -123,9 +129,9 @@ export const Carousel = forwardRef<HTMLDivElement, Props>((props, ref) => {
       id: 4,
       company: "framer",
       companyDescription:
-        "As product specialist, I helped our Enterprise teams to get the most out of design and code features in Framer.",
+        "I helped teams like Spotify, Airbnb, Shopify and more get the most out of design and code features in Framer.",
       description:
-        "For example, I built a React component to connect gamepads to prototypes for EA Games, helped Airbus get their React design system into Framer, and helped Shopify connect barcode scanners to their prototypes.",
+        "Think of a React component to connect gamepads to prototypes for EA Games, importing the production Airbus DS, and connecting barcode scanners to Shopify's prototypes.",
       dates: "Jan. 2020 - Oct. 2021",
       link: "https://www.framer.com",
     },
@@ -133,10 +139,10 @@ export const Carousel = forwardRef<HTMLDivElement, Props>((props, ref) => {
       role: "Community & Support",
       id: 5,
       company: "framer",
-      description:
-        "Providing support at Framer required me to know code, so I ramped up and learned Javascript and React. This sparked a passion for coding that I still have today.",
       companyDescription:
-        "At Framer I started out in a role dedicated to writing tutorials, recording videos, and providing project support.",
+        "I started out in a role dedicated to writing tutorials, recording videos, and providing support.",
+      description:
+        "As Framer could get technical quickly, I decided to learn Javascript and React. This sparked a passion for coding that I still have today.",
       dates: "Apr. 2019 - Dec. 2019",
       link: "https://www.framer.com",
     },
@@ -146,17 +152,17 @@ export const Carousel = forwardRef<HTMLDivElement, Props>((props, ref) => {
     {
       company: "gitbook",
       link: "https://www.gitbook.com",
-      logo: <GitbookLogo />,
+      logo: { desktop: <GitbookLogo />, mobile: <GitbookLogoMobile /> },
     },
     {
       company: "ticketswap",
       link: "https://www.ticketswap.com",
-      logo: <TicketswapLogo />,
+      logo: { desktop: <TicketswapLogo />, mobile: <TicketswapLogoMobile /> },
     },
     {
       company: "framer",
       link: "https://www.framer.com",
-      logo: <FramerLogo />,
+      logo: { desktop: <FramerLogo />, mobile: <FramerLogoMobile /> },
     },
   ];
 
@@ -166,6 +172,23 @@ export const Carousel = forwardRef<HTMLDivElement, Props>((props, ref) => {
     [0, cardWidthRelativeToDocument, cardWidthRelativeToDocument * 2],
     [0, -245, -532]
   );
+
+  const getLogosXPosition = () => {
+    if (isMobile) {
+      return useTransform(
+        scrollYProgress,
+        [0, cardWidthRelativeToDocument, cardWidthRelativeToDocument * 2],
+        [0, -180, -400]
+      );
+    }
+
+    // Default, if its not mobile
+    return useTransform(
+      scrollYProgress,
+      [0, cardWidthRelativeToDocument, cardWidthRelativeToDocument * 2],
+      [0, -245, -532]
+    );
+  };
 
   // x-position for role cards
   const x = useTransform(
@@ -183,11 +206,11 @@ export const Carousel = forwardRef<HTMLDivElement, Props>((props, ref) => {
   return (
     <CarouselWrapper
       ref={ref}
-      animate={animate}
-      initial={initial}
-      variants={variants}
+      // animate={animate}
+      // initial={initial}
+      // variants={variants}
     >
-      <Companies style={{ x: logosX }}>
+      <Companies style={{ x: getLogosXPosition() }}>
         {companies.map(({ company, link, logo }) => (
           <CompanyLogo
             key={company}
@@ -203,17 +226,15 @@ export const Carousel = forwardRef<HTMLDivElement, Props>((props, ref) => {
       </Companies>
 
       <Row style={{ x }}>
-        {roles.map((roleEntry) => {
-          return (
-            <PreviousJobCard
-              roleEntry={roleEntry}
-              activeCompany={activeCompany}
-              setActiveCompany={setActiveCompany}
-              key={roleEntry.id}
-              isCarouselFullyInView={isCarouselFullyInView}
-            />
-          );
-        })}
+        {roles.map((roleEntry) => (
+          <PreviousJobCard
+            roleEntry={roleEntry}
+            activeCompany={activeCompany}
+            setActiveCompany={setActiveCompany}
+            key={roleEntry.id}
+            isCarouselFullyInView={isCarouselFullyInView}
+          />
+        ))}
       </Row>
     </CarouselWrapper>
   );
@@ -229,6 +250,20 @@ function FramerLogo() {
         ></path>
       </svg>
       <FramerText>Framer</FramerText>
+    </>
+  );
+}
+
+function FramerLogoMobile() {
+  return (
+    <>
+      <svg xmlns="http://www.w3.org/2000/svg" width="17" height="25">
+        <path
+          d="M 16.275 15.956 C 16.396 16.072 16.433 16.254 16.367 16.41 C 16.298 16.567 16.144 16.668 15.974 16.667 L 8.925 16.667 C 8.814 16.665 8.706 16.709 8.626 16.787 C 8.547 16.865 8.501 16.971 8.5 17.083 L 8.5 23.994 C 8.5 24.163 8.397 24.315 8.237 24.379 C 8.079 24.444 7.898 24.409 7.775 24.289 L 0.166 16.829 C 0.06 16.726 0 16.584 0 16.436 L 0 8.75 C 0 8.52 0.191 8.333 0.425 8.333 L 8.5 8.333 Z M 8.5 8.333 L 0.725 0.711 C 0.605 0.594 0.568 0.413 0.633 0.258 C 0.702 0.1 0.856 -0.001 1.026 -0 L 16.575 -0 C 16.809 -0 17 0.187 17 0.417 L 17 7.917 C 16.999 8.029 16.953 8.135 16.874 8.213 C 16.794 8.291 16.686 8.335 16.575 8.333 Z"
+          fill="rgb(0,0,0)"
+        ></path>
+      </svg>
+      <SmallerFramerText>Framer</SmallerFramerText>
     </>
   );
 }
@@ -252,12 +287,38 @@ function GitbookLogo() {
   );
 }
 
+function GitbookLogoMobile() {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="113.816" height="25">
+      <path
+        d="M 20.058 0.312 L 31.687 6.132 C 32.225 6.401 32.234 7.166 31.702 7.446 L 16.598 15.425 C 15.756 15.87 14.751 15.881 13.899 15.455 L 4.416 10.709 C 3.261 10.244 1.968 11.093 1.968 12.37 C 1.968 13.398 2.549 14.338 3.466 14.797 L 12.974 19.555 C 13.575 18.942 14.398 18.596 15.257 18.597 C 16.125 18.597 16.912 18.943 17.489 19.505 L 29.332 13.249 C 29.164 12.317 29.419 11.358 30.027 10.631 C 30.635 9.905 31.533 9.485 32.481 9.484 C 33.33 9.485 34.143 9.822 34.743 10.422 C 35.343 11.023 35.68 11.837 35.68 12.686 C 35.68 14.453 34.248 15.886 32.481 15.888 C 31.651 15.889 30.853 15.566 30.257 14.988 L 18.409 21.247 C 18.572 22.178 18.315 23.134 17.707 23.858 C 17.099 24.582 16.202 25 15.257 25 C 14.324 25 13.438 24.592 12.83 23.884 C 12.222 23.177 11.954 22.239 12.094 21.317 L 2.449 16.49 C 0.948 15.739 -0 14.204 0 12.525 L 0 11.59 C -0 10.312 0.707 9.138 1.837 8.54 L 17.359 0.341 C 18.201 -0.103 19.206 -0.114 20.058 0.312 Z M 15.257 23.03 C 15.703 23.04 16.12 22.807 16.347 22.422 C 16.573 22.037 16.573 21.559 16.346 21.174 C 16.12 20.789 15.703 20.557 15.256 20.567 C 14.587 20.583 14.053 21.13 14.053 21.799 C 14.053 22.468 14.588 23.014 15.257 23.03 Z M 60.666 7.726 C 60.666 8.445 60.084 9.028 59.364 9.028 C 58.645 9.028 58.062 8.445 58.062 7.726 C 58.062 7.007 58.645 6.424 59.364 6.424 C 60.084 6.424 60.666 7.007 60.666 7.726 Z M 58.282 9.896 L 58.282 19.444 L 60.45 19.444 L 60.45 9.896 Z M 63.485 16.733 C 63.485 18.547 64.303 19.444 66.213 19.444 L 67.821 19.444 L 67.821 17.591 L 66.686 17.591 C 65.926 17.591 65.653 17.299 65.653 16.518 L 65.653 11.632 L 67.821 11.632 L 67.821 9.896 L 65.653 9.896 L 65.653 6.858 L 63.485 6.858 L 63.485 9.896 L 61.75 9.896 L 61.75 11.632 L 63.485 11.632 Z M 69.556 5.555 L 69.556 19.445 L 74.74 19.445 C 78.034 19.445 79.77 17.759 79.77 15.438 C 79.77 13.449 78.632 12.703 76.82 12.391 C 78.438 12.04 79.282 10.881 79.282 9.223 C 79.282 6.98 77.566 5.555 74.564 5.555 Z M 71.797 7.428 L 74.623 7.428 C 76.182 7.428 77.04 8.287 77.04 9.496 C 77.04 10.725 76.163 11.632 74.623 11.632 L 71.797 11.632 Z M 71.797 13.368 L 74.76 13.368 C 76.494 13.368 77.47 13.975 77.47 15.321 C 77.47 16.706 76.553 17.552 74.76 17.552 L 71.797 17.552 Z M 86.251 19.444 C 89.361 19.444 91.455 17.357 91.455 14.236 C 91.455 11.135 89.361 9.028 86.251 9.028 C 83.141 9.028 81.047 11.135 81.047 14.236 C 81.047 17.357 83.141 19.444 86.251 19.444 Z M 86.251 17.616 C 84.437 17.616 83.261 16.204 83.261 14.236 C 83.261 12.268 84.437 10.857 86.251 10.857 C 88.066 10.857 89.262 12.268 89.262 14.236 C 89.262 16.204 88.066 17.616 86.251 17.616 Z M 97.96 19.444 C 101.07 19.444 103.164 17.357 103.164 14.236 C 103.164 11.135 101.07 9.028 97.96 9.028 C 94.849 9.028 92.756 11.135 92.756 14.236 C 92.756 17.357 94.849 19.444 97.96 19.444 Z M 97.96 17.616 C 96.145 17.616 94.969 16.204 94.969 14.236 C 94.969 12.268 96.145 10.857 97.96 10.857 C 99.774 10.857 100.97 12.268 100.97 14.236 C 100.97 16.204 99.774 17.616 97.96 17.616 Z M 108.234 14.899 L 106.569 16.772 L 106.569 19.444 L 104.464 19.444 L 104.464 5.555 L 106.569 5.555 L 106.569 14.216 L 111.352 9.028 L 113.788 9.028 L 109.735 13.359 L 113.788 19.444 L 111.293 19.444 Z M 50.422 19.444 C 46.602 19.444 43.971 16.655 43.971 12.5 C 43.971 8.345 46.543 5.555 50.597 5.555 C 53.599 5.555 55.738 7.248 56.343 9.896 L 54.073 9.896 C 53.53 8.411 52.272 7.526 50.539 7.526 C 47.947 7.526 46.27 9.574 46.27 12.5 C 46.27 15.426 47.908 17.474 50.52 17.474 C 52.624 17.474 54.32 16.284 54.437 14.08 L 54.437 13.368 L 50.476 13.368 L 50.476 11.632 L 56.547 11.632 L 56.547 19.444 L 54.886 19.444 L 54.651 17.377 C 53.989 18.352 52.585 19.444 50.422 19.444 Z"
+        fill="rgb(144,176,255)"
+      ></path>
+      <path
+        d="M 33.711 12.686 C 33.712 13.365 33.161 13.917 32.481 13.917 C 31.801 13.917 31.25 13.367 31.249 12.687 C 31.249 12.007 31.8 11.456 32.48 11.455 C 33.159 11.455 33.711 12.006 33.711 12.686 Z"
+        fill="rgb(255,255,255)"
+      ></path>
+    </svg>
+  );
+}
+
 function TicketswapLogo() {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" width="220" height="37">
       <path
         d="M 30.388 21.2 C 31.023 20.579 31.476 19.795 31.697 18.934 L 40.993 28.189 C 40.492 28.871 39.935 29.509 39.328 30.099 C 32.43 36.988 21.215 36.989 14.293 30.099 L 0 15.85 L 6.259 9.624 C 6.968 8.91 7.932 8.508 8.938 8.508 C 9.944 8.508 10.908 8.91 11.617 9.624 L 23.246 21.2 C 24.193 22.147 25.478 22.679 26.817 22.679 C 28.156 22.679 29.441 22.147 30.388 21.2 Z M 39.328 5.164 L 53.632 19.414 L 47.378 25.659 C 45.892 27.13 43.499 27.13 42.013 25.659 L 30.388 14.066 C 28.41 12.109 25.224 12.109 23.246 14.066 C 22.619 14.693 22.167 15.473 21.936 16.329 L 12.642 7.074 C 13.148 6.401 13.7 5.763 14.293 5.164 C 21.215 -1.721 32.43 -1.721 39.328 5.164 Z M 203.564 36.065 L 203.564 12.562 L 207.552 12.562 L 207.552 13.702 C 208.795 12.691 210.247 12.274 211.836 12.274 C 216.378 12.274 220 15.836 220 20.278 C 220 24.708 216.378 28.318 211.836 28.318 C 210.247 28.318 208.796 27.9 207.552 26.908 L 207.552 36.066 L 203.564 36.066 Z M 196.911 27.899 L 196.911 26.906 C 195.687 27.899 194.224 28.316 192.644 28.316 C 188.103 28.316 184.475 24.707 184.475 20.277 C 184.475 15.835 188.103 12.273 192.645 12.273 C 194.205 12.273 195.662 12.69 196.911 13.701 L 196.911 12.561 L 200.905 12.561 L 200.905 27.899 Z M 175.018 27.899 L 171.56 18.112 L 168.23 27.899 L 164.086 27.899 L 158.602 12.562 L 163.076 12.562 L 166.185 22.639 L 169.815 12.562 L 173.315 12.562 L 176.873 22.639 L 180.024 12.562 L 184.519 12.562 L 178.985 27.9 L 175.017 27.9 Z M 148.184 23.12 C 149.605 24.352 151.321 24.707 152.422 24.707 C 153.849 24.707 154.3 24.127 154.3 23.584 C 154.3 21.29 146.489 22.704 146.489 17.183 C 146.489 14.375 148.506 12.273 151.929 12.273 C 153.301 12.273 155.788 12.593 157.543 14.214 L 155.433 17.053 C 154.072 16.123 152.808 15.899 151.963 15.899 C 150.635 15.899 150.376 16.475 150.376 16.863 C 150.376 19.028 158.089 17.984 158.089 23.456 C 158.089 26.261 156.044 28.316 152.165 28.316 C 149.303 28.316 147.465 27.226 146.071 26.166 Z M 143.61 27.931 C 143.61 27.931 142.446 28.316 140.537 28.316 C 137.529 28.316 135.963 26.358 135.963 23.343 L 135.963 16.379 L 133.532 16.379 L 133.532 12.562 L 135.963 12.562 L 135.963 7.366 L 139.959 7.366 L 139.959 12.561 L 144.039 12.561 L 144.039 16.379 L 139.959 16.379 L 139.959 22.507 C 139.959 23.584 140.248 24.576 141.675 24.576 C 142.679 24.576 143.61 24.416 143.61 24.416 Z M 121.065 21.547 C 121.517 23.424 123.037 24.737 125.34 24.737 C 126.745 24.737 128.23 24.224 129.13 23.024 L 131.853 25.188 C 130.459 27.162 127.993 28.316 125.37 28.316 C 120.733 28.316 117.166 24.869 117.166 20.373 C 117.166 16.027 120.253 12.273 125.148 12.273 C 129.675 12.273 132.889 15.963 132.889 20.277 C 132.889 20.714 132.859 21.161 132.793 21.547 Z M 113.119 27.899 L 107.037 21.066 L 107.037 27.899 L 103.05 27.899 L 103.05 4.012 L 107.037 4.012 L 107.037 18.514 L 112.605 12.561 L 117.723 12.561 L 110.991 19.573 L 118.38 27.899 Z M 101.435 24.546 C 99.997 26.811 97.408 28.316 94.462 28.316 C 89.918 28.316 86.288 24.707 86.288 20.277 C 86.288 15.835 89.918 12.273 94.462 12.273 C 97.374 12.273 99.913 13.733 101.369 15.931 L 97.961 17.888 C 97.156 16.756 95.85 16.086 94.461 16.091 C 92.137 16.091 90.221 18.016 90.221 20.277 C 90.221 22.573 92.137 24.513 94.461 24.513 C 95.981 24.513 97.309 23.743 98.061 22.541 Z M 80.445 27.899 L 80.445 12.562 L 84.443 12.562 L 84.443 27.9 L 80.446 27.9 Z M 79.932 7.493 C 79.932 6.082 81.022 5.006 82.462 5.006 C 83.883 5.006 84.956 6.081 84.956 7.493 C 84.957 8.919 83.884 10.012 82.463 10.012 C 81.023 10.012 79.932 8.919 79.932 7.493 Z M 76.751 27.932 C 76.751 27.932 75.594 28.317 73.678 28.317 C 70.668 28.317 69.102 26.359 69.102 23.344 L 69.102 16.38 L 66.672 16.38 L 66.672 12.562 L 69.102 12.562 L 69.102 7.366 L 73.1 7.366 L 73.1 12.561 L 77.18 12.561 L 77.18 16.379 L 73.1 16.379 L 73.1 22.507 C 73.1 23.584 73.386 24.576 74.814 24.576 C 75.809 24.576 76.751 24.416 76.751 24.416 L 76.751 27.931 Z M 207.552 20.472 C 207.653 22.672 209.532 24.514 211.836 24.514 C 214.169 24.514 216.072 22.574 216.072 20.278 C 216.072 18.018 214.169 16.092 211.836 16.092 C 209.533 16.092 207.653 17.953 207.552 20.118 L 207.552 20.473 Z M 192.644 16.092 C 190.314 16.092 188.402 18.017 188.402 20.278 C 188.402 22.574 190.313 24.514 192.644 24.514 C 195.014 24.514 196.911 22.574 196.911 20.278 C 196.911 18.018 195.013 16.092 192.644 16.092 Z M 128.873 18.644 C 128.648 17.087 127.021 15.9 125.113 15.9 C 123.261 15.9 121.773 16.99 121.195 18.644 L 128.872 18.644 Z"
         fill="#0099ff"
+      ></path>
+    </svg>
+  );
+}
+
+function TicketswapLogoMobile() {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="149" height="25">
+      <path
+        d="M 20.581 14.324 C 21.011 13.904 21.318 13.375 21.468 12.793 L 27.763 19.047 C 27.424 19.507 27.047 19.939 26.636 20.337 C 21.964 24.992 14.368 24.993 9.68 20.337 L 0 10.709 L 4.239 6.503 C 4.719 6.021 5.372 5.749 6.053 5.749 C 6.735 5.749 7.388 6.021 7.868 6.503 L 15.744 14.324 C 16.385 14.964 17.255 15.324 18.162 15.324 C 19.07 15.324 19.94 14.964 20.581 14.324 Z M 26.636 3.489 L 36.323 13.118 L 32.088 17.337 C 31.081 18.331 29.461 18.331 28.454 17.337 L 20.581 9.504 C 19.241 8.182 17.084 8.182 15.744 9.504 C 15.319 9.928 15.013 10.455 14.857 11.033 L 8.562 4.78 C 8.905 4.325 9.279 3.894 9.68 3.489 C 14.368 -1.163 21.964 -1.163 26.636 3.489 Z M 137.868 24.368 L 137.868 8.488 L 140.569 8.488 L 140.569 9.258 C 141.411 8.575 142.395 8.293 143.471 8.293 C 146.547 8.293 149 10.7 149 13.701 C 149 16.695 146.547 19.134 143.471 19.134 C 142.395 19.134 141.412 18.851 140.569 18.181 L 140.569 24.369 L 137.868 24.369 Z M 133.362 18.851 L 133.362 18.18 C 132.533 18.851 131.543 19.132 130.473 19.132 C 127.397 19.132 124.94 16.694 124.94 13.701 C 124.94 10.699 127.397 8.293 130.473 8.293 C 131.53 8.293 132.517 8.574 133.362 9.257 L 133.362 8.487 L 136.067 8.487 L 136.067 18.851 Z M 118.535 18.851 L 116.193 12.238 L 113.938 18.851 L 111.131 18.851 L 107.417 8.488 L 110.447 8.488 L 112.553 15.297 L 115.011 8.488 L 117.382 8.488 L 119.791 15.297 L 121.925 8.488 L 124.97 8.488 L 121.222 18.851 L 118.534 18.851 Z M 100.361 15.622 C 101.323 16.454 102.486 16.694 103.231 16.694 C 104.198 16.694 104.503 16.302 104.503 15.935 C 104.503 14.385 99.213 15.341 99.213 11.61 C 99.213 9.713 100.579 8.293 102.897 8.293 C 103.827 8.293 105.511 8.509 106.7 9.604 L 105.271 11.522 C 104.349 10.894 103.493 10.743 102.92 10.743 C 102.021 10.743 101.846 11.132 101.846 11.394 C 101.846 12.857 107.069 12.151 107.069 15.849 C 107.069 17.744 105.684 19.132 103.057 19.132 C 101.119 19.132 99.874 18.396 98.93 17.68 Z M 97.263 18.872 C 97.263 18.872 96.475 19.132 95.182 19.132 C 93.145 19.132 92.084 17.809 92.084 15.772 L 92.084 11.067 L 90.438 11.067 L 90.438 8.488 L 92.084 8.488 L 92.084 4.977 L 94.79 4.977 L 94.79 8.487 L 97.554 8.487 L 97.554 11.067 L 94.79 11.067 L 94.79 15.207 C 94.79 15.935 94.986 16.605 95.953 16.605 C 96.633 16.605 97.263 16.497 97.263 16.497 Z M 81.994 14.559 C 82.3 15.827 83.33 16.714 84.889 16.714 C 85.841 16.714 86.847 16.368 87.456 15.557 L 89.3 17.019 C 88.356 18.353 86.686 19.132 84.91 19.132 C 81.769 19.132 79.353 16.803 79.353 13.766 C 79.353 10.829 81.444 8.293 84.759 8.293 C 87.825 8.293 90.002 10.786 90.002 13.701 C 90.002 13.996 89.982 14.298 89.937 14.559 Z M 76.612 18.851 L 72.493 14.234 L 72.493 18.851 L 69.793 18.851 L 69.793 2.711 L 72.493 2.711 L 72.493 12.509 L 76.264 8.487 L 79.731 8.487 L 75.171 13.225 L 80.176 18.851 Z M 68.699 16.585 C 67.725 18.116 65.972 19.132 63.977 19.132 C 60.899 19.132 58.441 16.694 58.441 13.701 C 58.441 10.699 60.899 8.293 63.977 8.293 C 65.949 8.293 67.668 9.279 68.654 10.764 L 66.346 12.086 C 65.801 11.322 64.917 10.869 63.976 10.872 C 62.402 10.872 61.104 12.173 61.104 13.701 C 61.104 15.252 62.402 16.563 63.976 16.563 C 65.005 16.563 65.905 16.043 66.414 15.23 Z M 54.483 18.851 L 54.483 8.488 L 57.191 8.488 L 57.191 18.851 L 54.484 18.851 Z M 54.136 5.063 C 54.136 4.109 54.874 3.382 55.849 3.382 C 56.812 3.382 57.538 4.109 57.538 5.063 C 57.539 6.026 56.812 6.765 55.85 6.765 C 54.875 6.765 54.136 6.026 54.136 5.063 Z M 51.981 18.873 C 51.981 18.873 51.198 19.133 49.9 19.133 C 47.862 19.133 46.801 17.81 46.801 15.773 L 46.801 11.068 L 45.155 11.068 L 45.155 8.488 L 46.801 8.488 L 46.801 4.977 L 49.509 4.977 L 49.509 8.487 L 52.272 8.487 L 52.272 11.067 L 49.509 11.067 L 49.509 15.207 C 49.509 15.935 49.702 16.605 50.669 16.605 C 51.343 16.605 51.981 16.497 51.981 16.497 L 51.981 18.872 Z M 140.569 13.832 C 140.638 15.319 141.91 16.564 143.471 16.564 C 145.051 16.564 146.34 15.253 146.34 13.701 C 146.34 12.174 145.051 10.873 143.471 10.873 C 141.911 10.873 140.638 12.13 140.569 13.593 L 140.569 13.833 Z M 130.473 10.873 C 128.894 10.873 127.6 12.174 127.6 13.701 C 127.6 15.253 128.894 16.564 130.473 16.564 C 132.078 16.564 133.362 15.253 133.362 13.701 C 133.362 12.174 132.077 10.873 130.473 10.873 Z M 87.282 12.597 C 87.13 11.545 86.028 10.743 84.736 10.743 C 83.481 10.743 82.474 11.48 82.082 12.597 L 87.281 12.597 Z"
+        fill="rgb(0,153,255)"
       ></path>
     </svg>
   );

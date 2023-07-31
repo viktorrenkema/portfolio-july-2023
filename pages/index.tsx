@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { Gradient } from "../components/headline";
 import Meta from "../components/meta";
 import { motion, useInView } from "framer-motion";
 import { H1 } from "../components/typography/headings";
@@ -15,6 +14,7 @@ const Main = styled(motion.main)`
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
 `;
 
 const StickyRolesContainer = styled(motion.div)`
@@ -29,17 +29,41 @@ const CompaniesContainer = styled(motion.div)`
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
+  position: -webkit-sticky; /* Safari */
   position: sticky;
-  gap: 2rem;
-  top: 10%;
+  gap: 3rem;
+  top: 20%;
   // Warning: changes in padding can impact the caroussel calculations
   padding: 0 10%;
 
   @media ${device.tablet} {
-    top: 20%;
     padding: 0 20%;
     gap: 4rem;
   }
+`;
+
+export const GradientOrange = styled(motion.div)`
+  background: url("/images/gradients/yellow-orange-red.png") no-repeat center
+    center;
+  width: 100vw;
+  height: 100vh;
+  background-size: contain;
+  position: absolute;
+  z-index: -1;
+  /* transform: scale(2); */
+  opacity: 0.5;
+`;
+
+export const GradientBlue = styled(motion.div)`
+  background: url("/images/gradients/green-blue.png") no-repeat center center;
+  width: 100vw;
+  height: 100vh;
+  background-size: contain;
+  position: absolute;
+  z-index: -1;
+  bottom: 0;
+  transform: scale(2);
+  opacity: 0.5;
 `;
 
 const CompaniesHeadings = styled(motion.div)`
@@ -120,7 +144,7 @@ export default function Home() {
     const element = ref.current;
     const { width } = element.getBoundingClientRect();
 
-    setStickyMinHeight(width * 2);
+    setStickyMinHeight(Math.floor(width * 2));
   }, []);
 
   useEffect(() => {
@@ -145,9 +169,10 @@ export default function Home() {
               animate={isCarouselInView ? "show" : "hidden"}
               initial="hidden"
             >
-              <H1 variants={item}>Viktor Renkema, software engineer</H1>
+              <H1 variants={item}>Viktor Renkema</H1>
               <Paragraph variants={item}>
-                I've been part of some pretty amazing teams.
+                I'm a software engineer, and got to be part of some pretty
+                amazing teams.
               </Paragraph>
               <FlexRow variants={container}>
                 <SocialButton
@@ -183,7 +208,7 @@ export default function Home() {
               stickyMinHeight={stickyMinHeight}
               paddingLeft={paddingLeft}
             />
-            <Gradient />
+            <GradientOrange />
           </CompaniesContainer>
         </StickyRolesContainer>
         <ProjectsContainer>
@@ -218,6 +243,7 @@ export default function Home() {
             linkText="Visit ticketswap.com"
           />
         </ProjectsContainer>
+        {/* <GradientBlue /> */}
       </Main>
     </div>
   );

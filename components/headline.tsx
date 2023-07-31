@@ -17,20 +17,6 @@ const Paragraph = styled(motion.p)`
   }
 `;
 
-export const Gradient = styled(motion.div)`
-  background: url("/images/gradients/yellow-orange-red.png") no-repeat center
-    center;
-  width: 100vw;
-  height: 100vh;
-  background-size: contain;
-  position: absolute;
-  z-index: -1;
-  transform: scale(2);
-  /* top: -250px;
-  left: -540px; */
-  opacity: 0.5;
-`;
-
 const HeadlineContainer = styled(motion.div)`
   height: 100vh;
   display: flex;

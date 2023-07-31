@@ -11,7 +11,7 @@ import { H2 } from "./typography/headings";
 import Image from "next/image";
 import { Paragraph } from "./typography/paragraphs";
 import { Arrow } from "./reusable/icons";
-import { device, shadows } from "../styles/theme";
+import { device, radius, shadows } from "../styles/theme";
 import useViewport from "./hooks/useViewport";
 
 const Container = styled(motion.div)`
@@ -24,19 +24,17 @@ const Container = styled(motion.div)`
   background: #f7f7f7;
   height: auto;
   box-shadow: ${shadows.large};
-  padding: 2rem;
+  padding: 0.35rem;
   gap: 20px;
   width: 100vw;
   max-width: 1440px;
   overflow: visible;
-  padding: 4px;
   position: relative;
   user-select: none;
   z-index: 3;
-  border-radius: 8px;
+  border-radius: ${radius["xl"]};
 
   @media ${device.tablet} {
-    border-radius: 14px;
   }
 `;
 
@@ -65,15 +63,15 @@ export const ImageContainer = styled(motion.div)`
   justify-content: center;
   flex-direction: column;
   backdrop-filter: blur(2px);
-  border-radius: 6px;
+  border-radius: ${radius["lg"]};
   overflow: hidden;
   position: relative;
   height: ${({ $height }) => `${$height}px`};
   max-height: 710px;
 
-  @media ${device.tablet} {
+  /* @media ${device.tablet} {
     border-radius: 12px;
-  }
+  } */
 `;
 
 const StyledParagraph = styled(Paragraph)`

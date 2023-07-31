@@ -15,6 +15,10 @@ export const colors = {
   lightest: "#fff",
   avatarLighter: "#EBDAFF",
   avatarDarker: "#C1BFFF",
+  // The card background/border effect
+  cardBorderBackground: "#ffffff4a",
+  // The cards within it
+  cardBackground: "rgb(250 250 250 / 90%)",
 };
 
 export const fontSize = {
