@@ -6,10 +6,17 @@ import {
   AnimatePresence,
   useMotionTemplate,
 } from "framer-motion";
-import { AnchorHTMLAttributes, useEffect, useRef, useState } from "react";
+import {
+  AnchorHTMLAttributes,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react";
 import { Cursor } from "./framer-cursor";
 import { TicketswapStamp } from "./ticketswap-stamp";
 import GitbookBranching from "./gitbook-branching";
+import { shadows } from "../styles/theme";
 
 const BorderWrapper = styled(motion.li)`
   display: flex;
@@ -19,6 +26,7 @@ const BorderWrapper = styled(motion.li)`
   border-radius: 15px;
   height: 100%;
   z-index: ${({ id }) => id};
+  /* background: maroon; */
   background: #ffffff4a;
 `;
 
@@ -28,6 +36,7 @@ const Card = styled(motion.div)`
   justify-content: flex-start;
   align-items: flex-start;
   border-radius: 12px;
+  // Warning: if width gets changed, also do that for cardWidth in carousel.tsx
   width: 420px;
   height: 255px;
   flex-direction: column;
@@ -36,6 +45,7 @@ const Card = styled(motion.div)`
   position: relative;
   backdrop-filter: blur(4px);
   background: rgb(250 250 250 / 60%);
+  box-shadow: ${shadows.medium};
 `;
 
 interface CopyProps {
@@ -43,8 +53,8 @@ interface CopyProps {
 }
 
 const Role: React.FC<CopyProps> = styled(motion.h1)<CopyProps>`
-  font-size: 18px;
-  color: "#000";
+  font-size: 17px;
+  color: #000;
 `;
 
 const Dates: React.FC<CopyProps> = styled(motion.h2)<CopyProps>`
@@ -52,7 +62,7 @@ const Dates: React.FC<CopyProps> = styled(motion.h2)<CopyProps>`
   font-weight: 400;
   font-family: "Inter", sans-serif;
   text-align: center;
-  background: #f3f3f3;
+  background: #fde5db24;
   border-radius: 8px;
   border: 1px solid #ffffff3b;
   color: #707070;
@@ -109,7 +119,8 @@ export default function PreviousJobCard<Props>({
   const { role, company, companyDescription, description, dates, id } =
     roleEntry;
 
-  const elementRef = useRef(null);
+  const ref = useRef(null);
+  const { scrollYProgress } = useScroll();
 
   const variants = {
     hidden: {
@@ -121,53 +132,27 @@ export default function PreviousJobCard<Props>({
   };
 
   const offsetCard = id === 5 ? -620 : -310;
-  const { scrollYProgress } = useScroll();
-  const x = useTransform(scrollYProgress, [0.55, 0.75], [0, offsetCard]);
-
-  const yCursor1 = useTransform(scrollYProgress, [0.55, 0.75], [0, -60]);
-  const xCursor1 = useTransform(scrollYProgress, [0.55, 0.75], [0, 30]);
-  const yCursor2 = useTransform(scrollYProgress, [0.55, 0.75], [0, -25]);
-  const xCursor2 = useTransform(scrollYProgress, [0.55, 0.75], [0, 50]);
-  const stampRotation = useTransform(scrollYProgress, [0.2, 0.7], [0, 260]);
-
-  const rotate = useMotionTemplate`rotate(${stampRotation}deg)`;
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (elementRef.current) {
-        const element = elementRef.current;
-        const { left, right } = element.getBoundingClientRect();
-        const windowWidth =
-          window.innerWidth || document.documentElement.clientWidth;
-
-        // Calculate the center of the viewport
-        const viewportCenter = windowWidth / 2;
-
-        // Check if the element has passed the center of the viewport on the x-axis
-        if (left <= viewportCenter && right >= viewportCenter) {
-          setActiveCompany(company);
-        }
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
-
-  const overlappingCard = activeCompany === "framer" && id !== 3;
+  const overlappingCard = activeCompany === "framer" && (id === 4 || id === 5);
   const cardIsActive = activeCompany === company;
 
+  // Transform of translateX for the final 2 Framer cards
+  const x = useTransform(scrollYProgress, [0.55, 0.7], [0, offsetCard]);
+
+  // Transform for the stamp on Ticketswap and cursors on Framer cards
+  const yCursor1 = useTransform(scrollYProgress, [0.3, 0.6], [40, -80]);
+  const xCursor1 = useTransform(scrollYProgress, [0.3, 0.6], [-20, 50]);
+  const yCursor2 = useTransform(scrollYProgress, [0.5, 0.6], [30, -25]);
+  const xCursor2 = useTransform(scrollYProgress, [0.5, 0.6], [0, 50]);
+  const stampRotation = useTransform(scrollYProgress, [0, 0.6], [0, 360]);
+  const rotate = useMotionTemplate`rotate(${stampRotation}deg)`;
+
   return (
-    <BorderWrapper style={{ x: overlappingCard ? x : 0 }} id={id}>
+    <BorderWrapper style={{ x: overlappingCard ? x : 0 }} id={id} ref={ref}>
       <Card
         key={roleEntry.id}
         variants={variants}
         animate={activeCompany === company ? "show" : "hidden"}
         initial={activeCompany === company ? "show" : "hidden"}
-        ref={elementRef}
       >
         <FlexRow>
           <Role>{role}</Role>
@@ -177,6 +162,7 @@ export default function PreviousJobCard<Props>({
         <Description>{description}</Description>
 
         {/* Company-specific interactive elements */}
+
         {/* Framer */}
         <AnimatePresence>
           {cardIsActive && company === "framer" && id === 3 && (
@@ -201,9 +187,7 @@ export default function PreviousJobCard<Props>({
         </AnimatePresence>
 
         {/* Gitbook */}
-        {isCarouselFullyInView && cardIsActive && company === "gitbook" && (
-          <GitbookBranching />
-        )}
+        {cardIsActive && company === "gitbook" && <GitbookBranching />}
       </Card>
     </BorderWrapper>
   );

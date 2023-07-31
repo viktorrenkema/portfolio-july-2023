@@ -11,7 +11,7 @@ import { H2 } from "./typography/headings";
 import Image from "next/image";
 import { Paragraph } from "./typography/paragraphs";
 import { Arrow } from "./reusable/icons";
-import { device } from "../styles/theme";
+import { device, shadows } from "../styles/theme";
 import useViewport from "./hooks/useViewport";
 
 const Container = styled(motion.div)`
@@ -23,8 +23,7 @@ const Container = styled(motion.div)`
   justify-content: center;
   background: #f7f7f7;
   height: auto;
-  box-shadow: rgba(0, 0, 0, 0.07) 2.2px 2.2px 16.9px,
-    rgba(0, 0, 0, 0.067) 5.1px 5.1px 44.4px, rgba(0, 0, 0, 0.07) 10px 10px 136px;
+  box-shadow: ${shadows.large};
   padding: 2rem;
   gap: 20px;
   width: 100vw;

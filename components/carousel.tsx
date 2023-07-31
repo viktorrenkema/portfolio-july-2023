@@ -3,8 +3,8 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { styled } from "styled-components";
 import CompanyLogo from "./company-logo";
 import PreviousJobCard from "./previous-job-card";
-import { Paragraph } from "./typography/paragraphs";
 import useViewport from "./hooks/useViewport";
+import { device } from "../styles/theme";
 
 const Row = styled(motion.ul)`
   display: flex;
@@ -12,15 +12,17 @@ const Row = styled(motion.ul)`
   gap: 20px;
   will-change: transform;
   list-style-type: none;
-  margin-top: 2rem;
+
+  @media ${device.tablet} {
+    margin-top: 2rem;
+  }
 `;
 
 const CarouselWrapper = styled(motion.div)`
   display: flex;
   flex-direction: column;
-  /* gap: 2rem; */
   flex-wrap: nowrap;
-  align-items: center;
+  align-items: flex-start;
   overflow: visible;
 `;
 
@@ -49,35 +51,37 @@ const variantsCompanyLogo = {
   },
 };
 
-const cardWidth = 385;
+const cardWidth = 435;
 
 interface Props {
   animate: string;
   variants: any;
   initial: string;
   isCarouselFullyInView: boolean;
+  stickyCarouselEndPosition: number;
+  paddingLeft: string;
 }
 
 export const Carousel = forwardRef<HTMLDivElement, Props>((props, ref) => {
-  const { animate, variants, initial, isCarouselFullyInView } = props;
-
-  const [activeCompany, setActiveCompany] = useState("gitbook");
-  const [startAndEndOfSticky, setStartAndEndOfSticky] = useState([0, 0]);
+  const {
+    animate,
+    variants,
+    initial,
+    isCarouselFullyInView,
+    stickyCarouselEndPosition,
+    paddingLeft,
+  } = props;
 
   const { scrollYProgress } = useScroll();
-  const { viewportWidth } = useViewport();
+  const [activeCompany, setActiveCompany] = useState("gitbook");
+  const [cardWidthRelativeToDocument, setCardWidthRelativeToDocument] =
+    useState(0);
 
   useEffect(() => {
-    const refElement = ref.current;
-    const { top, height, width } = refElement.getBoundingClientRect();
-
     const documentHeight =
       document.documentElement.scrollHeight || document.body.scrollHeight;
 
-    const refPercentageStart = top / (documentHeight - height) + 0.05;
-    const refPercentageEnd = (top + width + height) / documentHeight;
-
-    setStartAndEndOfSticky([refPercentageStart, refPercentageEnd]);
+    setCardWidthRelativeToDocument((cardWidth + 20) / documentHeight);
   }, []);
 
   const roles = [
@@ -143,34 +147,37 @@ export const Carousel = forwardRef<HTMLDivElement, Props>((props, ref) => {
       company: "gitbook",
       link: "https://www.gitbook.com",
       logo: <GitbookLogo />,
-      iconOffset: 0,
     },
     {
       company: "ticketswap",
       link: "https://www.ticketswap.com",
       logo: <TicketswapLogo />,
-      iconOffset: -20,
     },
     {
       company: "framer",
       link: "https://www.framer.com",
       logo: <FramerLogo />,
-      iconOffset: 15,
     },
   ];
 
-  const startingPositionRow = viewportWidth < 768 ? 945 : 908;
-  const x = useTransform(
-    scrollYProgress,
-    [startAndEndOfSticky[0] - 0.15, 1],
-    [startingPositionRow, -(cardWidth * (roles.length - 1.5))]
-    // startingPositionRow used to be 800 with 375x240px old size of previous-job-card
-  );
-
+  // x-position for company logos
   const logosX = useTransform(
     scrollYProgress,
-    [startAndEndOfSticky[0] - 0.15, 0.5],
-    [272, -272]
+    [0, cardWidthRelativeToDocument, cardWidthRelativeToDocument * 2],
+    [0, -245, -532]
+  );
+
+  // x-position for role cards
+  const x = useTransform(
+    scrollYProgress,
+    [0, stickyCarouselEndPosition],
+    [
+      0,
+      -(
+        cardWidth * (roles.length - roles.length / 2) +
+        (roles.length - 1 * 20)
+      ),
+    ]
   );
 
   return (
@@ -181,16 +188,16 @@ export const Carousel = forwardRef<HTMLDivElement, Props>((props, ref) => {
       variants={variants}
     >
       <Companies style={{ x: logosX }}>
-        {companies.map(({ company, link, logo, iconOffset }) => (
+        {companies.map(({ company, link, logo }) => (
           <CompanyLogo
             key={company}
             company={company}
             link={link}
             logo={logo}
-            iconOffset={iconOffset}
             animate={activeCompany === company ? "active" : "inactive"}
             initial={"inactive"}
             variants={variantsCompanyLogo}
+            setActiveCompany={setActiveCompany}
           />
         ))}
       </Companies>

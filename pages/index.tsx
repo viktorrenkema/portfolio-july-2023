@@ -1,11 +1,15 @@
 import styled from "styled-components";
-import Headline, { Gradient } from "../components/headline";
+import { Gradient } from "../components/headline";
 import Meta from "../components/meta";
 import { motion, useInView } from "framer-motion";
 import { H1 } from "../components/typography/headings";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Carousel } from "../components/carousel";
 import ProjectCard from "../components/project-card";
+import { Paragraph } from "../components/typography/paragraphs";
+import SocialButton from "../components/social-button";
+import { device } from "../styles/theme";
+import useViewport from "../components/hooks/useViewport";
 
 const Main = styled(motion.main)`
   display: flex;
@@ -14,7 +18,7 @@ const Main = styled(motion.main)`
 `;
 
 const StickyRolesContainer = styled(motion.div)`
-  min-height: 450vh;
+  min-height: ${({ $stickyMinHeight }) => `${$stickyMinHeight}px`};
   width: 100%;
   overflow: clip;
   overflow-y: visible; // remove this if this leads to scroll animation issues, it only impacts the framer cursor
@@ -23,17 +27,25 @@ const StickyRolesContainer = styled(motion.div)`
 const CompaniesContainer = styled(motion.div)`
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
-  gap: 2rem;
   position: sticky;
-  top: 30%;
+  gap: 2rem;
+  top: 10%;
+  // Warning: changes in padding can impact the caroussel calculations
+  padding: 0 10%;
+
+  @media ${device.tablet} {
+    top: 20%;
+    padding: 0 20%;
+    gap: 4rem;
+  }
 `;
 
 const CompaniesHeadings = styled(motion.div)`
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   gap: 0.5rem;
 `;
@@ -48,6 +60,13 @@ const ProjectsContainer = styled(motion.div)`
   perspective: 1200px;
 `;
 
+const FlexRow = styled(motion.div)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+`;
+
 export const appearVariants = {
   show: {
     opacity: 1,
@@ -55,6 +74,7 @@ export const appearVariants = {
     transition: {
       duration: 0.5,
       ease: "easeIn",
+      delay: 0.5,
     },
   },
   hide: {
@@ -63,39 +83,105 @@ export const appearVariants = {
   },
 };
 
-export default function Home() {
-  const refTeams = useRef(null);
-  const isTeamsInView = useInView(refTeams, { amount: 1 });
+const container = {
+  hidden: { opacity: 0, y: 10 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      staggerChildren: 0.25,
+      duration: 0.4,
+      ease: "easeIn",
+    },
+  },
+};
 
+const item = {
+  hidden: { opacity: 0, y: 10 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.5,
+    },
+  },
+};
+
+export default function Home() {
   const ref = useRef(null);
+  const { viewportWidth } = useViewport();
   const isCarouselInView = useInView(ref, { amount: 0.1 });
   const isCarouselFullyInView = useInView(ref, { amount: 0.45 });
+
+  const [stickyMinHeight, setStickyMinHeight] = useState(1000);
+  const [stickyCarouselEndPosition, setStickyCarouselEndPosition] = useState(0);
+
+  useEffect(() => {
+    const element = ref.current;
+    const { width } = element.getBoundingClientRect();
+
+    setStickyMinHeight(width * 2);
+  }, []);
+
+  useEffect(() => {
+    const documentHeight =
+      document.documentElement.scrollHeight || document.body.scrollHeight;
+
+    const endOfStickyInPercentage = stickyMinHeight / documentHeight;
+
+    setStickyCarouselEndPosition(endOfStickyInPercentage);
+  }, [stickyMinHeight]);
+
+  const paddingLeft = viewportWidth > 425 ? "0 20%" : "0 10%";
 
   return (
     <div>
       <Meta />
       <Main>
-        <Headline />
-
-        <StickyRolesContainer>
-          <CompaniesContainer>
-            <CompaniesHeadings>
-              <H1
-                ref={refTeams}
-                animate={isTeamsInView ? "show" : "hide"}
-                initial="hide"
-                variants={appearVariants}
-              >
+        <StickyRolesContainer $stickyMinHeight={stickyMinHeight}>
+          <CompaniesContainer $paddingLeft={paddingLeft}>
+            <CompaniesHeadings
+              variants={container}
+              animate={isCarouselInView ? "show" : "hidden"}
+              initial="hidden"
+            >
+              <H1 variants={item}>Viktor Renkema, software engineer</H1>
+              <Paragraph variants={item}>
                 I've been part of some pretty amazing teams.
-              </H1>
+              </Paragraph>
+              <FlexRow variants={container}>
+                <SocialButton
+                  text="twitter"
+                  url="https://www.twitter.com/vrenkema"
+                  variants={item}
+                />
+                <SocialButton
+                  text="linkedin"
+                  url="https://www.linkedin.com/in/viktor-renkema-7b3505133/"
+                  variants={item}
+                />
+                <SocialButton
+                  text="github"
+                  url="https://github.com/viktorrenkema"
+                  variants={item}
+                />
+                <SocialButton
+                  text="email"
+                  url="mailto:vrenkema@gmail.com"
+                  variants={item}
+                />
+              </FlexRow>
             </CompaniesHeadings>
 
             <Carousel
               ref={ref}
-              animate={isCarouselInView ? "show" : "hide"}
+              animate={"show"}
               variants={appearVariants}
               initial="hide"
               isCarouselFullyInView={isCarouselFullyInView}
+              stickyCarouselEndPosition={stickyCarouselEndPosition}
+              stickyMinHeight={stickyMinHeight}
+              paddingLeft={paddingLeft}
             />
             <Gradient />
           </CompaniesContainer>

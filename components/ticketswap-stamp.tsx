@@ -80,8 +80,8 @@ const Stamp = () => {
             y2="80"
             gradientUnits="userSpaceOnUse"
           >
-            <stop stop-color="white" />
-            <stop offset="1" stop-color="white" stop-opacity="0.73" />
+            <stop stopColor="white" />
+            <stop offset="1" stopColor="white" stopOpacity="0.73" />
           </linearGradient>
           <linearGradient
             id="paint1_linear_1_154"
@@ -91,8 +91,8 @@ const Stamp = () => {
             y2="13.5"
             gradientUnits="userSpaceOnUse"
           >
-            <stop stop-color="white" />
-            <stop offset="1" stop-color="#AAEBE8" />
+            <stop stopColor="white" />
+            <stop offset="1" stopColor="#AAEBE8" />
           </linearGradient>
         </defs>
       </g>
@@ -105,10 +105,10 @@ const Stamp = () => {
           y2="8.64591"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#C1FFE5" stop-opacity="0.5" />
-          <stop offset="0.314004" stop-color="#00C4D0" stop-opacity="0.5" />
-          <stop offset="0.637831" stop-color="#00D0AB" stop-opacity="0.5" />
-          <stop offset="1" stop-color="#00A3FF" stop-opacity="0.5" />
+          <stop stopColor="#C1FFE5" stopOpacity="0.5" />
+          <stop offset="0.314004" stopColor="#00C4D0" stopOpacity="0.5" />
+          <stop offset="0.637831" stopColor="#00D0AB" stopOpacity="0.5" />
+          <stop offset="1" stopColor="#00A3FF" stopOpacity="0.5" />
           {/* <stop stopColor="#C1FFE5" />
           <stop offset="0.314004" stopColor="#C1FFE5" />
           <stop offset="0.637831" stopColor="#C1FFE5" />
@@ -134,8 +134,8 @@ const Check = () => {
       }}
     >
       <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
+        fillRule="evenodd"
+        clipRule="evenodd"
         d="M27.3252 3.96446C27.3805 4.01852 27.4244 4.08302 27.4544 4.15421C27.4845 4.2254 27.5001 4.30185 27.5004 4.37913C27.5006 4.45641 27.4855 4.53297 27.4559 4.60436C27.4263 4.67574 27.3828 4.74053 27.328 4.79496L10.267 21.834C10.1545 21.9407 10.0054 22.0003 9.85035 22.0003C9.6953 22.0003 9.54616 21.9407 9.43373 21.834L5.61123 18.0115C5.37748 17.7832 5.00623 17.4065 4.77523 17.1837L0.171726 12.5802C0.0617301 12.4694 0 12.3197 0 12.1636C0 12.0075 0.0617301 11.8577 0.171726 11.747L3.99973 7.92721C4.05439 7.87241 4.11933 7.82894 4.19082 7.79928C4.26231 7.76962 4.33895 7.75435 4.41635 7.75435C4.49375 7.75435 4.57039 7.76962 4.64188 7.79928C4.71337 7.82894 4.77831 7.87241 4.83298 7.92721L9.43648 12.5252C9.66748 12.7562 10.0415 12.7562 10.2697 12.5252L22.6392 0.172208C22.7509 0.0618722 22.9016 0 23.0586 0C23.2156 0 23.3663 0.0618722 23.478 0.172208L27.3252 3.96446Z"
         fill="#00CA75"
       />

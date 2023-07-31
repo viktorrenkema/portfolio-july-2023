@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { H1 } from "./typography/headings";
+import { shadows } from "../styles/theme";
 
 const OverlappingCard = styled(motion.div)`
   display: flex;
@@ -12,8 +13,7 @@ const OverlappingCard = styled(motion.div)`
   height: 1200px;
   background: white;
   margin-block-start: 2rem;
-  box-shadow: rgba(0, 0, 0, 0.07) 2.2px 2.2px 16.9px,
-    rgba(0, 0, 0, 0.067) 5.1px 5.1px 44.4px, rgba(0, 0, 0, 0.07) 10px 10px 136px;
+  box-shadow: ${shadows.large};
 `;
 
 const CompanyCard = styled(motion.div)`

@@ -1,40 +1,32 @@
 import styled from "styled-components";
 import { Variants, motion } from "framer-motion";
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { ArrowRounded } from "./reusable/icons";
 
 const Container = styled(motion.div)`
   display: flex;
   align-items: center;
   border-radius: 50%;
-  gap: 1rem;
+  gap: 4rem;
   position: relative;
 `;
 
 const LogoBackground = styled(motion.div)`
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 1rem;
   border-radius: 50%;
-  width: 250px;
   height: 90px;
 `;
 
-interface LinkIndicatorProps {
-  iconOffset: number;
-}
-
-const LinkIndicator = styled(motion.div)<LinkIndicatorProps>`
+const LinkIndicator = styled(motion.div)`
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 50%;
   width: fit-content;
   height: fit-content;
-  position: absolute;
-  right: ${({ iconOffset }) => `${iconOffset}px`};
-  top: 33px;
 `;
 
 const colors = {
@@ -57,7 +49,6 @@ interface Props {
   variants: Variants;
   logo: React.JSX.Element;
   linkColor: string;
-  iconOffset: number;
   link: string;
   company: "ticketswap" | "framer" | "gitbook";
 }
@@ -67,11 +58,12 @@ export default function CompanyLogo({
   animate,
   variants,
   initial,
-  iconOffset,
   link,
   company,
+  setActiveCompany,
 }: Props) {
   const [hovered, setHovered] = React.useState(false);
+  const elementRef = useRef(null);
 
   const arrowVariants = {
     hover: {
@@ -86,8 +78,40 @@ export default function CompanyLogo({
     },
   };
 
+  useEffect(() => {
+    const handleScroll = () => {
+      if (elementRef.current) {
+        const element = elementRef.current;
+        const { left, right } = element.getBoundingClientRect();
+        const windowWidth =
+          window.innerWidth || document.documentElement.clientWidth;
+
+        const leftTwentyPercent = windowWidth * 0.2;
+
+        if (company === "framer") {
+          console.log(left, right, leftTwentyPercent);
+        }
+        // Check if the element has passed the left 20% edge of the viewport on the x-axis
+        if (left <= leftTwentyPercent && right >= leftTwentyPercent) {
+          setActiveCompany(company);
+        }
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   return (
-    <motion.a target="_blank" href={link}>
+    <motion.a
+      target="_blank"
+      href={link}
+      ref={elementRef}
+      // style={{ border: "1px solid maroon" }}
+    >
       <Container
         variants={variants}
         animate={animate}
@@ -99,15 +123,16 @@ export default function CompanyLogo({
           setHovered(false);
         }}
       >
-        <LogoBackground>{logo}</LogoBackground>
-        <LinkIndicator
-          animate={hovered ? "hover" : "default"}
-          iconOffset={iconOffset}
-          variants={arrowVariants}
-          initial="default"
-        >
-          <ArrowRounded colors={colors} company={company} />
-        </LinkIndicator>
+        <LogoBackground>
+          {logo}
+          <LinkIndicator
+            animate={hovered ? "hover" : "default"}
+            variants={arrowVariants}
+            initial="default"
+          >
+            <ArrowRounded colors={colors} company={company} />
+          </LinkIndicator>
+        </LogoBackground>
       </Container>
     </motion.a>
   );

@@ -1,5 +1,14 @@
 import { keyframes } from "styled-components";
 
+export const shadows = {
+  small:
+    "0px 0.6021873017743928px 0.6021873017743928px -1.25px rgba(0, 0, 0, 0.18), 0px 2.288533303243457px 2.288533303243457px -2.5px rgba(0, 0, 0, 0.15889), 0px 10px 10px -3.75px rgba(0, 0, 0, 0.175)",
+  medium:
+    "0px 0.6021873017743928px 0.6021873017743928px -1.25px rgba(0, 0, 0, 0.18), 0px 2.288533303243457px 2.288533303243457px -2.5px rgba(0, 0, 0, 0.15889), 3px 3px 10px 0px rgb(0 0 0 / 3%), -3px -3px 10px 0px rgb(0 0 0 / 3%)",
+  large:
+    "rgba(0, 0, 0, 0.07) 2.2px 2.2px 16.9px, rgba(0, 0, 0, 0.067) 5.1px 5.1px 44.4px, rgba(0, 0, 0, 0.07) 10px 10px 136px",
+};
+
 export const colors = {
   darkest: "#11131f",
   light: "#b4b4b4",

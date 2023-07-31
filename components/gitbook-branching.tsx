@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 
-export default function GitbookBranching({}) {
+export default function GitbookBranching() {
   const [startFirstNode, setStartFirstNode] = useState(false);
   const [startSecondNode, setStartSecondNode] = useState(false);
   const [startThirdNode, setStartThirdNode] = useState(false);

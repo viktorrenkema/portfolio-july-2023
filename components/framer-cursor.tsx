@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { motion } from "framer-motion";
+import { shadows } from "../styles/theme";
 
 const Parallax = styled(motion.div)`
   position: absolute;
@@ -14,21 +15,19 @@ const CursorBody = styled(motion.div)`
   justify-content: center;
   align-items: center;
   padding: 8px 14px 8px 14px;
-  box-shadow: 0px 0.6021873017743928px 0.6021873017743928px -1.25px rgba(0, 0, 0, 0.18),
-    0px 2.288533303243457px 2.288533303243457px -2.5px rgba(0, 0, 0, 0.15889),
-    0px 10px 10px -3.75px rgba(0, 0, 0, 0.175);
+  box-shadow: ${shadows.small};
   position: absolute;
   left: ${({ right }) => (right ? "24px" : "-58px")};
   bottom: ${({ right }) => (right ? "-19px" : "-17px")};
 `;
 
 export const Cursor = ({ right = false, username, style }) => {
-  const startingX = right ? 293 : 190;
-  const startingY = right ? 20 : 152;
+  const startingX = right ? 265 : 190;
+  const startingY = right ? 40 : 152;
 
   return (
     <motion.div
-      initial={{ opacity: 0, x: startingX - 10, y: startingY - 20 }}
+      initial={{ opacity: 0, x: startingX - 30, y: startingY - 40 }}
       animate={{
         opacity: 1,
         x: startingX,

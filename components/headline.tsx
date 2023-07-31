@@ -5,8 +5,6 @@ import { Avatar } from "./avatar";
 import { H1 } from "./typography/headings";
 import { device } from "../styles/theme";
 
-const StyledH1 = styled(H1)``;
-
 const Paragraph = styled(motion.p)`
   font-size: 1rem;
   margin-block-start: 0.5em;
@@ -22,20 +20,15 @@ const Paragraph = styled(motion.p)`
 export const Gradient = styled(motion.div)`
   background: url("/images/gradients/yellow-orange-red.png") no-repeat center
     center;
-  width: 180vw;
+  width: 100vw;
   height: 100vh;
   background-size: contain;
   position: absolute;
   z-index: -1;
-  top: -110px;
-
-  @media ${device.tablet} {
-    width: 150vw;
-  }
-
-  @media ${device.laptopL} {
-    width: 100vw;
-  }
+  transform: scale(2);
+  /* top: -250px;
+  left: -540px; */
+  opacity: 0.5;
 `;
 
 const HeadlineContainer = styled(motion.div)`
@@ -80,14 +73,14 @@ export default function Headline() {
           initial="initial"
           transition={{ duration: 0.75 }}
         />
-        <StyledH1
+        <H1
           animate="show"
           variants={variants}
           initial="initial"
           transition={{ duration: 0.75, delay: 0.25 }}
         >
           Hey, I'm Viktor Renkema.
-        </StyledH1>
+        </H1>
         <Paragraph
           animate="show"
           variants={variants}
