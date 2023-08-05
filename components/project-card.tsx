@@ -7,11 +7,17 @@ import {
   useTransform,
 } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
-import { H2 } from "./typography/headings";
+import { H2, Paragraph } from "./reusable/typography";
 import Image from "next/image";
-import { Paragraph } from "./typography/paragraphs";
 import { Arrow } from "./reusable/icons";
-import { device, radius, shadows } from "../styles/theme";
+import {
+  colors,
+  device,
+  fontWeight,
+  radius,
+  shadows,
+  space,
+} from "../styles/theme";
 import useViewport from "./hooks/useViewport";
 
 const Container = styled(motion.div)`
@@ -25,7 +31,7 @@ const Container = styled(motion.div)`
   height: auto;
   box-shadow: ${shadows.large};
   padding: 0.35rem;
-  gap: 20px;
+  gap: ${space[24]};
   width: 100vw;
   max-width: 1440px;
   overflow: visible;
@@ -33,9 +39,6 @@ const Container = styled(motion.div)`
   user-select: none;
   z-index: 3;
   border-radius: ${radius["xl"]};
-
-  @media ${device.tablet} {
-  }
 `;
 
 const StyledImage = styled(Image)`
@@ -56,7 +59,11 @@ const Column = styled(motion.div)`
   gap: 0.5rem;
 `;
 
-export const ImageContainer = styled(motion.div)`
+interface ImageContainerProps {
+  $height: number;
+}
+
+const ImageContainer = styled(motion.div)<ImageContainerProps>`
   width: 100%;
   display: flex;
   align-items: center;
@@ -68,10 +75,6 @@ export const ImageContainer = styled(motion.div)`
   position: relative;
   height: ${({ $height }) => `${$height}px`};
   max-height: 710px;
-
-  /* @media ${device.tablet} {
-    border-radius: 12px;
-  } */
 `;
 
 const StyledParagraph = styled(Paragraph)`
@@ -84,14 +87,9 @@ const StyledParagraph = styled(Paragraph)`
   }
 `;
 
-interface HyperlinkProps {
-  $accentColor: string;
-}
-
-export const Hyperlink: React.FC<HyperlinkProps> = styled(motion.a)`
-  color: #0055ff;
+const Hyperlink = styled(motion.a)`
+  color: ${colors.blue};
   font-size: 14px;
-  font-weight: 400;
   display: flex;
   gap: 5px;
   align-items: center;
@@ -243,7 +241,6 @@ export default function ProjectCard({
             <Hyperlink
               target="_blank"
               href={link}
-              $accentColor="#959595"
               onHoverStart={() => setHovered(true)}
               onHoverEnd={() => setHovered(false)}
               variants={hyperlinkVariants}

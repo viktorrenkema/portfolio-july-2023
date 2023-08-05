@@ -10,6 +10,11 @@ export const shadows = {
 };
 
 export const colors = {
+  black: "#000",
+  white: "#fff",
+  gitbook: "#90b0ff",
+  ticketswap: "#0099ff",
+  blue: "#0055ff",
   darkest: "#11131f",
   light: "#b4b4b4",
   lightest: "#fff",
@@ -66,6 +71,7 @@ export const radius = {
 };
 
 export const fontWeight = {
+  light: 300,
   regular: 400,
   medium: 500,
   semiBold: 600,

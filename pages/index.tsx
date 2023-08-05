@@ -1,14 +1,13 @@
 import styled from "styled-components";
 import Meta from "../components/meta";
 import { motion, useInView } from "framer-motion";
-import { H1 } from "../components/typography/headings";
 import { useEffect, useRef, useState } from "react";
 import { Carousel } from "../components/carousel";
 import ProjectCard from "../components/project-card";
-import { Paragraph } from "../components/typography/paragraphs";
 import SocialButton from "../components/social-button";
 import { device } from "../styles/theme";
 import useViewport from "../components/hooks/useViewport";
+import { H1, Paragraph } from "../components/reusable/typography";
 
 const Main = styled(motion.main)`
   display: flex;
@@ -218,9 +217,7 @@ export default function Home() {
               animate={"show"}
               variants={appearVariants}
               initial="hide"
-              isCarouselFullyInView={isCarouselFullyInView}
               stickyCarouselEndPosition={stickyCarouselEndPosition}
-              paddingLeft={paddingLeft}
             />
             <GradientOrange />
           </CompaniesContainer>
@@ -228,8 +225,8 @@ export default function Home() {
         <ProjectsContainer>
           <ProjectCard
             title="Invoicer.studio"
-            firstDescription="I built Invoicer in Q1 2023 with the aim of building a full product
-          that will at least get a single (symbolic) Euro in revenue."
+            firstDescription="I built an invoicer app at the start of 2023 with the aim of building a full product
+          from start to finish within a quarter, that required me to learn new technologies."
             link="https://invoicer.studio"
             asset="/images/projects/invoicer.png"
             alt="A screenshot of invoicer.studio, my invoice generator project"

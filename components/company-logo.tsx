@@ -1,8 +1,9 @@
 import styled from "styled-components";
 import { Variants, motion } from "framer-motion";
 import React, { useEffect, useRef } from "react";
-import { ArrowRounded } from "./reusable/icons";
+import { ArrowInCircle } from "./reusable/icons";
 import useViewport from "./hooks/useViewport";
+import { CompanyLogos } from "./types";
 
 const Container = styled(motion.div)`
   display: flex;
@@ -48,7 +49,7 @@ interface Props {
   initial: string;
   animate: string;
   variants: Variants;
-  logo: React.JSX.Element[];
+  logo: CompanyLogos;
   link: string;
   company: "ticketswap" | "framer" | "gitbook";
   setActiveCompany: (company: string) => void;
@@ -124,7 +125,7 @@ export default function CompanyLogo({
             variants={arrowVariants}
             initial="default"
           >
-            <ArrowRounded colors={colors} company={company} />
+            <ArrowInCircle colors={colors} company={company} />
           </LinkIndicator>
         </LogoBackground>
       </Container>

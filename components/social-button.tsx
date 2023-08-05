@@ -1,24 +1,18 @@
 import styled from "styled-components";
 import { Variants, motion } from "framer-motion";
 import { useState } from "react";
+import { radius, space } from "../styles/theme";
 
 const Hyperlink = styled(motion.a)`
-  width: 40px;
-  height: 40px;
+  position: relative;
+  border-radius: ${radius["md"]};
+  width: ${space[40]};
+  height: ${space[40]};
   display: flex;
   align-items: center;
   justify-content: center;
   align-content: center;
-  position: relative;
-  border-radius: 8px;
-  font-weight: 500;
-  font-size: 12px;
-  text-decoration: none;
-  font-family: "IBM Plex Sans", sans-serif;
-  letter-spacing: 0.8px;
-  text-transform: uppercase;
   cursor: pointer;
-  gap: 0px;
 `;
 
 const colorMap = {
@@ -26,19 +20,6 @@ const colorMap = {
   email: "rgb(243 96 225) 0%, rgb(208 0 255) 100%",
   linkedin: "#0077b6 0%, #0040b6 100%",
   twitter: "#1b9bee 0%, #1b65ee 100%",
-};
-
-const pageLoadVariants = {
-  hidden: {
-    opacity: 0,
-  },
-  pageLoad: {
-    opacity: 1,
-    transition: {
-      duration: 2,
-      delay: 1,
-    },
-  },
 };
 
 interface Props {

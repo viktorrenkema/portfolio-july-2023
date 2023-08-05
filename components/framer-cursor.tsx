@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { motion } from "framer-motion";
-import { shadows } from "../styles/theme";
+import { colors, shadows, space } from "../styles/theme";
 import useViewport from "./hooks/useViewport";
 
 const Parallax = styled(motion.div)`
@@ -12,16 +12,16 @@ interface CursorBodyProps {
 }
 
 const CursorBody = styled(motion.div)<CursorBodyProps>`
+  position: absolute;
   background: ${({ right }) => (right ? "#00A3FF" : "#fd7702")};
-  color: white;
+  color: ${colors.white};
   border-radius: 50px;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  padding: 8px 14px 8px 14px;
+  padding: ${space[8]} ${space[12]};
   box-shadow: ${shadows.small};
-  position: absolute;
   left: ${({ right }) => (right ? "24px" : "-58px")};
   bottom: ${({ right }) => (right ? "-19px" : "-17px")};
 `;
@@ -66,7 +66,7 @@ export const Cursor = ({ right = false, username, style }) => {
       style={{ position: "absolute" }}
     >
       {/* Parallax container */}
-      <Parallax style={style} right={right}>
+      <Parallax style={style}>
         <CursorArrow right={right} />
         <CursorBody right={right}>{username}</CursorBody>
       </Parallax>

@@ -10,8 +10,9 @@ import { AnchorHTMLAttributes, useRef } from "react";
 import { Cursor } from "./framer-cursor";
 import { TicketswapStamp } from "./ticketswap-stamp";
 import GitbookBranching from "./gitbook-branching";
-import { colors, device, radius, shadows } from "../styles/theme";
+import { colors, device, fontWeight, radius, shadows } from "../styles/theme";
 import useViewport from "./hooks/useViewport";
+import { H3, Label, Paragraph } from "./reusable/typography";
 
 const BorderWrapper = styled(motion.li)`
   display: flex;
@@ -25,7 +26,7 @@ const BorderWrapper = styled(motion.li)`
 `;
 
 interface CardProps {
-  isMobile: boolean;
+  $isMobile: boolean;
 }
 
 const Card = styled(motion.div)<CardProps>`
@@ -46,48 +47,9 @@ const Card = styled(motion.div)<CardProps>`
   box-shadow: ${shadows.medium};
 `;
 
-interface CopyProps {
-  children: React.ReactNode;
-}
-
-const Role: React.FC<CopyProps> = styled(motion.h1)<CopyProps>`
-  font-size: 15px;
-
-  @media ${device.mobileL} {
-    font-size: 17px;
-  }
+const Description = styled(Paragraph)`
+  font-weight: ${fontWeight["light"]};};  
 `;
-
-const Dates: React.FC<CopyProps> = styled(motion.h2)<CopyProps>`
-  font-size: 10px;
-  font-weight: 400;
-  font-family: "Inter", sans-serif;
-  text-align: center;
-  border-radius: 8px;
-  color: #707070;
-  text-transform: uppercase;
-  height: fit-content;
-  padding: 3px 8px;
-  white-space: nowrap;
-
-  @media ${device.mobileL} {
-    font-size: 12px;
-  }
-`;
-
-const Description: React.FC<CopyProps> = styled(motion.span)<CopyProps>`
-  font-size: 13px;
-  font-weight: 300;
-
-  @media ${device.mobileL} {
-    font-size: 14px;
-  }
-`;
-
-interface HyperlinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
-  $accentColor: string;
-  children: any[];
-}
 
 const FlexRow = styled.span`
   display: flex;
@@ -149,14 +111,13 @@ export default function PreviousJobCard({ roleEntry, activeCompany }) {
         $isMobile={isMobile}
       >
         <FlexRow>
-          <Role>{role}</Role>
-          <Dates>{dates}</Dates>
+          <H3>{role}</H3>
+          <Label>{dates}</Label>
         </FlexRow>
         <Description>{companyDescription}</Description>
         <Description>{description}</Description>
 
         {/* Company-specific interactive elements */}
-
         {/* Framer */}
         <AnimatePresence>
           {cardIsActive && company === "framer" && id === 3 && (

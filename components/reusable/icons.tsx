@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 
-export const ArrowRounded = ({ colors, company }) => {
+export const ArrowInCircle = ({ colors, company }) => {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23">
       <path

@@ -1,18 +1,6 @@
-import styled from "styled-components";
 import { motion } from "framer-motion";
 import { useState } from "react";
-import { device } from "../styles/theme";
 import useViewport from "./hooks/useViewport";
-
-// const BranchesContainer = styled.div`
-//   position: relative;
-//   transform: translate(-85px, 35px);
-//   overflow: hidden;
-
-//   @media ${device.tablet} {
-//     transform: translate(0px, 35px);
-//   }
-// `;
 
 export default function GitbookBranching() {
   const [startFirstNode, setStartFirstNode] = useState(false);
