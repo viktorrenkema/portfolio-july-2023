@@ -23,18 +23,22 @@ export const H2 = styled(motion.h2)`
   }
 `;
 
-export const H3 = styled(motion.h2)`
-  font-size: ${fontSize[14]};
+export const H3 = styled(motion.h3)`
+  font-size: ${fontSize[16]};
   font-weight: ${fontWeight["medium"]};
 
   @media ${device.mobileL} {
-    font-size: ${fontSize[18]};
+    font-size: ${fontSize[20]};
   }
 `;
 
 export const Paragraph = styled(motion.p)`
-  font-size: ${fontSize[14]};
+  font-size: ${fontSize[13]};
   line-height: 1.4;
+
+  @media ${device.mobileL} {
+    font-size: ${fontSize[14]};
+  }
 `;
 
 export const Label = styled(motion.label)`

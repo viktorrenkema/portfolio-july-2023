@@ -64,6 +64,8 @@ export const Cursor = ({ right = false, username, style }) => {
         },
       }}
       style={{ position: "absolute" }}
+      drag
+      dragConstraints={{ left: 300, right: 300, top: 300, bottom: 300 }}
     >
       {/* Parallax container */}
       <Parallax style={style}>

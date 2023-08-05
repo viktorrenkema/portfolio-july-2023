@@ -42,13 +42,12 @@ const Card = styled(motion.div)<CardProps>`
   gap: 0.75rem;
   padding: 1.5rem;
   position: relative;
-  backdrop-filter: blur(4px);
-  background: ${colors.cardBackground};
+  background: ${colors.white};
   box-shadow: ${shadows.medium};
 `;
 
 const Description = styled(Paragraph)`
-  font-weight: ${fontWeight["light"]};};  
+  font-weight: ${fontWeight["light"]};
 `;
 
 const FlexRow = styled.span`
@@ -57,6 +56,17 @@ const FlexRow = styled.span`
   justify-content: space-between;
   align-items: center;
 `;
+
+const JobCardVariants = {
+  default: {
+    boxShadow:
+      "0 0px 0px 0px #0000000a, 0 0px 0px 0px #00000008, 0 0px 0px 0px #00000003, 0 0px 0px #0000000d",
+  },
+  focused: {
+    boxShadow:
+      "0 0.6021873017743928px 3.010936508871964px -1.25px #0000000a, 0 2.288533303243457px 11.442666516217285px -2.5px #00000008, 0 10px 50px -3.75px #00000003, 0 20px 40px #0000000d",
+  },
+};
 
 export default function PreviousJobCard({ roleEntry, activeCompany }) {
   const { role, company, companyDescription, description, dates, id } =
@@ -96,13 +106,21 @@ export default function PreviousJobCard({ roleEntry, activeCompany }) {
   // Transform for the stamp on Ticketswap and cursors on Framer cards
   const yCursor1 = useTransform(scrollYProgress, [0.3, 0.6], [40, -80]);
   const xCursor1 = useTransform(scrollYProgress, [0.3, 0.6], [-20, 50]);
-  const yCursor2 = useTransform(scrollYProgress, [0.5, 0.6], [30, -25]);
-  const xCursor2 = useTransform(scrollYProgress, [0.5, 0.6], [0, 50]);
+  const yCursor2 = useTransform(scrollYProgress, [0.5, 0.8], [-70, 15]);
+  const xCursor2 = useTransform(scrollYProgress, [0.5, 0.8], [0, -70]);
   const stampRotation = useTransform(scrollYProgress, [0, 0.6], [0, 360]);
   const rotate = useMotionTemplate`rotate(${stampRotation}deg)`;
 
   return (
-    <BorderWrapper style={{ x: overlappingCard ? x : 0 }} id={id} ref={ref}>
+    <BorderWrapper
+      style={{ x: overlappingCard ? x : 0 }}
+      id={id}
+      ref={ref}
+      variants={JobCardVariants}
+      animate={activeCompany === company ? "focused" : "default"}
+      initial={activeCompany === company ? "focused" : "default"}
+      transition={{ duration: 0.5 }}
+    >
       <Card
         key={roleEntry.id}
         variants={variants}

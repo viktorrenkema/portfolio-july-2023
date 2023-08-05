@@ -56,13 +56,13 @@ const CompaniesContainer = styled(motion.div)<CompaniesContainerProps>`
 export const GradientOrange = styled(motion.div)`
   background: url("/images/gradients/yellow-orange-red.png") no-repeat center
     center;
-  width: 100vw;
-  height: 100vh;
+  width: 200vw;
+  height: 200vh;
   background-size: contain;
   position: absolute;
   z-index: -1;
-  /* transform: scale(2); */
-  opacity: 0.5;
+  opacity: 1;
+  left: 0;
 `;
 
 export const GradientBlue = styled(motion.div)`

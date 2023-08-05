@@ -121,9 +121,9 @@ export const Carousel = forwardRef<HTMLDivElement, Props>((props, ref) => {
       id: 4,
       company: "framer",
       companyDescription:
-        "I helped teams like Spotify, Airbnb, Shopify and more get the most out of design and code features in Framer.",
+        "I helped teams like Spotify, Airbnb, Shopify and more leverage code in Framer.",
       description:
-        "Think of a React component to connect gamepads to prototypes for EA Games, importing the production Airbus DS, and connecting barcode scanners to Shopify's prototypes.",
+        "For example, for EA Games I built a component to connect gamepads, helped import the Airbus design system, and connect barcode scanners to Shopify's prototypes.",
       dates: "Jan. 2020 - Oct. 2021",
       link: "https://www.framer.com",
     },
