@@ -53,7 +53,7 @@ const CompaniesContainer = styled(motion.div)<CompaniesContainerProps>`
   }
 `;
 
-export const GradientOrange = styled(motion.div)`
+const GradientOrange = styled(motion.div)`
   background: url("/images/gradients/yellow-orange-red.png") no-repeat center
     center;
   width: 200vw;
@@ -63,18 +63,30 @@ export const GradientOrange = styled(motion.div)`
   z-index: -1;
   opacity: 1;
   left: 0;
+  opacity: 0.8;
 `;
 
-export const GradientBlue = styled(motion.div)`
+const GradientBlue = styled(motion.div)`
   background: url("/images/gradients/green-blue.png") no-repeat center center;
-  width: 100vw;
-  height: 100vh;
+  width: 200vw;
+  height: 200vh;
   background-size: contain;
   position: absolute;
   z-index: -1;
-  bottom: 0;
-  transform: scale(2);
-  opacity: 0.5;
+  bottom: 0px;
+  opacity: 0.8;
+`;
+
+const GradientPurple = styled(motion.div)`
+  background: url("/images/gradients/purple-cyan.png") no-repeat center center;
+  width: 200vw;
+  height: 200vh;
+  background-size: contain;
+  position: absolute;
+  z-index: -1;
+  top: 620px;
+  left: -824px;
+  opacity: 0.8;
 `;
 
 const CompaniesHeadings = styled(motion.div)`
@@ -220,13 +232,14 @@ export default function Home() {
               stickyCarouselEndPosition={stickyCarouselEndPosition}
             />
             <GradientOrange />
+            <GradientPurple />
           </CompaniesContainer>
         </StickyRolesContainer>
         <ProjectsContainer>
           <ProjectCard
             title="Invoicer.studio"
             firstDescription="I built an invoicer app at the start of 2023 with the aim of building a full product
-          from start to finish within a quarter, that required me to learn new technologies."
+            from start to finish within a quarter, that required me to learn new technologies."
             link="https://invoicer.studio"
             asset="/images/projects/invoicer.png"
             alt="A screenshot of invoicer.studio, my invoice generator project"
@@ -243,6 +256,7 @@ export default function Home() {
             linkText="Visit the app (made for mobile)"
           />
         </ProjectsContainer>
+
         <ProjectsContainer>
           <ProjectCard
             title="Trust factors on Ticketswap"
@@ -254,7 +268,7 @@ export default function Home() {
             linkText="Visit ticketswap.com"
           />
         </ProjectsContainer>
-        {/* <GradientBlue /> */}
+        <GradientBlue />
       </Main>
     </div>
   );

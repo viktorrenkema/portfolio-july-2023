@@ -39,6 +39,7 @@ const Container = styled(motion.div)`
   user-select: none;
   z-index: 3;
   border-radius: ${radius["xl"]};
+  background: #ffffff4a;
 `;
 
 const StyledImage = styled(Image)`

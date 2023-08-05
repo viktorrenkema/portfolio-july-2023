@@ -8,7 +8,6 @@ import {
 } from "framer-motion";
 import { AnchorHTMLAttributes, useRef } from "react";
 import { Cursor } from "./framer-cursor";
-import { TicketswapStamp } from "./ticketswap-stamp";
 import GitbookBranching from "./gitbook-branching";
 import { colors, device, fontWeight, radius, shadows } from "../styles/theme";
 import useViewport from "./hooks/useViewport";
@@ -105,7 +104,7 @@ export default function PreviousJobCard({ roleEntry, activeCompany }) {
     [0, getOffsetLastFramerCards()]
   );
 
-  // Transform for the stamp on Ticketswap and cursors on Framer cards
+  // Transforms for the Ticketswap line tracing and Framer cursors
   const yCursor1 = useTransform(scrollYProgress, [0.3, 0.6], [40, -80]);
   const xCursor1 = useTransform(scrollYProgress, [0.3, 0.6], [-20, 50]);
   const yCursor2 = useTransform(scrollYProgress, [0.5, 0.8], [-70, 15]);
