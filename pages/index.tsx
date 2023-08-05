@@ -185,7 +185,7 @@ export default function Home() {
             >
               <H1 variants={item}>Viktor Renkema</H1>
               <Paragraph variants={item}>
-                I'm a software engineer, and got to be part of some pretty
+                I'm a software engineer that got to be part of some pretty
                 amazing teams.
               </Paragraph>
               <FlexRow variants={container}>

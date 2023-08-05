@@ -7,6 +7,11 @@ const Parallax = styled(motion.div)`
   position: absolute;
 `;
 
+const Outer = styled(motion.div)`
+  position: absolute;
+  z-index: 5;
+`;
+
 interface CursorBodyProps {
   right: boolean;
 }
@@ -41,7 +46,7 @@ export const Cursor = ({ right = false, username, style }) => {
   };
 
   return (
-    <motion.div
+    <Outer
       initial={{
         opacity: 0,
         x: getCursorStartingX() - 30,
@@ -63,7 +68,6 @@ export const Cursor = ({ right = false, username, style }) => {
           duration: 0.5,
         },
       }}
-      style={{ position: "absolute" }}
       drag
       dragConstraints={{ left: 300, right: 300, top: 300, bottom: 300 }}
     >
@@ -72,7 +76,7 @@ export const Cursor = ({ right = false, username, style }) => {
         <CursorArrow right={right} />
         <CursorBody right={right}>{username}</CursorBody>
       </Parallax>
-    </motion.div>
+    </Outer>
   );
 };
 

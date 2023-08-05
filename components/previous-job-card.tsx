@@ -13,6 +13,7 @@ import GitbookBranching from "./gitbook-branching";
 import { colors, device, fontWeight, radius, shadows } from "../styles/theme";
 import useViewport from "./hooks/useViewport";
 import { H3, Label, Paragraph } from "./reusable/typography";
+import { TicketswapTracing } from "./ticketswap-tracing";
 
 const BorderWrapper = styled(motion.li)`
   display: flex;
@@ -37,7 +38,7 @@ const Card = styled(motion.div)<CardProps>`
   border-radius: ${radius["lg"]};
   // Warning: if width gets changed, also do that for cardWidth in carousel.tsx
   width: ${({ $isMobile }) => ($isMobile ? "355px" : "420px")};
-  height: ${({ $isMobile }) => ($isMobile ? "210px" : "255px")};
+  height: ${({ $isMobile }) => ($isMobile ? "210px" : "230px")};
   flex-direction: column;
   gap: 0.75rem;
   padding: 1.5rem;
@@ -48,6 +49,7 @@ const Card = styled(motion.div)<CardProps>`
 
 const Description = styled(Paragraph)`
   font-weight: ${fontWeight["light"]};
+  z-index: 2;
 `;
 
 const FlexRow = styled.span`
@@ -108,8 +110,10 @@ export default function PreviousJobCard({ roleEntry, activeCompany }) {
   const xCursor1 = useTransform(scrollYProgress, [0.3, 0.6], [-20, 50]);
   const yCursor2 = useTransform(scrollYProgress, [0.5, 0.8], [-70, 15]);
   const xCursor2 = useTransform(scrollYProgress, [0.5, 0.8], [0, -70]);
-  const stampRotation = useTransform(scrollYProgress, [0, 0.6], [0, 360]);
-  const rotate = useMotionTemplate`rotate(${stampRotation}deg)`;
+  const alphaChannel = useTransform(scrollYProgress, [0.22, 0.3], [0, 100]);
+  const pathLength = useTransform(scrollYProgress, [0.28, 0.38], [0, 1]);
+  const fill = useMotionTemplate`rgb(237 248 255 / ${alphaChannel}%)`;
+  const scale = useTransform(scrollYProgress, [0.25, 0.4], [1, 1.13]);
 
   return (
     <BorderWrapper
@@ -153,11 +157,15 @@ export default function PreviousJobCard({ roleEntry, activeCompany }) {
         </AnimatePresence>
 
         {/* Ticketswap */}
-        {/* <AnimatePresence>
+        <AnimatePresence>
           {cardIsActive && company === "ticketswap" && (
-            <TicketswapStamp rotate={rotate} />
+            <TicketswapTracing
+              pathLength={pathLength}
+              fill={fill}
+              scale={scale}
+            />
           )}
-        </AnimatePresence> */}
+        </AnimatePresence>
 
         {/* Gitbook */}
         {cardIsActive && company === "gitbook" && <GitbookBranching />}
