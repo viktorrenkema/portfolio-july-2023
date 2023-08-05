@@ -166,13 +166,6 @@ export const Carousel = forwardRef<HTMLDivElement, Props>((props, ref) => {
     },
   ];
 
-  // x-position for company logos
-  const logosX = useTransform(
-    scrollYProgress,
-    [0, cardWidthRelativeToDocument, cardWidthRelativeToDocument * 2],
-    [0, -245, -532]
-  );
-
   const getLogosXPosition = () => {
     if (isMobile) {
       return useTransform(
@@ -194,21 +187,15 @@ export const Carousel = forwardRef<HTMLDivElement, Props>((props, ref) => {
   const x = useTransform(
     scrollYProgress,
     [0, stickyCarouselEndPosition],
-    [
-      0,
-      -(
-        cardWidth * (roles.length - roles.length / 2) +
-        (roles.length - 1 * 20)
-      ),
-    ]
+    [0, -1072]
   );
 
   return (
     <CarouselWrapper
       ref={ref}
-      // animate={animate}
-      // initial={initial}
-      // variants={variants}
+      animate={animate}
+      initial={initial}
+      variants={variants}
     >
       <Companies style={{ x: getLogosXPosition() }}>
         {companies.map(({ company, link, logo }) => (

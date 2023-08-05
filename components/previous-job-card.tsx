@@ -24,15 +24,19 @@ const BorderWrapper = styled(motion.li)`
   background: ${colors.cardBorderBackground};
 `;
 
-const Card = styled(motion.div)`
+interface CardProps {
+  isMobile: boolean;
+}
+
+const Card = styled(motion.div)<CardProps>`
   display: flex;
   min-width: 100px;
   justify-content: flex-start;
   align-items: flex-start;
   border-radius: ${radius["lg"]};
   // Warning: if width gets changed, also do that for cardWidth in carousel.tsx
-  width: ${({ isMobile }) => (isMobile ? "355px" : "420px")};
-  height: ${({ isMobile }) => (isMobile ? "210px" : "255px")};
+  width: ${({ $isMobile }) => ($isMobile ? "355px" : "420px")};
+  height: ${({ $isMobile }) => ($isMobile ? "210px" : "255px")};
   flex-direction: column;
   gap: 0.75rem;
   padding: 1.5rem;
@@ -142,7 +146,7 @@ export default function PreviousJobCard({ roleEntry, activeCompany }) {
         variants={variants}
         animate={activeCompany === company ? "show" : "hidden"}
         initial={activeCompany === company ? "show" : "hidden"}
-        isMobile={isMobile}
+        $isMobile={isMobile}
       >
         <FlexRow>
           <Role>{role}</Role>
@@ -170,11 +174,11 @@ export default function PreviousJobCard({ roleEntry, activeCompany }) {
         </AnimatePresence>
 
         {/* Ticketswap */}
-        <AnimatePresence>
+        {/* <AnimatePresence>
           {cardIsActive && company === "ticketswap" && (
             <TicketswapStamp rotate={rotate} />
           )}
-        </AnimatePresence>
+        </AnimatePresence> */}
 
         {/* Gitbook */}
         {cardIsActive && company === "gitbook" && <GitbookBranching />}

@@ -1,33 +1,28 @@
 import { useState, useEffect } from "react";
 
 const useViewport = () => {
-  const [viewportWidth, setViewportWidth] = useState(
-    typeof window !== "undefined" ? window.innerWidth : 0
-  );
+  const [viewportWidth, setViewportWidth] = useState(null);
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    const checkViewportForMobile = () => {
-      if (window.innerWidth < 425) {
-        setIsMobile(true);
-      }
-      if (isMobile && window.innerWidth >= 425) {
-        setIsMobile(false);
-      }
-    };
-
+    setViewportWidth(window.innerWidth);
     const handleWindowResize = () => {
       setViewportWidth(window.innerWidth);
-      checkViewportForMobile();
+      setIsMobile(window.innerWidth < 425);
     };
 
-    checkViewportForMobile();
-    handleWindowResize(); // calling the function here for initial render
+    handleWindowResize();
     window.addEventListener("resize", handleWindowResize);
 
     // Cleanup the event listener on unmount
     return () => window.removeEventListener("resize", handleWindowResize);
   }, []);
+
+  useEffect(() => {
+    if (viewportWidth !== null) {
+      setIsMobile(viewportWidth < 425);
+    }
+  }, [viewportWidth]);
 
   // Mapping based on linear interpolation
   const x1 = 350,

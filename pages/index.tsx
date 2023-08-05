@@ -146,13 +146,9 @@ const item = {
 export default function Home() {
   const ref = useRef(null);
   const { viewportWidth } = useViewport();
+
   const isCarouselInView = useInView(ref, { amount: 0.1 });
   const isCarouselFullyInView = useInView(ref, { amount: 0.45 });
-  const [isIOS, setIsIOS] = useState(
-    typeof navigator !== "undefined"
-      ? /iPad|iPhone|iPod/.test(navigator.userAgent)
-      : null
-  );
 
   const [stickyMinHeight, setStickyMinHeight] = useState(1000);
   const [stickyCarouselEndPosition, setStickyCarouselEndPosition] = useState(0);
@@ -165,12 +161,14 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    const documentHeight =
-      document.documentElement.scrollHeight || document.body.scrollHeight;
+    setTimeout(() => {
+      const documentHeight =
+        document.documentElement.scrollHeight || document.body.scrollHeight;
 
-    const endOfStickyInPercentage = stickyMinHeight / documentHeight;
+      const endOfStickyInPercentage = stickyMinHeight / documentHeight;
 
-    setStickyCarouselEndPosition(endOfStickyInPercentage);
+      setStickyCarouselEndPosition(endOfStickyInPercentage);
+    }, 200);
   }, [stickyMinHeight]);
 
   const paddingLeft = viewportWidth > 425 ? "0 20%" : "0 10%";
