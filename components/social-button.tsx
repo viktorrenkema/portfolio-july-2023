@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { motion } from "framer-motion";
+import { Variants, motion } from "framer-motion";
 import { useState } from "react";
 
 const Hyperlink = styled(motion.a)`
@@ -21,11 +21,6 @@ const Hyperlink = styled(motion.a)`
   gap: 0px;
 `;
 
-interface Props {
-  text: string;
-  url: string;
-}
-
 const colorMap = {
   github: "#aa7fd4 0%, #724dc1 100%",
   email: "rgb(243 96 225) 0%, rgb(208 0 255) 100%",
@@ -45,6 +40,12 @@ const pageLoadVariants = {
     },
   },
 };
+
+interface Props {
+  text: string;
+  url: string;
+  variants: Variants;
+}
 
 export default function SocialButton({ text, url, variants }: Props) {
   const [hovered, setHovered] = useState(false);

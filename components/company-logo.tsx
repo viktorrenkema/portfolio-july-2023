@@ -90,8 +90,6 @@ export default function CompanyLogo({
 
         const leftTwentyPercent = windowWidth * (isMobile ? 0.1 : 0.22);
 
-        console.log({ isMobile });
-
         // Check if the element has passed the left 20% edge of the viewport on the x-axis
         if (left <= leftTwentyPercent && right >= leftTwentyPercent) {
           setActiveCompany(company);

@@ -48,3 +48,7 @@ button {
   padding: 0.5rem 1rem;
   font-weight: bold;
 }
+
+.ios-device {
+  top: 140px !important;
+}

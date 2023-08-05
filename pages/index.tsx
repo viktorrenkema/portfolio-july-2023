@@ -17,14 +17,22 @@ const Main = styled(motion.main)`
   position: relative;
 `;
 
-const StickyRolesContainer = styled(motion.div)`
+interface StickyRolesContainer {
+  $stickyMinHeight: number;
+}
+
+const StickyRolesContainer = styled(motion.div)<StickyRolesContainer>`
   min-height: ${({ $stickyMinHeight }) => `${$stickyMinHeight}px`};
   width: 100%;
   overflow: clip;
   overflow-y: visible; // remove this if this leads to scroll animation issues, it only impacts the framer cursor
 `;
 
-const CompaniesContainer = styled(motion.div)`
+interface CompaniesContainerProps {
+  $paddingLeft: string;
+}
+
+const CompaniesContainer = styled(motion.div)<CompaniesContainerProps>`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -32,13 +40,17 @@ const CompaniesContainer = styled(motion.div)`
   position: -webkit-sticky; /* Safari */
   position: sticky;
   gap: 3rem;
-  top: 20%;
+
+  // On mobile devices, the 'top' is set to fixed px as a fix for iOS bottom address bar hiding on scroll. Relative values of top: 20% causes jittering since the bottom address bar is causing the vh to increase,which affects percentual values.
+  top: 145px;
+
   // Warning: changes in padding can impact the caroussel calculations
   padding: 0 10%;
 
   @media ${device.tablet} {
     padding: 0 20%;
     gap: 4rem;
+    top: 20%;
   }
 `;
 
@@ -136,6 +148,11 @@ export default function Home() {
   const { viewportWidth } = useViewport();
   const isCarouselInView = useInView(ref, { amount: 0.1 });
   const isCarouselFullyInView = useInView(ref, { amount: 0.45 });
+  const [isIOS, setIsIOS] = useState(
+    typeof navigator !== "undefined"
+      ? /iPad|iPhone|iPod/.test(navigator.userAgent)
+      : null
+  );
 
   const [stickyMinHeight, setStickyMinHeight] = useState(1000);
   const [stickyCarouselEndPosition, setStickyCarouselEndPosition] = useState(0);
@@ -205,7 +222,6 @@ export default function Home() {
               initial="hide"
               isCarouselFullyInView={isCarouselFullyInView}
               stickyCarouselEndPosition={stickyCarouselEndPosition}
-              stickyMinHeight={stickyMinHeight}
               paddingLeft={paddingLeft}
             />
             <GradientOrange />

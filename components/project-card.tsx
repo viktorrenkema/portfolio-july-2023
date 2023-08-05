@@ -154,6 +154,7 @@ interface Props {
   firstDescription: string;
   secondDescription?: string;
   link?: string;
+  linkText?: string;
 }
 
 export default function ProjectCard({
