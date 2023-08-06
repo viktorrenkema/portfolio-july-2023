@@ -16,8 +16,8 @@ const Hyperlink = styled(motion.a)`
 `;
 
 const colorMap = {
-  github: "#aa7fd4 0%, #724dc1 100%",
-  email: "rgb(243 96 225) 0%, rgb(208 0 255) 100%",
+  github: "#c092ed 0%, #6c5bea 100%",
+  email: "#E536AB 0%, #EC61AB  100%",
   linkedin: "#0077b6 0%, #0040b6 100%",
   twitter: "#1b9bee 0%, #1b65ee 100%",
 };
@@ -41,7 +41,7 @@ export default function SocialButton({ text, url, variants }: Props) {
         "rgba(0, 0, 0, 0) 0px 0.70659px 2.96769px -0.625px, rgba(0, 0, 0, 0) 0px 1.80656px 7.58756px -1.25px, rgba(0, 0, 0, 0.0) 0px 3.62176px 15.2114px -1.875px, rgba(0, 0, 0, 0) 0px 6.8656px 28.8355px -2.5px, rgba(0, 0, 0, 0) 0px 13.6468px 57.3164px -3.125px, rgba(0, 0, 0, 0) 0px 30px 126px -3.75px",
     },
     hovered: {
-      background: `linear-gradient(0deg, ${colorMap[text]})`,
+      background: `linear-gradient(320deg, ${colorMap[text]})`,
       opacity: 1,
       transform: "scale(1.1)",
       boxShadow:
