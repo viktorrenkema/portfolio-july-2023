@@ -72,14 +72,13 @@ export const Carousel = forwardRef<HTMLDivElement, Props>((props, ref) => {
   const { isMobile } = useViewport();
   const { scrollYProgress } = useScroll();
   const [activeCompany, setActiveCompany] = useState("gitbook");
-  const [cardWidthRelativeToDocument, setCardWidthRelativeToDocument] =
-    useState(0);
+  const [relativeCardWidth, setRelativeCardWidth] = useState(0);
 
   useEffect(() => {
     const documentHeight =
       document.documentElement.scrollHeight || document.body.scrollHeight;
 
-    setCardWidthRelativeToDocument((cardWidth + 20) / documentHeight);
+    setRelativeCardWidth((cardWidth + 20) / documentHeight);
   }, []);
 
   const roles = [
@@ -158,25 +157,17 @@ export const Carousel = forwardRef<HTMLDivElement, Props>((props, ref) => {
     },
   ];
 
-  // x-position for <Companies/>
+  // x-position for Companies carousel
   const getLogosXPosition = () => {
-    if (isMobile) {
-      return useTransform(
-        scrollYProgress,
-        [0, cardWidthRelativeToDocument, cardWidthRelativeToDocument * 2],
-        [0, -180, -400]
-      );
-    }
+    const outputArray = isMobile ? [0, -180, -400] : [0, -245, -532];
+    const inputArray = isMobile
+      ? [0, relativeCardWidth * 1.8, relativeCardWidth * 3.6]
+      : [0, relativeCardWidth * 2.35, relativeCardWidth * 4.7];
 
-    // Default, if its not mobile
-    return useTransform(
-      scrollYProgress,
-      [0, cardWidthRelativeToDocument, cardWidthRelativeToDocument * 2],
-      [0, -245, -532]
-    );
+    return useTransform(scrollYProgress, inputArray, outputArray);
   };
 
-  // x-position for <JobCards/>
+  // x-position for JobCards carousel
   const x = useTransform(
     scrollYProgress,
     [0, stickyCarouselEndPosition],

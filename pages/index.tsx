@@ -135,7 +135,7 @@ const ParagraphsContainer = styled(motion.div)`
   }
 
   @media ${device.tablet} {
-    width: 60%;
+    width: 52%;
   }
 `;
 
