@@ -282,17 +282,16 @@ export default function Home() {
           <H1 variants={item}>Stuff I've done</H1>
           <ParagraphsContainer>
             <Paragraph>
-              I started learning web development late 2019, when I had started
-              at{" "}
+              I started learning front-end late 2019, after I started at{" "}
               <InlineHyperlink href="https://www.framer.com" target="_blank">
                 Framer
               </InlineHyperlink>
               . I was always fascinated with both human behaviour and
-              technology, and opted for a formal education in the former, so I
-              got a Bsc. and Msc. in Psychology.
+              technology, and opted to study the former, so I got a Bsc. and
+              Msc. in Psychology.
             </Paragraph>
             <Paragraph>
-              This means I didn't take any formal training in CS or bootcamps.
+              This means I didn't take any formal training in Computer Science.
               Everything I learned happened in my spare time through building
               projects. Below are some of these projects.
             </Paragraph>
@@ -302,8 +301,7 @@ export default function Home() {
         <ProjectsContainer>
           <ProjectCard
             title="Invoicer.studio"
-            firstDescription="I built an invoicer app at the start of 2023 with the aim of building a full product
-            from start to finish within a quarter, that required me to learn new technologies."
+            firstDescription="At the start of 2023 I set out to build a complete app around a new technology in Q1. This lead to an app to generate invoices, to learn more about pdf's and creating a live 'editor' in the web."
             link="https://invoicer.studio"
             asset="/images/projects/invoicer.png"
             alt="A screenshot of invoicer.studio, my invoice generator project"
@@ -314,7 +312,7 @@ export default function Home() {
         <ProjectsContainer>
           <ProjectCard
             title="Workout tracker"
-            firstDescription="As a frequent gym visitor, I wanted to track my workouts. Building my own PWA allowed me to build exactly the features I want myself."
+            firstDescription="As a frequent gym visitor, I wanted to track my workouts and get certain functionality like easily checking my previous stats. Building my own PWA allowed me to build exactly these features I wanted."
             link="https://esteem-app.vercel.app"
             asset="/images/projects/workout-tracker.png"
             alt="A screenshot of the workout app"
@@ -325,8 +323,8 @@ export default function Home() {
         <ProjectsContainer>
           <ProjectCard
             title="Trust factors on Ticketswap"
-            firstDescription="At Ticketswap, we were working to shorten the buy-flow, possibly eliminating a page that displayed trust factors. For a hackathon day, I explored with displaying these sooner in the flow in a fun and interactive way."
-            secondDescription="The project was well-received and approved for production, but I didn't get to finish it before I left."
+            firstDescription="At Ticketswap, we were aiming to shorten the buy-flow. This meant we'd possibly eliminate a page that displayed trust factors. For a hackathon day, I explored how we could retain them by displaying these sooner in the flow in a fun and interactive way."
+            secondDescription="The project was very well-received and approved to actually release to production."
             link="https://www.ticketswap.com"
             asset="/images/projects/ticketswap.gif"
             alt="An animated image of a popover displaying trust factors on hover"
