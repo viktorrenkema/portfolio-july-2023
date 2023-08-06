@@ -5,9 +5,13 @@ import { useEffect, useRef, useState } from "react";
 import { Carousel } from "../components/carousel";
 import ProjectCard from "../components/project-card";
 import SocialButton from "../components/social-button";
-import { device } from "../styles/theme";
+import { device, space } from "../styles/theme";
 import useViewport from "../components/hooks/useViewport";
-import { H1, Paragraph } from "../components/reusable/typography";
+import {
+  H1,
+  InlineHyperlink,
+  Paragraph,
+} from "../components/reusable/typography";
 
 const Main = styled(motion.main)`
   display: flex;
@@ -63,18 +67,26 @@ const GradientOrange = styled(motion.div)`
   z-index: -1;
   opacity: 1;
   left: 0;
-  opacity: 0.8;
+  opacity: 0.75;
+  pointer-events: none;
 `;
 
 const GradientBlue = styled(motion.div)`
   background: url("/images/gradients/green-blue.png") no-repeat center center;
-  width: 200vw;
-  height: 200vh;
+  width: 300vw;
+  height: 300vh;
   background-size: contain;
   position: absolute;
   z-index: -1;
-  bottom: 0px;
-  opacity: 0.8;
+  opacity: 0.75;
+  pointer-events: none;
+  bottom: -2850px;
+  left: -230px;
+
+  @media ${device.tablet} {
+    bottom: -3660px;
+    left: -1300px;
+  }
 `;
 
 const GradientPurple = styled(motion.div)`
@@ -84,9 +96,15 @@ const GradientPurple = styled(motion.div)`
   background-size: contain;
   position: absolute;
   z-index: -1;
-  top: 620px;
-  left: -824px;
-  opacity: 0.8;
+  top: 610px;
+  left: -289px;
+  opacity: 0.75;
+  pointer-events: none;
+
+  @media ${device.tablet} {
+    top: 620px;
+    left: -824px;
+  }
 `;
 
 const CompaniesHeadings = styled(motion.div)`
@@ -95,6 +113,30 @@ const CompaniesHeadings = styled(motion.div)`
   align-items: flex-start;
   justify-content: center;
   gap: 0.5rem;
+`;
+
+const BackgroundContainer = styled(motion.div)`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 8rem;
+`;
+
+const ParagraphsContainer = styled(motion.div)`
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  gap: ${space[12]};
+
+  p {
+    text-align: center;
+  }
+
+  @media ${device.tablet} {
+    width: 60%;
+  }
 `;
 
 const ProjectsContainer = styled(motion.div)`
@@ -159,7 +201,6 @@ export default function Home() {
   const { viewportWidth } = useViewport();
 
   const isCarouselInView = useInView(ref, { amount: 0.1 });
-  const isCarouselFullyInView = useInView(ref, { amount: 0.45 });
 
   const [stickyMinHeight, setStickyMinHeight] = useState(1000);
   const [stickyCarouselEndPosition, setStickyCarouselEndPosition] = useState(0);
@@ -233,8 +274,31 @@ export default function Home() {
             />
             <GradientOrange />
             <GradientPurple />
+            <GradientBlue />
           </CompaniesContainer>
         </StickyRolesContainer>
+
+        <BackgroundContainer>
+          <H1 variants={item}>Stuff I've done</H1>
+          <ParagraphsContainer>
+            <Paragraph>
+              I started learning web development late 2019, when I had started
+              at{" "}
+              <InlineHyperlink href="https://www.framer.com" target="_blank">
+                Framer
+              </InlineHyperlink>
+              . I was always fascinated with both human behaviour and
+              technology, and opted for a formal education in the former, so I
+              got a Bsc. and Msc. in Psychology.
+            </Paragraph>
+            <Paragraph>
+              This means I didn't take any formal training in CS or bootcamps.
+              Everything I learned happened in my spare time through building
+              projects. Below are some of these projects.
+            </Paragraph>
+          </ParagraphsContainer>
+        </BackgroundContainer>
+
         <ProjectsContainer>
           <ProjectCard
             title="Invoicer.studio"
@@ -246,6 +310,7 @@ export default function Home() {
             linkText="Visit invoicer.studio"
           />
         </ProjectsContainer>
+
         <ProjectsContainer>
           <ProjectCard
             title="Workout tracker"
@@ -268,7 +333,6 @@ export default function Home() {
             linkText="Visit ticketswap.com"
           />
         </ProjectsContainer>
-        <GradientBlue />
       </Main>
     </div>
   );

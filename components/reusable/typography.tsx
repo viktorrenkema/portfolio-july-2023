@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { colors, device, fontSize, fontWeight } from "../../styles/theme";
 
 export const H1 = styled(motion.h1)`
-  font-size: ${fontSize[32]};
+  font-size: ${fontSize[36]};
   font-weight: ${fontWeight["medium"]};
 
   @media ${device.mobile} {
@@ -35,6 +35,7 @@ export const H3 = styled(motion.h3)`
 export const Paragraph = styled(motion.p)`
   font-size: ${fontSize[13]};
   line-height: 1.4;
+  color: ${colors.textLighter};
 
   @media ${device.mobileL} {
     font-size: ${fontSize[14]};
@@ -49,4 +50,9 @@ export const Label = styled(motion.label)`
   @media ${device.mobileL} {
     font-size: ${fontSize[12]};
   }
+`;
+
+export const InlineHyperlink = styled(motion.a)`
+  color: ${colors.blue};
+  text-decoration: underline;
 `;

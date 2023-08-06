@@ -18,8 +18,7 @@ export const colors = {
   darkest: "#11131f",
   light: "#b4b4b4",
   lightest: "#fff",
-  avatarLighter: "#EBDAFF",
-  avatarDarker: "#C1BFFF",
+  textLighter: "#585858",
   // The card background/border effect
   cardBorderBackground: "#ffffff4a",
   // The cards within it
@@ -38,6 +37,7 @@ export const fontSize = {
   24: "1.5rem",
   28: "1.75rem",
   32: "2rem",
+  36: "2.25rem",
   56: "3.5rem",
 };
 

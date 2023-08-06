@@ -13,6 +13,7 @@ import { Arrow } from "./reusable/icons";
 import {
   colors,
   device,
+  fontSize,
   fontWeight,
   radius,
   shadows,
@@ -80,7 +81,6 @@ const ImageContainer = styled(motion.div)<ImageContainerProps>`
 
 const StyledParagraph = styled(Paragraph)`
   text-align: center;
-  font-size: 0.9rem;
   width: 90%;
 
   @media ${device.tablet} {
@@ -90,13 +90,13 @@ const StyledParagraph = styled(Paragraph)`
 
 const Hyperlink = styled(motion.a)`
   color: ${colors.blue};
-  font-size: 14px;
+  font-size: ${fontSize[14]};
   display: flex;
   gap: 5px;
   align-items: center;
   margin-top: auto;
-  padding: 4px 8px;
-  border-radius: 8px;
+  padding: ${space[4]} ${space[8]};
+  border-radius: ${radius["md"]};
 `;
 
 const LinkStaggerWrapper = styled(motion.div)`
