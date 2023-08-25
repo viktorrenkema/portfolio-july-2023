@@ -59,6 +59,7 @@ const Column = styled(motion.div)`
   flex-direction: column;
   align-items: center;
   gap: 0.5rem;
+  max-width: 1030px;
 `;
 
 interface ImageContainerProps {
@@ -154,6 +155,7 @@ interface Props {
   secondDescription?: string;
   link?: string;
   linkText?: string;
+  id: "ticketswap" | "invoicer" | "workout";
 }
 
 export default function ProjectCard({
@@ -164,6 +166,7 @@ export default function ProjectCard({
   link,
   alt,
   linkText,
+  id,
 }: Props) {
   const { scrollYProgress } = useScroll();
   const [startAndEndOfSticky, setStartAndEndOfSticky] = useState([0, 0]);

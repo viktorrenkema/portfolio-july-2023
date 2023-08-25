@@ -12,6 +12,7 @@ import {
   InlineHyperlink,
   Paragraph,
 } from "../components/reusable/typography";
+import { AboutMe } from "../components/about-me";
 
 const Main = styled(motion.main)`
   display: flex;
@@ -60,15 +61,41 @@ const CompaniesContainer = styled(motion.div)<CompaniesContainerProps>`
 const GradientOrange = styled(motion.div)`
   background: url("/images/gradients/yellow-orange-red.png") no-repeat center
     center;
-  width: 200vw;
-  height: 200vh;
+  width: 350vw;
+  height: 333vh;
   background-size: contain;
   position: absolute;
   z-index: -1;
   opacity: 1;
-  left: 0;
+  left: -300px;
   opacity: 0.75;
   pointer-events: none;
+
+  @media ${device.tablet} {
+    left: 0px;
+    width: 200vw;
+    height: 200vh;
+  }
+`;
+
+const GradientPurple = styled(motion.div)`
+  background: url("/images/gradients/purple-cyan.png") no-repeat center center;
+  width: 360vw;
+  height: 500vh;
+  background-size: contain;
+  position: absolute;
+  z-index: -1;
+  top: -800px;
+  left: -300px;
+  opacity: 0.75;
+  pointer-events: none;
+
+  @media ${device.tablet} {
+    top: 610px;
+    left: -824px;
+    width: 200vw;
+    height: 200vh;
+  }
 `;
 
 const GradientBlue = styled(motion.div)`
@@ -80,30 +107,17 @@ const GradientBlue = styled(motion.div)`
   z-index: -1;
   opacity: 0.75;
   pointer-events: none;
-  bottom: -2850px;
+  bottom: -2750px;
   left: -230px;
 
   @media ${device.tablet} {
     bottom: -3660px;
     left: -1300px;
   }
-`;
 
-const GradientPurple = styled(motion.div)`
-  background: url("/images/gradients/purple-cyan.png") no-repeat center center;
-  width: 200vw;
-  height: 200vh;
-  background-size: contain;
-  position: absolute;
-  z-index: -1;
-  top: 610px;
-  left: -289px;
-  opacity: 0.75;
-  pointer-events: none;
-
-  @media ${device.tablet} {
-    top: 620px;
-    left: -824px;
+  @media ${device.desktop} {
+    bottom: -5365px;
+    left: -1300px;
   }
 `;
 
@@ -113,30 +127,6 @@ const CompaniesHeadings = styled(motion.div)`
   align-items: flex-start;
   justify-content: center;
   gap: 0.5rem;
-`;
-
-const BackgroundContainer = styled(motion.div)`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  margin-top: 8rem;
-`;
-
-const ParagraphsContainer = styled(motion.div)`
-  width: 90%;
-  display: flex;
-  flex-direction: column;
-  gap: ${space[12]};
-
-  p {
-    text-align: center;
-  }
-
-  @media ${device.tablet} {
-    width: 52%;
-  }
 `;
 
 const ProjectsContainer = styled(motion.div)`
@@ -277,58 +267,40 @@ export default function Home() {
             <GradientBlue />
           </CompaniesContainer>
         </StickyRolesContainer>
-
-        <BackgroundContainer>
-          <H1 variants={item}>Stuff I've done</H1>
-          <ParagraphsContainer>
-            <Paragraph>
-              I started learning front-end late 2019, after I started at{" "}
-              <InlineHyperlink href="https://www.framer.com" target="_blank">
-                Framer
-              </InlineHyperlink>
-              . I was always fascinated with both human behaviour and
-              technology, and opted to study the former, so I got a Bsc. and
-              Msc. in Psychology.
-            </Paragraph>
-            <Paragraph>
-              This means I didn't take any formal training in Computer Science.
-              Everything I learned happened in my spare time through building
-              projects. Below are some of these projects.
-            </Paragraph>
-          </ParagraphsContainer>
-        </BackgroundContainer>
-
+        <AboutMe item={item} />
         <ProjectsContainer>
           <ProjectCard
             title="Invoicer.studio"
-            firstDescription="At the start of 2023 I set out to build a complete app around a new technology in Q1. This lead to an app to generate invoices, to learn more about pdf's and creating a live 'editor' in the web."
+            firstDescription="At the start of 2023 I set out to build a complete app from scratch to learn a new topic in web dev. This became an app to generate invoices, to learn more about pdf's and creating a live 'editor' in the web."
             link="https://invoicer.studio"
             asset="/images/projects/invoicer.png"
             alt="A screenshot of invoicer.studio, my invoice generator project"
             linkText="Visit invoicer.studio"
+            id="invoicer"
           />
         </ProjectsContainer>
-
         <ProjectsContainer>
           <ProjectCard
             title="Workout tracker"
-            firstDescription="As a frequent gym visitor, I wanted to track my workouts and get certain functionality like easily checking my previous stats. Building my own PWA allowed me to build exactly these features I wanted."
+            firstDescription="As a frequent gym visitor, I wanted to track my workouts and get certain functionality like easily checking my previous stats. I decided to build a PWA with my own tiny back-end, as I didn't have much experience yet with things like PWA's, node, and Firebase back then."
+            secondDescription="Aside from learning new tech, my other motivation was that I now had full control over which features I could create for my workouts."
             link="https://esteem-app.vercel.app"
             asset="/images/projects/workout-tracker.png"
             alt="A screenshot of the workout app"
             linkText="Visit the app (made for mobile)"
+            id="workout"
           />
         </ProjectsContainer>
-
         <ProjectsContainer>
           <ProjectCard
             title="Trust factors on Ticketswap"
-            firstDescription="At Ticketswap, we were aiming to shorten the buy-flow. This meant we'd possibly eliminate a page that displayed trust factors. For a hackathon day, I explored how we could retain them by displaying these sooner in the flow in a fun and interactive way."
-            secondDescription="The project was very well-received and approved to actually release to production."
+            firstDescription="At Ticketswap, we were aiming to shorten the buy-flow. This meant we'd possibly eliminate a page that displayed important trust factors. For a hackathon day, I explored how we could retain these by displaying them sooner in the flow in a fun and interactive way."
+            secondDescription="The project was very well-received and approved to go from a hackathon project to a production feature."
             link="https://www.ticketswap.com"
             asset="/images/projects/ticketswap.gif"
             alt="An animated image of a popover displaying trust factors on hover"
             linkText="Visit ticketswap.com"
+            id="ticketswap"
           />
         </ProjectsContainer>
       </Main>

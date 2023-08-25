@@ -16,9 +16,12 @@ interface CursorBodyProps {
   right: boolean;
 }
 
+const cursorLeft = "#ffc341";
+const cursorRight = "#ff6ef1";
+
 const CursorBody = styled(motion.div)<CursorBodyProps>`
   position: absolute;
-  background: ${({ right }) => (right ? "#00A3FF" : "#fd7702")};
+  background: ${({ right }) => (right ? cursorLeft : cursorRight)};
   color: ${colors.white};
   border-radius: 50px;
   display: flex;
@@ -98,7 +101,7 @@ const CursorArrow = ({ right }) => {
         </g>
         <path
           d="M 3.666 7.81 C 2.872 7.563 2.126 8.303 2.375 9.091 L 7.51 25.387 C 7.617 25.728 7.897 25.989 8.247 26.075 C 8.598 26.16 8.968 26.058 9.223 25.805 L 20.52 14.601 C 20.775 14.348 20.878 13.981 20.792 13.634 C 20.706 13.286 20.443 13.009 20.098 12.902 Z"
-          fill={right ? "#00A3FF" : "#fd7702"}
+          fill={right ? cursorLeft : cursorRight}
         ></path>
       </g>
     </svg>

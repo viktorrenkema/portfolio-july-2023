@@ -13,13 +13,14 @@ const Hyperlink = styled(motion.a)`
   justify-content: center;
   align-content: center;
   cursor: pointer;
+  background-size: contain;
 `;
 
-const colorMap = {
-  github: "#c092ed 0%, #6c5bea 100%",
-  email: "#E536AB 0%, #EC61AB  100%",
-  linkedin: "#0077b6 0%, #0040b6 100%",
-  twitter: "#1b9bee 0%, #1b65ee 100%",
+const backgroundMap = {
+  twitter: `url("/images/gradients/twitter-gradient.png")`,
+  email: `url("/images/gradients/email-gradient.png")`,
+  linkedin: `url("/images/gradients/linkedin-gradient.png")`,
+  github: `url("/images/gradients/github-gradient.png")`,
 };
 
 interface Props {
@@ -41,7 +42,7 @@ export default function SocialButton({ text, url, variants }: Props) {
         "rgba(0, 0, 0, 0) 0px 0.70659px 2.96769px -0.625px, rgba(0, 0, 0, 0) 0px 1.80656px 7.58756px -1.25px, rgba(0, 0, 0, 0.0) 0px 3.62176px 15.2114px -1.875px, rgba(0, 0, 0, 0) 0px 6.8656px 28.8355px -2.5px, rgba(0, 0, 0, 0) 0px 13.6468px 57.3164px -3.125px, rgba(0, 0, 0, 0) 0px 30px 126px -3.75px",
     },
     hovered: {
-      background: `linear-gradient(320deg, ${colorMap[text]})`,
+      backgroundImage: backgroundMap[text],
       opacity: 1,
       transform: "scale(1.1)",
       boxShadow:

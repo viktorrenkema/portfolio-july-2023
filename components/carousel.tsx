@@ -109,9 +109,9 @@ export const Carousel = forwardRef<HTMLDivElement, Props>((props, ref) => {
       id: 3,
       company: "framer",
       companyDescription:
-        "Framer is a web-based design tool which also renders React code, allowing for powerful designs with real components and APIs.",
+        "Framer is a design tool built on React, which allows designers to write and run custom code on top of their canvas.",
       description:
-        "As lead, I was responsible I received additional responsibilities like team strategy and onboarding new hires.",
+        "As lead, I was responsible for our top Enterprise teams and helped with team strategy and onboarding new hires.",
       dates: "Oct. 2021 - Apr. 2022",
       link: "https://www.framer.com",
     },
@@ -120,9 +120,9 @@ export const Carousel = forwardRef<HTMLDivElement, Props>((props, ref) => {
       id: 4,
       company: "framer",
       companyDescription:
-        "I helped teams like Spotify, Airbnb, Shopify and more leverage code in Framer.",
+        "I helped teams like Spotify, Airbnb, Shopify and more leverage code in Framer and build custom solutions.",
       description:
-        "For example, for EA Games I built a component to connect gamepads, helped import the Airbus design system, and connect barcode scanners to Shopify's prototypes.",
+        "Think of components connecting gamepads for EA Games, design systems of Airbus, and barcode scanners connected to Shopify's prototypes.",
       dates: "Jan. 2020 - Oct. 2021",
       link: "https://www.framer.com",
     },

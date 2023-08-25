@@ -3,19 +3,24 @@ import { motion } from "framer-motion";
 import { colors, device, fontSize, fontWeight } from "../../styles/theme";
 
 export const H1 = styled(motion.h1)`
-  font-size: ${fontSize[36]};
-  font-weight: ${fontWeight["medium"]};
+  font-size: ${fontSize[48]};
+  font-weight: ${fontWeight["bold"]};
+  letter-spacing: 1.2px;
+  font-family: "PPRadioGrotesk-Bold", sans-serif;
 
   @media ${device.mobile} {
-    font-size: ${fontSize[24]};
+    font-size: ${fontSize[36]};
   }
 `;
 
 export const H2 = styled(motion.h2)`
   font-size: ${fontSize[24]};
-  font-weight: ${fontWeight["medium"]};
+  font-weight: ${fontWeight["regular"]};
   text-align: center;
+  font-family: "PPRadioGrotesk-Regular", sans-serif;
+  letter-spacing: 1.25px;
   width: 80%;
+  color: #444444;
 
   @media ${device.mobile} {
     font-size: ${fontSize[22]};
@@ -26,6 +31,7 @@ export const H2 = styled(motion.h2)`
 export const H3 = styled(motion.h3)`
   font-size: ${fontSize[16]};
   font-weight: ${fontWeight["medium"]};
+  font-family: "PPRadioGrotesk-Regular", sans-serif;
 
   @media ${device.mobileL} {
     font-size: ${fontSize[20]};
