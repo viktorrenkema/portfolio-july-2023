@@ -9,6 +9,7 @@ import { device } from "../styles/theme";
 import useViewport from "../components/hooks/useViewport";
 import { H1, Paragraph } from "../components/reusable/typography";
 import { AboutMe } from "../components/about-me";
+import Footer from "../components/footer";
 
 const Main = styled(motion.main)`
   display: flex;
@@ -286,6 +287,7 @@ export default function Home() {
             id="ticketswap"
           />
         </ProjectsContainer>
+        <Footer />
       </Main>
     </div>
   );

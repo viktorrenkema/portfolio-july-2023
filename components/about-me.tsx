@@ -33,7 +33,7 @@ const ParagraphsContainer = styled(motion.div)`
   }
 `;
 
-const container = {
+export const container = {
   hidden: { opacity: 0, y: 10 },
   show: {
     opacity: 1,
@@ -46,7 +46,7 @@ const container = {
   },
 };
 
-const item = {
+export const item = {
   hidden: { opacity: 0, y: 10 },
   show: {
     opacity: 1,

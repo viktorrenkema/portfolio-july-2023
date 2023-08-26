@@ -17,13 +17,13 @@ interface CursorBodyProps {
 }
 
 const cursorLeft = "#ffc341";
-const cursorRight = "#ff6ef1";
+const cursorRight = "#7be010";
 
 const CursorBody = styled(motion.div)<CursorBodyProps>`
   position: absolute;
   background: ${({ right }) => (right ? cursorLeft : cursorRight)};
   color: ${colors.white};
-  border-radius: 50px;
+  border-radius: 18px;
   display: flex;
   flex-direction: row;
   justify-content: center;

@@ -171,13 +171,6 @@ export const Carousel = forwardRef<HTMLDivElement, Props>((props, ref) => {
     },
   ];
 
-  // useMotionValueEvent(scrollYProgress, "change", (latest) => {
-  //   console.log("scrollYProgress: ", latest);
-  // });
-  // useMotionValueEvent(cardsXMobile, "change", (latest) => {
-  //   console.log("cardsXMobile: ", latest);
-  // });
-
   return (
     <CarouselWrapper
       ref={ref}

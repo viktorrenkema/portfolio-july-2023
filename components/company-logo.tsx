@@ -125,7 +125,11 @@ export default function CompanyLogo({
             variants={arrowVariants}
             initial="default"
           >
-            <ArrowInCircle colors={colors} company={company} />
+            <ArrowInCircle
+              colors={colors}
+              company={company}
+              hovered={hovered}
+            />
           </LinkIndicator>
         </LogoBackground>
       </Container>

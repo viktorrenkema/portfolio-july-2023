@@ -39,7 +39,7 @@ export const H3 = styled(motion.h3)`
 export const Paragraph = styled(motion.p)`
   font-size: ${fontSize[13]};
   line-height: 1.4;
-  color: ${colors.textLighter};
+  color: ${({ color }) => color || colors.textLighter};
 
   @media ${device.mobileL} {
     font-size: ${fontSize[14]};

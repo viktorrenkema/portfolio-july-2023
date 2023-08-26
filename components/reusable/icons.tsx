@@ -1,20 +1,5 @@
 import { motion } from "framer-motion";
 
-export const ArrowInCircle = ({ colors, company, color }) => {
-  return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23">
-      <path
-        d="M 11.5 0 C 5.149 0 0 5.149 0 11.5 C 0 17.851 5.149 23 11.5 23 C 17.851 23 23 17.851 23 11.5 C 22.993 5.151 17.849 0.007 11.5 0 Z"
-        fill={colors[2] || colors[company][2]}
-      ></path>
-      <path
-        d="M 16.357 12.042 L 12.819 15.58 C 12.472 15.92 11.917 15.917 11.574 15.574 C 11.231 15.231 11.228 14.676 11.567 14.329 L 13.596 12.301 L 6.885 12.301 C 6.396 12.301 6 11.905 6 11.416 C 6 10.928 6.396 10.531 6.885 10.531 L 13.595 10.531 L 11.568 8.503 C 11.229 8.157 11.232 7.602 11.575 7.259 C 11.918 6.916 12.473 6.913 12.82 7.252 L 16.358 10.79 C 16.611 11.044 16.686 11.425 16.55 11.755 C 16.505 11.863 16.44 11.96 16.358 12.042 Z"
-        fill={colors[0] || colors[company][0]}
-      ></path>
-    </svg>
-  );
-};
-
 const arrowVariants = {
   default: {
     transform: "rotate(320deg)",
@@ -22,6 +7,57 @@ const arrowVariants = {
   hovered: {
     transform: "rotate(360deg)",
   },
+};
+
+export const ArrowInCircle = ({
+  colors,
+  company,
+  color,
+  className,
+  large = false,
+  hovered,
+}) => {
+  if (large) {
+    return (
+      <motion.svg
+        className={className}
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 23 23" // Keep viewBox the same as original
+        width="34.5" // 1.5x the original width
+        height="34.5" // 1.5x the original height
+      >
+        <motion.path
+          d="M 11.5 0 C 5.149 0 0 5.149 0 11.5 C 0 17.851 5.149 23 11.5 23 C 17.851 23 23 17.851 23 11.5 C 22.993 5.151 17.849 0.007 11.5 0 Z"
+          fill={colors[2] || colors[company][2]}
+        ></motion.path>
+        <motion.path
+          d="M 16.357 12.042 L 12.819 15.58 C 12.472 15.92 11.917 15.917 11.574 15.574 C 11.231 15.231 11.228 14.676 11.567 14.329 L 13.596 12.301 L 6.885 12.301 C 6.396 12.301 6 11.905 6 11.416 C 6 10.928 6.396 10.531 6.885 10.531 L 13.595 10.531 L 11.568 8.503 C 11.229 8.157 11.232 7.602 11.575 7.259 C 11.918 6.916 12.473 6.913 12.82 7.252 L 16.358 10.79 C 16.611 11.044 16.686 11.425 16.55 11.755 C 16.505 11.863 16.44 11.96 16.358 12.042 Z"
+          fill={colors[0] || colors[company][0]}
+        ></motion.path>
+      </motion.svg>
+    );
+  }
+
+  return (
+    <motion.svg
+      className={className}
+      xmlns="http://www.w3.org/2000/svg"
+      width="23"
+      height="23"
+    >
+      <motion.path
+        d="M 11.5 0 C 5.149 0 0 5.149 0 11.5 C 0 17.851 5.149 23 11.5 23 C 17.851 23 23 17.851 23 11.5 C 22.993 5.151 17.849 0.007 11.5 0 Z"
+        fill={colors[2] || colors[company][2]}
+      ></motion.path>
+      <motion.path
+        d="M 16.357 12.042 L 12.819 15.58 C 12.472 15.92 11.917 15.917 11.574 15.574 C 11.231 15.231 11.228 14.676 11.567 14.329 L 13.596 12.301 L 6.885 12.301 C 6.396 12.301 6 11.905 6 11.416 C 6 10.928 6.396 10.531 6.885 10.531 L 13.595 10.531 L 11.568 8.503 C 11.229 8.157 11.232 7.602 11.575 7.259 C 11.918 6.916 12.473 6.913 12.82 7.252 L 16.358 10.79 C 16.611 11.044 16.686 11.425 16.55 11.755 C 16.505 11.863 16.44 11.96 16.358 12.042 Z"
+        fill={colors[0] || colors[company][0]}
+        variants={arrowVariants}
+        initial="default"
+        animate={hovered ? "hovered" : "default"}
+      ></motion.path>
+    </motion.svg>
+  );
 };
 
 export const Arrow = ({ hovered, color }) => {
