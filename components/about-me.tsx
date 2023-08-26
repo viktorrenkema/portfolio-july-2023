@@ -1,14 +1,9 @@
-import {
-  motion,
-  useMotionValue,
-  useScroll,
-  useSpring,
-  useTransform,
-} from "framer-motion";
-import React, { MouseEvent, useRef } from "react";
+import { motion } from "framer-motion";
+import React from "react";
 import { styled } from "styled-components";
-import { H1, InlineHyperlink, Paragraph } from "./reusable/typography";
+import { H1, Paragraph } from "./reusable/typography";
 import { device, radius, space } from "../styles/theme";
+import { InlineHyperlink } from "./inline-hyperlink";
 
 const BackgroundContainer = styled(motion.div)`
   display: flex;
@@ -126,15 +121,14 @@ export const AboutMe = ({ item }) => {
       <H1 variants={item}>Things I built</H1>
       <ParagraphsContainer>
         <Paragraph>
-          I pursued a degree in Psychology and only started learning code after
-          joining{" "}
-          <InlineHyperlink href="https://www.framer.com" target="_blank">
+          I pursued a degree in Psychology and only after joining{" "}
+          <InlineHyperlink href="https://www.framer.com">
             Framer
-          </InlineHyperlink>
-          .
+          </InlineHyperlink>{" "}
+          I started learning code.
         </Paragraph>
         <Paragraph>
-          Here's some projects that taught me a lot along the way.
+          Below are some projects that taught me a lot along the way.
         </Paragraph>
       </ParagraphsContainer>
     </BackgroundContainer>

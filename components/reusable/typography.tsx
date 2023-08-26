@@ -57,8 +57,3 @@ export const Label = styled(motion.label)`
     font-size: ${fontSize[12]};
   }
 `;
-
-export const InlineHyperlink = styled(motion.a)`
-  color: ${colors.blue};
-  text-decoration: underline;
-`;

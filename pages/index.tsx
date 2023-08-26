@@ -254,7 +254,7 @@ export default function Home() {
         <ProjectsContainer>
           <ProjectCard
             title="Invoicer.studio"
-            firstDescription="At the start of 2023 I set out to build a complete app from scratch to learn a new topic in web dev. This became an app to generate invoices, to learn more about pdf's and creating a live 'editor' in the web."
+            firstDescription="At the start of 2023 I set out to build a complete app from scratch to learn a new topic in web dev. This became an app to generate invoices, to learn more about pdf's and creating a live UI editor in the web."
             link="https://invoicer.studio"
             asset="/images/projects/invoicer.png"
             alt="A screenshot of invoicer.studio, my invoice generator project"

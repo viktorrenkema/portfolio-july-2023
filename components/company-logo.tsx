@@ -22,7 +22,7 @@ const LogoBackground = styled(motion.div)`
   height: fit-content;
 `;
 
-const LinkIndicator = styled(motion.div)`
+export const LinkIndicator = styled(motion.div)`
   display: flex;
   align-items: center;
   justify-content: center;
