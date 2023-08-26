@@ -5,13 +5,9 @@ import { useEffect, useRef, useState } from "react";
 import { Carousel } from "../components/carousel";
 import ProjectCard from "../components/project-card";
 import SocialButton from "../components/social-button";
-import { device, space } from "../styles/theme";
+import { device } from "../styles/theme";
 import useViewport from "../components/hooks/useViewport";
-import {
-  H1,
-  InlineHyperlink,
-  Paragraph,
-} from "../components/reusable/typography";
+import { H1, Paragraph } from "../components/reusable/typography";
 import { AboutMe } from "../components/about-me";
 
 const Main = styled(motion.main)`
@@ -193,7 +189,6 @@ export default function Home() {
   const isCarouselInView = useInView(ref, { amount: 0.1 });
 
   const [stickyMinHeight, setStickyMinHeight] = useState(1000);
-  const [stickyCarouselEndPosition, setStickyCarouselEndPosition] = useState(0);
 
   useEffect(() => {
     const element = ref.current;
@@ -201,17 +196,6 @@ export default function Home() {
 
     setStickyMinHeight(Math.floor(width * 2));
   }, []);
-
-  useEffect(() => {
-    setTimeout(() => {
-      const documentHeight =
-        document.documentElement.scrollHeight || document.body.scrollHeight;
-
-      const endOfStickyInPercentage = stickyMinHeight / documentHeight;
-
-      setStickyCarouselEndPosition(endOfStickyInPercentage);
-    }, 200);
-  }, [stickyMinHeight]);
 
   const paddingLeft = viewportWidth > 425 ? "0 20%" : "0 10%";
 
@@ -260,7 +244,6 @@ export default function Home() {
               animate={"show"}
               variants={appearVariants}
               initial="hide"
-              stickyCarouselEndPosition={stickyCarouselEndPosition}
             />
             <GradientOrange />
             <GradientPurple />

@@ -1,8 +1,13 @@
-import { forwardRef, useEffect, useState } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { forwardRef, useState } from "react";
+import {
+  motion,
+  useMotionValueEvent,
+  useScroll,
+  useTransform,
+} from "framer-motion";
 import { styled } from "styled-components";
 import CompanyLogo from "./company-logo";
-import PreviousJobCard from "./previous-job-card";
+import JobCard from "./job-card";
 import { colors, device, fontSize, fontWeight, space } from "../styles/theme";
 import useViewport from "./hooks/useViewport";
 import { CompanyData } from "./types";
@@ -57,8 +62,6 @@ const variantsCompanyLogo = {
   },
 };
 
-const cardWidth = 435;
-
 interface Props {
   animate: string;
   variants: any;
@@ -67,19 +70,30 @@ interface Props {
 }
 
 export const Carousel = forwardRef<HTMLDivElement, Props>((props, ref) => {
-  const { animate, variants, initial, stickyCarouselEndPosition } = props;
-
+  const { animate, variants, initial } = props;
   const { isMobile } = useViewport();
   const { scrollYProgress } = useScroll();
   const [activeCompany, setActiveCompany] = useState("gitbook");
-  const [relativeCardWidth, setRelativeCardWidth] = useState(0);
 
-  useEffect(() => {
-    const documentHeight =
-      document.documentElement.scrollHeight || document.body.scrollHeight;
+  // The percentages of the scrollYProgress at which each job-card is at 20% from the left, follows [gitbook, ticketswap, framer]
+  const waypoints = [0, 0.25, 0.5];
+  const waypointsMobile = [0, 0.185, 0.385];
 
-    setRelativeCardWidth((cardWidth + 20) / documentHeight);
-  }, []);
+  // The x-positions where each company logo is exactly at 20% from the left, follows [gitbook, ticketswap, framer]
+  const logoPositions = [0, -250, -535];
+  const logoPositionsMobile = [0, -185, -405];
+
+  // The x-positions where each job card is exactly at 20% from the left, follows [gitbook, ticketswap, framer]
+  const cardsPositions = [0, -460, -910];
+  const cardsPositionsMobile = [0, -390, -810];
+
+  // Hooks to manage x-positions for both carousels
+  const logosX = isMobile
+    ? useTransform(scrollYProgress, waypointsMobile, logoPositionsMobile)
+    : useTransform(scrollYProgress, waypoints, logoPositions);
+  const cardsX = isMobile
+    ? useTransform(scrollYProgress, waypointsMobile, cardsPositionsMobile)
+    : useTransform(scrollYProgress, waypoints, cardsPositions);
 
   const roles = [
     {
@@ -157,22 +171,12 @@ export const Carousel = forwardRef<HTMLDivElement, Props>((props, ref) => {
     },
   ];
 
-  // x-position for Companies carousel
-  const getLogosXPosition = () => {
-    const outputArray = isMobile ? [0, -180, -400] : [0, -245, -532];
-    const inputArray = isMobile
-      ? [0, relativeCardWidth * 1.8, relativeCardWidth * 3.6]
-      : [0, relativeCardWidth * 2.35, relativeCardWidth * 4.7];
-
-    return useTransform(scrollYProgress, inputArray, outputArray);
-  };
-
-  // x-position for JobCards carousel
-  const x = useTransform(
-    scrollYProgress,
-    [0, stickyCarouselEndPosition],
-    [0, -1072]
-  );
+  // useMotionValueEvent(scrollYProgress, "change", (latest) => {
+  //   console.log("scrollYProgress: ", latest);
+  // });
+  // useMotionValueEvent(cardsXMobile, "change", (latest) => {
+  //   console.log("cardsXMobile: ", latest);
+  // });
 
   return (
     <CarouselWrapper
@@ -181,7 +185,7 @@ export const Carousel = forwardRef<HTMLDivElement, Props>((props, ref) => {
       initial={initial}
       variants={variants}
     >
-      <Companies style={{ x: getLogosXPosition() }}>
+      <Companies style={{ x: logosX }}>
         {companies.map(({ company, link, logo }) => (
           <CompanyLogo
             key={company}
@@ -196,9 +200,9 @@ export const Carousel = forwardRef<HTMLDivElement, Props>((props, ref) => {
         ))}
       </Companies>
 
-      <JobCards style={{ x }}>
+      <JobCards style={{ x: cardsX }}>
         {roles.map((roleEntry) => (
-          <PreviousJobCard
+          <JobCard
             key={roleEntry.id}
             roleEntry={roleEntry}
             activeCompany={activeCompany}

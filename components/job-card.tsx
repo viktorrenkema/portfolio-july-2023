@@ -5,14 +5,17 @@ import {
   useScroll,
   AnimatePresence,
   useMotionTemplate,
+  useMotionValueEvent,
 } from "framer-motion";
-import { AnchorHTMLAttributes, useRef } from "react";
+import { useRef } from "react";
 import { Cursor } from "./framer-cursor";
 import GitbookBranching from "./gitbook-branching";
-import { colors, device, fontWeight, radius, shadows } from "../styles/theme";
+import { colors, fontWeight, radius, shadows } from "../styles/theme";
 import useViewport from "./hooks/useViewport";
 import { H3, Label, Paragraph } from "./reusable/typography";
 import { TicketswapTracing } from "./ticketswap-tracing";
+
+// interface BorderWrapperProps {}
 
 const BorderWrapper = styled(motion.li)`
   display: flex;
@@ -23,6 +26,8 @@ const BorderWrapper = styled(motion.li)`
   height: 100%;
   z-index: ${({ id }) => id};
   background: ${colors.cardBorderBackground};
+  /* background: ${({ cardIsFramerAndFinalTwo }) =>
+    cardIsFramerAndFinalTwo ? colors.white : colors.cardBorderBackground}; */
 `;
 
 interface CardProps {
@@ -69,40 +74,81 @@ const JobCardVariants = {
   },
 };
 
-export default function PreviousJobCard({ roleEntry, activeCompany }) {
-  const { role, company, companyDescription, description, dates, id } =
-    roleEntry;
+const variants = {
+  hidden: {
+    opacity: 0.2,
+  },
+  show: {
+    opacity: 1,
+  },
+};
 
+export default function JobCard({ roleEntry, activeCompany }) {
   const ref = useRef(null);
   const { scrollYProgress } = useScroll();
-  const { isMobile } = useViewport();
+  const { isMobile, isTablet, isLarge, isXLarge } = useViewport();
 
-  const variants = {
-    hidden: {
-      opacity: 0.2,
-    },
-    show: {
-      opacity: 1,
-    },
-  };
-
-  const getOffsetLastFramerCards = () => {
-    if (isMobile) {
-      return id === 5 ? -520 : -420;
-    }
-
-    return id === 5 ? -620 : -310;
-  };
-
-  const overlappingCard = activeCompany === "framer" && (id === 4 || id === 5);
+  const { role, company, companyDescription, description, dates, id } =
+    roleEntry;
   const cardIsActive = activeCompany === company;
 
-  // Transform of translateX for the final 2 Framer cards
-  const x = useTransform(
+  // Create a configuration object for the different situations
+  const config = {
+    firstCard: {
+      isMobile: { waypoints: [0.38, 0.6], position: [0, -380] },
+      isTablet: { waypoints: [0.45, 0.55], position: [0, -380] },
+      default: { waypoints: [0.5, 0.65], position: [0, -275] },
+      isLarge: { waypoints: [0.5, 0.65], position: [0, -260] },
+      isXLarge: { waypoints: [0.5, 0.65], position: [0, -175] },
+    },
+    secondCard: {
+      isMobile: { waypoints: [0.53, 0.65], position: [0, -760] },
+      isTablet: { waypoints: [0.475, 0.6], position: [0, -760] },
+      default: { waypoints: [0.5, 0.65], position: [0, -550] },
+      isLarge: { waypoints: [0.5, 0.65], position: [0, -520] },
+      isXLarge: { waypoints: [0.5, 0.65], position: [0, -350] },
+    },
+  };
+
+  // Function to get the correct config for a card
+  const getCardConfig = (card, { isLarge, isXLarge, isMobile }) => {
+    if (isXLarge) return config[card].isXLarge;
+    if (isLarge) return config[card].isLarge;
+    if (isTablet) return config[card].isTablet;
+    if (isMobile) return config[card].isMobile;
+    return config[card].default;
+  };
+
+  // Use the config to get the correct values for the first and second overlapping cards
+  const firstCardConfig = getCardConfig("firstCard", {
+    isLarge,
+    isXLarge,
+    isTablet,
+    isMobile,
+  });
+  const firstOverlappingCard = useTransform(
     scrollYProgress,
-    [0.55, 0.7],
-    [0, getOffsetLastFramerCards()]
+    firstCardConfig.waypoints,
+    firstCardConfig.position
   );
+
+  const secondCardConfig = getCardConfig("secondCard", {
+    isLarge,
+    isXLarge,
+    isTablet,
+    isMobile,
+  });
+  const secondOverlappingCard = useTransform(
+    scrollYProgress,
+    secondCardConfig.waypoints,
+    secondCardConfig.position
+  );
+
+  const overlappingCardsMap = {
+    3: 0,
+    4: firstOverlappingCard,
+    5: secondOverlappingCard,
+  };
 
   // Transforms for the Ticketswap line tracing and Framer cursors
   const yCursor1 = useTransform(scrollYProgress, [0.3, 0.6], [40, -80]);
@@ -114,9 +160,11 @@ export default function PreviousJobCard({ roleEntry, activeCompany }) {
   const fill = useMotionTemplate`rgb(237 248 255 / ${alphaChannel}%)`;
   const scale = useTransform(scrollYProgress, [0.25, 0.4], [1, 1.13]);
 
+  const cardIsFramerAndFinalTwo = activeCompany === "framer" && id > 3;
+
   return (
     <BorderWrapper
-      style={{ x: overlappingCard ? x : 0 }}
+      style={{ x: !cardIsFramerAndFinalTwo ? 0 : overlappingCardsMap[id] }}
       id={id}
       ref={ref}
       variants={JobCardVariants}

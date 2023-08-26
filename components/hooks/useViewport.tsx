@@ -3,12 +3,17 @@ import { useState, useEffect } from "react";
 const useViewport = () => {
   const [viewportWidth, setViewportWidth] = useState(null);
   const [isMobile, setIsMobile] = useState(false);
+  const [isTablet, setIsTablet] = useState(false);
+  const [isLarge, setIsLarge] = useState(false);
+  const [isXLarge, setIsXLarge] = useState(false);
 
   useEffect(() => {
-    setViewportWidth(window.innerWidth);
     const handleWindowResize = () => {
       setViewportWidth(window.innerWidth);
       setIsMobile(window.innerWidth < 425);
+      setIsTablet(window.innerWidth >= 425 && window.innerWidth < 768);
+      setIsLarge(window.innerWidth >= 1440);
+      setIsXLarge(window.innerWidth >= 2560);
     };
 
     handleWindowResize();
@@ -21,6 +26,9 @@ const useViewport = () => {
   useEffect(() => {
     if (viewportWidth !== null) {
       setIsMobile(viewportWidth < 425);
+      setIsTablet(viewportWidth >= 425 && window.innerWidth < 768);
+      setIsLarge(viewportWidth >= 1440);
+      setIsXLarge(viewportWidth >= 2560);
     }
   }, [viewportWidth]);
 
@@ -33,6 +41,9 @@ const useViewport = () => {
 
   return {
     isMobile,
+    isTablet,
+    isLarge,
+    isXLarge,
     viewportWidth,
     calculatedImageHeight: Math.floor(height),
   };
