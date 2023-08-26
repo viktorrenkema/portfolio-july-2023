@@ -34,8 +34,7 @@ export default function SocialButton({ text, url, variants }: Props) {
 
   const buttonVariants = {
     default: {
-      background:
-        "linear-gradient(0deg, rgb(242, 242, 242, 0%) 0%, rgb(242, 242, 242, 0%) 100%)",
+      background: "none",
       opacity: 1,
       transform: "scale(1)",
       boxShadow:

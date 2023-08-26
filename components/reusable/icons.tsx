@@ -25,7 +25,6 @@ const arrowVariants = {
 };
 
 export const Arrow = ({ hovered, color }) => {
-  console.log(hovered);
   return (
     <motion.svg
       xmlns="http://www.w3.org/2000/svg"
@@ -37,7 +36,7 @@ export const Arrow = ({ hovered, color }) => {
     >
       <motion.path
         d="M 13.549 8.126 L 10.011 11.664 C 9.664 12.003 9.109 12 8.766 11.658 C 8.423 11.315 8.42 10.76 8.759 10.413 L 10.788 8.385 L 4.077 8.385 C 3.588 8.385 3.192 7.989 3.192 7.5 C 3.192 7.011 3.588 6.615 4.077 6.615 L 10.787 6.615 L 8.76 4.587 C 8.421 4.24 8.424 3.685 8.767 3.342 C 9.11 3 9.665 2.997 10.012 3.336 L 13.55 6.874 C 13.803 7.128 13.878 7.508 13.742 7.839 C 13.697 7.946 13.632 8.044 13.55 8.126 Z"
-        fill={color || "#0055ff"}
+        fill={color || "rgb(0, 153, 255, 1)"}
       ></motion.path>
     </motion.svg>
   );

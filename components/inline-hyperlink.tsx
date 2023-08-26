@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import styled from "styled-components";
-import { colors, fontSize } from "../styles/theme";
+import { fontSize } from "../styles/theme";
 import React from "react";
 import { Arrow } from "./reusable/icons";
 
@@ -16,9 +16,9 @@ export const Anchor = styled(motion.a)`
   color: rgb(0, 153, 255, 1);
   line-height: 1.4;
 
-  /* @media ${device.mobileL} {
-    font-size: ${fontSize[20]};
-  } */
+  &:hover {
+    text-decoration: underline;
+  }
 `;
 
 export const InlineHyperlink = ({ children, href }) => {
@@ -54,7 +54,7 @@ export const InlineHyperlink = ({ children, href }) => {
       }}
       target="_blank"
       animate={hovered ? "hover" : "default"}
-      variants={arrowVariants}
+      // variants={arrowVariants}
       initial="default"
     >
       {children}

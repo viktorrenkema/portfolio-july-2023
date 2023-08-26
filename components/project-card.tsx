@@ -20,6 +20,7 @@ import {
   space,
 } from "../styles/theme";
 import useViewport from "./hooks/useViewport";
+import { InlineHyperlink } from "./inline-hyperlink";
 
 const Container = styled(motion.div)`
   display: flex;
@@ -90,7 +91,7 @@ const StyledParagraph = styled(Paragraph)`
 `;
 
 const Hyperlink = styled(motion.a)`
-  color: ${colors.blue};
+  color: rgb(0, 153, 255, 1);
   font-size: ${fontSize[14]};
   display: flex;
   gap: 5px;
@@ -131,15 +132,15 @@ const item = {
 
 const hyperlinkVariants = {
   hover: {
-    background: "#0055ff0d",
-    border: "0px solid #0055ff1f",
-    boxShadow: `0 0 0 2px #0055ff1f, 0 0 0 4px #0055ff1f`,
+    background: "rgb(0, 153, 255, 0.1)",
+    border: "0px solid rgb(0, 153, 255, 0.25)",
+    boxShadow: `0 0 0 2px rgb(0, 153, 255, 0.5), 0 0 0 4px rgb(0, 153, 255, 0.25)`,
   },
   show: {
     opacity: 1,
     y: 0,
     background: "#0055ff00",
-    boxShadow: `0 0 0 0px #0055ff00, 0 0 0 0px #0055ff5d`,
+    boxShadow: `0 0 0 0px rgb(0, 153, 255, 0), 0 0 0 0px rgb(0, 153, 255, 0.25)`,
     transition: {
       duration: 0.5,
       ease: "easeIn",
@@ -242,6 +243,7 @@ export default function ProjectCard({
         )}
         {link && (
           <LinkStaggerWrapper variants={item}>
+            {/* <InlineHyperlink href={link}>{linkText}</InlineHyperlink> */}
             <Hyperlink
               target="_blank"
               href={link}

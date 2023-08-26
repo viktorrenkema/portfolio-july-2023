@@ -5,7 +5,6 @@ import { colors, device, fontSize, fontWeight } from "../../styles/theme";
 export const H1 = styled(motion.h1)`
   font-size: ${fontSize[48]};
   font-weight: ${fontWeight["bold"]};
-  letter-spacing: 1.2px;
   font-family: "PPRadioGrotesk-Bold", sans-serif;
 
   @media ${device.mobile} {
@@ -18,7 +17,6 @@ export const H2 = styled(motion.h2)`
   font-weight: ${fontWeight["regular"]};
   text-align: center;
   font-family: "PPRadioGrotesk-Regular", sans-serif;
-  letter-spacing: 1.25px;
   width: 80%;
   color: #444444;
 
