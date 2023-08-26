@@ -155,8 +155,12 @@ export default function JobCard({ roleEntry, activeCompany }) {
   const xCursor1 = useTransform(scrollYProgress, [0.3, 0.6], [-20, 50]);
   const yCursor2 = useTransform(scrollYProgress, [0.5, 0.8], [-70, 15]);
   const xCursor2 = useTransform(scrollYProgress, [0.5, 0.8], [0, -70]);
-  const alphaChannel = useTransform(scrollYProgress, [0.22, 0.3], [0, 100]);
-  const pathLength = useTransform(scrollYProgress, [0.28, 0.38], [0, 1]);
+  const alphaChannel = isMobile
+    ? useTransform(scrollYProgress, [0.2, 0.3], [0, 100])
+    : useTransform(scrollYProgress, [0.3, 0.45], [0, 100]);
+  const pathLength = isMobile
+    ? useTransform(scrollYProgress, [0.1, 0.2], [0, 1])
+    : useTransform(scrollYProgress, [0.25, 0.4], [0, 1]);
   const fill = useMotionTemplate`rgb(237 248 255 / ${alphaChannel}%)`;
   const scale = useTransform(scrollYProgress, [0.25, 0.4], [1, 1.13]);
 

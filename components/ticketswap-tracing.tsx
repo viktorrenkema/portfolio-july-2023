@@ -19,7 +19,7 @@ const Icon = styled(motion.svg)`
 `;
 
 const Path = styled(motion.path)`
-  stroke: #0099ff45;
+  stroke: #0099ff7d;
   stroke-width: 1.5;
 `;
 

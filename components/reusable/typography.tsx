@@ -28,8 +28,8 @@ export const H2 = styled(motion.h2)`
 
 export const H3 = styled(motion.h3)`
   font-size: ${fontSize[16]};
-  font-weight: ${fontWeight["medium"]};
-  font-family: "PPRadioGrotesk-Regular", sans-serif;
+  font-weight: ${fontWeight["bold"]};
+  font-family: "PPRadioGrotesk-Bold", sans-serif;
 
   @media ${device.mobileL} {
     font-size: ${fontSize[20]};

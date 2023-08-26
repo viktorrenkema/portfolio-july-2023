@@ -194,7 +194,7 @@ export default function Home() {
     const element = ref.current;
     const { width } = element.getBoundingClientRect();
 
-    setStickyMinHeight(Math.floor(width * 2));
+    setStickyMinHeight(Math.floor(width * 2.5));
   }, []);
 
   const paddingLeft = viewportWidth > 425 ? "0 20%" : "0 10%";

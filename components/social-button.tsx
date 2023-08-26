@@ -47,6 +47,13 @@ export default function SocialButton({ text, url, variants }: Props) {
       boxShadow:
         "rgba(0, 0, 0, 0.15) 0px 0.70659px 2.96769px -0.625px, rgba(0, 0, 0, 0.145) 0px 1.80656px 7.58756px -1.25px, rgba(0, 0, 0, 0.137) 0px 3.62176px 15.2114px -1.875px, rgba(0, 0, 0, 0.125) 0px 6.8656px 28.8355px -2.5px, rgba(0, 0, 0, 0.106) 0px 13.6468px 57.3164px -3.125px, rgba(0, 0, 0, 0.05) 0px 30px 126px -3.75px",
     },
+    press: {
+      backgroundImage: backgroundMap[text],
+      opacity: 1,
+      transform: "scale(1.1)",
+      boxShadow:
+        "rgba(0, 0, 0, 0.15) 0px 0.70659px 2.96769px -0.625px, rgba(0, 0, 0, 0.145) 0px 1.80656px 7.58756px -1.25px, rgba(0, 0, 0, 0.137) 0px 3.62176px 15.2114px -1.875px, rgba(0, 0, 0, 0.125) 0px 6.8656px 28.8355px -2.5px, rgba(0, 0, 0, 0.106) 0px 13.6468px 57.3164px -3.125px, rgba(0, 0, 0, 0.05) 0px 30px 126px -3.75px",
+    },
   };
 
   return (
@@ -55,12 +62,13 @@ export default function SocialButton({ text, url, variants }: Props) {
         target="_blank"
         rel="noopener noreferrer"
         href={url}
-        title={`Link to open my ` + text + ` profile`}
+        title={`Link to ${text}`}
         variants={buttonVariants}
         animate={hovered ? "hovered" : "default"}
         initial={"hidden"}
         onHoverStart={() => setHovered(true)}
         onHoverEnd={() => setHovered(false)}
+        whileTap={"press"}
       >
         {text === "twitter" && <Twitter hovered={hovered} />}
         {text === "linkedin" && <Linkedin hovered={hovered} />}

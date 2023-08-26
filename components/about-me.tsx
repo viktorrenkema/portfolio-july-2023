@@ -1,5 +1,5 @@
-import { motion } from "framer-motion";
-import React from "react";
+import { motion, useInView } from "framer-motion";
+import React, { useRef } from "react";
 import { styled } from "styled-components";
 import { H1, Paragraph } from "./reusable/typography";
 import { device, radius, space } from "../styles/theme";
@@ -33,19 +33,52 @@ const ParagraphsContainer = styled(motion.div)`
   }
 `;
 
+const container = {
+  hidden: { opacity: 0, y: 10 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      staggerChildren: 0.5,
+      duration: 0.5,
+      ease: "easeIn",
+    },
+  },
+};
+
+const item = {
+  hidden: { opacity: 0, y: 10 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.5,
+      ease: "easeIn",
+    },
+  },
+};
+
 export const AboutMe = ({ item }) => {
+  const ref = useRef();
+  const isInView = useInView(ref, { amount: 0.1 });
+
   return (
-    <BackgroundContainer>
+    <BackgroundContainer
+      variants={container}
+      animate={isInView ? "show" : "hidden"}
+      initial="hidden"
+      ref={ref}
+    >
       <H1 variants={item}>Things I built</H1>
       <ParagraphsContainer>
-        <Paragraph>
+        <Paragraph variants={item}>
           I pursued a degree in Psychology, and only after joining{" "}
           <InlineHyperlink href="https://www.framer.com">
             Framer
           </InlineHyperlink>{" "}
           I started learning code.
         </Paragraph>
-        <Paragraph>
+        <Paragraph variants={item}>
           Below are some projects that taught me a lot along the way.
         </Paragraph>
       </ParagraphsContainer>
