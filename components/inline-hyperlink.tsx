@@ -11,7 +11,7 @@ export const Anchor = styled(motion.a)`
   font-size: 1rem;
   border-radius: 18px;
   font-weight: 500;
-  padding-left: 2px;
+  padding-left: 4px;
   font-family: "PPRadioGrotesk-Regular", sans-serif;
   color: rgb(0, 153, 255, 1);
   line-height: 1.4;

@@ -121,7 +121,7 @@ export const AboutMe = ({ item }) => {
       <H1 variants={item}>Things I built</H1>
       <ParagraphsContainer>
         <Paragraph>
-          I pursued a degree in Psychology and only after joining{" "}
+          I pursued a degree in Psychology, and only after joining{" "}
           <InlineHyperlink href="https://www.framer.com">
             Framer
           </InlineHyperlink>{" "}
