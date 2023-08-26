@@ -194,7 +194,7 @@ export default function JobCard({ roleEntry, activeCompany }) {
         {/* Framer */}
         <AnimatePresence>
           {cardIsActive && company === "framer" && id === 3 && (
-            <Cursor username="Lynn" style={{ y: yCursor1, x: xCursor1 }} />
+            <Cursor username="Sini" style={{ y: yCursor1, x: xCursor1 }} />
           )}
         </AnimatePresence>
         <AnimatePresence>
