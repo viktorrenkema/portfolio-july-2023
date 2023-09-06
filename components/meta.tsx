@@ -1,10 +1,7 @@
 import Head from "next/head";
 
-const title = "Viktor — Software Engineer";
+const title = "Viktor — Software engineer";
 const description = "Software engineer based in Amsterdam.";
-// const image = '/images/meta-image.png'
-const image =
-  "https://framerusercontent.com/images/9uO8ulDbH8taxFAwjC0gjZeQ.png";
 
 export default function Meta() {
   return (
@@ -22,14 +19,20 @@ export default function Meta() {
       <meta property="og:url" content="https://www.viktorrenkema.com/" />
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
-      <meta property="og:image" content={image} />
+      <meta
+        property="og:image"
+        content="https://framerusercontent.com/images/9uO8ulDbH8taxFAwjC0gjZeQ.png"
+      />
 
       {/* Twitter */}
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:site" content="@vrenkema" />
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={description} />
-      <meta name="twitter:image" content={image} />
+      <meta
+        name="twitter:image"
+        content="https://framerusercontent.com/images/9uO8ulDbH8taxFAwjC0gjZeQ.png"
+      />
     </Head>
   );
 }
