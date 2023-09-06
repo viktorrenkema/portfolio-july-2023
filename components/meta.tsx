@@ -21,7 +21,7 @@ export default function Meta() {
       <meta property="og:description" content={description} />
       <meta
         property="og:image"
-        content="https://framerusercontent.com/images/9uO8ulDbH8taxFAwjC0gjZeQ.png"
+        content="https://framerusercontent.com/images/uk493UmQNuW1PwtAhLrt3cD8alg.png"
       />
 
       {/* Twitter */}
@@ -31,7 +31,7 @@ export default function Meta() {
       <meta name="twitter:description" content={description} />
       <meta
         name="twitter:image"
-        content="https://framerusercontent.com/images/9uO8ulDbH8taxFAwjC0gjZeQ.png"
+        content="https://framerusercontent.com/images/uk493UmQNuW1PwtAhLrt3cD8alg.png"
       />
     </Head>
   );
