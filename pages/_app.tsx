@@ -5,8 +5,8 @@ export default function MyApp({ Component, pageProps }) {
   return (
     <>
       {" "}
-      <Analytics />
       <Component {...pageProps} />
+      <Analytics />
     </>
   );
 }
