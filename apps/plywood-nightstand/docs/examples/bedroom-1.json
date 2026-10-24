@@ -1,0 +1,218 @@
+{
+  "schema": "f-form/1",
+  "units": "mm",
+  "parameters": {
+    "width": 306,
+    "depth": 297,
+    "height": 420,
+    "topHeight": 650,
+    "thickness": 18,
+    "shelfHeight": 325,
+    "cubbyWidth": 40,
+    "bottom": true,
+    "back": false,
+    "bridgeShelf": false,
+    "handedness": "left",
+    "mounting": "wall",
+    "wallReference": false,
+    "hardware": "keyhole",
+    "feet": false,
+    "footHeight": 15,
+    "finish": "natural",
+    "bevel": 0.6,
+    "joints": {
+      "topSide": "butt",
+      "shelfSide": "butt",
+      "shelfInner": "butt",
+      "bottomSide": "butt",
+      "bottomInner": "butt"
+    },
+    "overrides": {},
+    "grain": {}
+  },
+  "notes": [
+    "Netto rechthoekige zaagblank; sponningen en verstekken daarna frezen of zagen.",
+    "Geen zaagverlies, toleranties, plaatindeling of sterkteberekening inbegrepen.",
+    "Bronmaten B/D/H opgegeven; overige originele maten zijn schattingen.",
+    "Bed, hoofdbord, plint en stopcontacten zijn context en staan niet in de zaaglijst.",
+    "Voor beide kastjes worden de onderdelen gespiegeld uitgevoerd; controleer de zichtzijde bij de bewerking."
+  ],
+  "parts": [
+    {
+      "id": "top",
+      "name": "Bovenblad",
+      "quantity": 1,
+      "length": 306,
+      "width": 297,
+      "thickness": 18,
+      "grain": "length",
+      "exposedEdges": [
+        "voorzijde",
+        "achterzijde",
+        "linker kopse kant",
+        "rechter kopse kant"
+      ],
+      "connections": [
+        {
+          "part": "side",
+          "joint": "butt",
+          "detail": "Bovenblad loopt door"
+        }
+      ],
+      "material": "Berken multiplex / naturel",
+      "machining": []
+    },
+    {
+      "id": "side",
+      "name": "Hoge zijwand",
+      "quantity": 1,
+      "length": 402,
+      "width": 297,
+      "thickness": 18,
+      "grain": "length",
+      "exposedEdges": [
+        "voorzijde",
+        "achterzijde",
+        "onderzijde"
+      ],
+      "connections": [
+        {
+          "part": "top",
+          "joint": "butt",
+          "detail": "Aansluiting bovenblad"
+        },
+        {
+          "part": "bottom",
+          "joint": "butt",
+          "detail": "Aansluiting bodem"
+        }
+      ],
+      "material": "Berken multiplex / naturel",
+      "machining": []
+    },
+    {
+      "id": "shelf",
+      "name": "Plank 2",
+      "quantity": 1,
+      "length": 248,
+      "width": 297,
+      "thickness": 18,
+      "grain": "length",
+      "exposedEdges": [
+        "voorzijde",
+        "achterzijde",
+        "linker kopse kant",
+        "rechter kopse kant"
+      ],
+      "connections": [
+        {
+          "part": "inner",
+          "joint": "butt",
+          "detail": "Plank loopt over staander"
+        }
+      ],
+      "material": "Berken multiplex / naturel",
+      "machining": []
+    },
+    {
+      "id": "inner",
+      "name": "Binnenste staander",
+      "quantity": 1,
+      "length": 307,
+      "width": 297,
+      "thickness": 18,
+      "grain": "length",
+      "exposedEdges": [
+        "voorzijde",
+        "achterzijde",
+        "onderzijde"
+      ],
+      "connections": [
+        {
+          "part": "shelf",
+          "joint": "butt",
+          "detail": "Staander onder plank 2"
+        },
+        {
+          "part": "bottom",
+          "joint": "butt",
+          "detail": "Aansluiting bodem"
+        }
+      ],
+      "material": "Berken multiplex / naturel",
+      "machining": []
+    },
+    {
+      "id": "bottom",
+      "name": "Bodemplank",
+      "quantity": 1,
+      "length": 40,
+      "width": 297,
+      "thickness": 18,
+      "grain": "length",
+      "exposedEdges": [
+        "voorzijde",
+        "achterzijde"
+      ],
+      "connections": [
+        {
+          "part": "side",
+          "joint": "butt",
+          "detail": "Netto maat inclusief tong of lange verstekpunt"
+        },
+        {
+          "part": "inner",
+          "joint": "butt",
+          "detail": "Netto maat inclusief tong of lange verstekpunt"
+        }
+      ],
+      "material": "Berken multiplex / naturel",
+      "machining": []
+    }
+  ],
+  "areaByThickness": {
+    "18": 0.386991
+  },
+  "furnitureCount": 1,
+  "context": {
+    "showProducts": false,
+    "mode": "bedroom",
+    "opening": "inward",
+    "linkedRotation": true,
+    "leftRotation": 0,
+    "rightRotation": 0,
+    "gap": 0,
+    "exportQuantity": 1
+  },
+  "references": {
+    "bedWidth": 1800,
+    "bedLength": 2000,
+    "legTop": 200,
+    "boxTop": 400,
+    "mattressTop": 590,
+    "topperTop": 700,
+    "headboardWidth": 2000,
+    "headboardHeight": 1000,
+    "headboardDepth": 50,
+    "headboardRadius": 200,
+    "skirtingHeight": 110,
+    "skirtingDepth": 18,
+    "outletBottom": 130,
+    "outletTop": 210,
+    "outletWidth": 151.8,
+    "outletDepth": 11.4,
+    "availableWidth": 400
+  },
+  "assemblies": [
+    {
+      "id": "left",
+      "mirrored": true,
+      "rotation": 0,
+      "centerMm": [
+        -1153,
+        230,
+        148.5
+      ]
+    }
+  ]
+}

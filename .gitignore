@@ -14,6 +14,10 @@
 
 # production
 /build
+/public/3d-modeling/self/
+**/node_modules/
+**/dist/
+*.tsbuildinfo
 
 # misc
 .DS_Store

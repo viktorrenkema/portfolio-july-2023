@@ -1,0 +1,41 @@
+{
+  "errors": [],
+  "resource": {
+    "before": {
+      "geometries": 24,
+      "textures": 13
+    },
+    "after": {
+      "geometries": 24,
+      "textures": 13
+    },
+    "idleFrames": 0
+  },
+  "scale": {
+    "actual": 101.484375,
+    "expected": 101.49425287356323
+  },
+  "cameraChecks": [
+    "orbit",
+    "front"
+  ],
+  "checks": [
+    "400 mm maximum",
+    "legacy depth migration",
+    "linked panel depths",
+    "camera position, pan and zoom preservation",
+    "floor and foot height consistency",
+    "raycast part selection",
+    "parameter controls",
+    "joint-specific cut length",
+    "handedness",
+    "grain",
+    "finish",
+    "JSON/CSV download",
+    "URL restore",
+    "orthographic scale",
+    "35 rebuild resource stability",
+    "idle rendering",
+    "mobile overflow"
+  ]
+}

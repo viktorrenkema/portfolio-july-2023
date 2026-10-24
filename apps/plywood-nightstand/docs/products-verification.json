@@ -1,0 +1,225 @@
+{
+  "errors": [],
+  "materials": {
+    "floorTop": -1.6763806315323038e-10,
+    "floorMaterial": "Bruine houten visgraatvloer",
+    "floorImage": [
+      2048,
+      1609
+    ],
+    "wall": "8d3b35",
+    "trim": "8d3b35"
+  },
+  "geometry": [
+    {
+      "id": "left:lamp",
+      "instance": "left",
+      "kind": "lamp",
+      "surface": "top",
+      "sizeMm": [
+        199,
+        146,
+        192
+      ],
+      "sizeMmActual": [
+        199.00000095367432,
+        146.0999989271164,
+        192.00000166893005
+      ],
+      "determinant": 1
+    },
+    {
+      "id": "left:cup",
+      "instance": "left",
+      "kind": "cup",
+      "surface": "top",
+      "sizeMm": [
+        145,
+        110,
+        95
+      ],
+      "sizeMmActual": [
+        144.99999903142458,
+        109.99999940395355,
+        94.9999988079071
+      ],
+      "determinant": 1
+    },
+    {
+      "id": "left:spray",
+      "instance": "left",
+      "kind": "spray",
+      "surface": "top",
+      "sizeMm": [
+        30,
+        30,
+        110
+      ],
+      "sizeMmActual": [
+        30.20000085234642,
+        30.20000085234642,
+        109.99999956786633
+      ],
+      "determinant": 1
+    },
+    {
+      "id": "left:koboBlue",
+      "instance": "left",
+      "kind": "koboBlue",
+      "surface": "shelf",
+      "sizeMm": [
+        116,
+        164,
+        14
+      ],
+      "sizeMmActual": [
+        115.99999666213989,
+        164.000004529953,
+        14.100000216066832
+      ],
+      "determinant": 1
+    },
+    {
+      "id": "left:tissues",
+      "instance": "left",
+      "kind": "tissues",
+      "surface": "shelf",
+      "sizeMm": [
+        105,
+        55,
+        25
+      ],
+      "sizeMmActual": [
+        104.99999672174454,
+        54.999999701976776,
+        25.350000198138932
+      ],
+      "determinant": 1
+    },
+    {
+      "id": "right:sonos",
+      "instance": "right",
+      "kind": "sonos",
+      "surface": "top",
+      "sizeMm": [
+        119.7,
+        119.7,
+        161.45
+      ],
+      "sizeMmActual": [
+        119.69999969005585,
+        119.74999984502792,
+        161.50000004749742
+      ],
+      "determinant": 1
+    },
+    {
+      "id": "right:charger",
+      "instance": "right",
+      "kind": "charger",
+      "surface": "top",
+      "sizeMm": [
+        162,
+        75,
+        8
+      ],
+      "sizeMmActual": [
+        162.00000298023244,
+        75.00000298023221,
+        8.44641036554239
+      ],
+      "determinant": 1
+    },
+    {
+      "id": "right:koboBlack",
+      "instance": "right",
+      "kind": "koboBlack",
+      "surface": "shelf",
+      "sizeMm": [
+        116,
+        164,
+        14
+      ],
+      "sizeMmActual": [
+        115.99999666213989,
+        164.000004529953,
+        14.100000216066832
+      ],
+      "determinant": 1
+    }
+  ],
+  "resource": {
+    "before": {
+      "geometries": 119,
+      "textures": 26
+    },
+    "after": {
+      "geometries": 119,
+      "textures": 26
+    },
+    "idleFrames": 0
+  },
+  "fitting": [
+    {
+      "width": 1440,
+      "height": 1000,
+      "view": "orbit",
+      "maxX": 0.5463872220493614,
+      "maxY": 0.4986360888025336
+    },
+    {
+      "width": 1440,
+      "height": 1000,
+      "view": "front",
+      "maxX": 0.8100625002663584,
+      "maxY": 0.5368289927198285
+    },
+    {
+      "width": 1440,
+      "height": 1000,
+      "view": "top",
+      "maxX": 0.7458656806414957,
+      "maxY": 0.7071428570364192
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "view": "orbit",
+      "maxX": 0.5870289310337089,
+      "maxY": 0.33130067726053497
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "view": "front",
+      "maxX": 0.8100625002663584,
+      "maxY": 0.32251434073308005
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "view": "top",
+      "maxX": 0.8100625002663584,
+      "maxY": 0.4614005735443175
+    }
+  ],
+  "checks": [
+    "legacy URL defaults products off",
+    "eight models at true scale",
+    "wall and trim color",
+    "floor height and herringbone material",
+    "camera preservation",
+    "all quarter turns and both openings",
+    "independent rotation",
+    "part selection with products",
+    "six high-tabletop desktop/mobile fits",
+    "no reflected models",
+    "bedroom-only toggle with retained state",
+    "URL and localStorage restore",
+    "overhang and clearance warnings",
+    "unchanged furniture export and downloaded context flag",
+    "35 rebuild/toggle resource stability",
+    "idle rendering",
+    "desktop/mobile and product-detail captures"
+  ]
+}

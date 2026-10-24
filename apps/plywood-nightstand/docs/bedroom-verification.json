@@ -1,0 +1,31 @@
+{
+  "errors": [],
+  "resource": {
+    "before": {
+      "geometries": 81,
+      "textures": 15
+    },
+    "after": {
+      "geometries": 81,
+      "textures": 15
+    },
+    "idleFrames": 0
+  },
+  "checks": [
+    "default room and old design URL",
+    "mirrored linked rotation",
+    "independent right rotation",
+    "opening direction",
+    "gap and width warning",
+    "camera position, orientation, zoom, pan and projection preservation",
+    "raycast selection per cabinet",
+    "URL restore",
+    "one and two cabinet exports",
+    "JSON and CSV placement metadata",
+    "35 room rebuilds without resource growth",
+    "idle rendering",
+    "context switch and exploded view",
+    "mobile overflow",
+    "room perspective, orthographic front/top and socket/plinth detail captures"
+  ]
+}

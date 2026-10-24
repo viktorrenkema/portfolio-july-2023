@@ -1,0 +1,116 @@
+import { createRequire } from 'node:module';
+
+const require = createRequire(new URL('../apps/plywood-nightstand/package.json', import.meta.url));
+const { chromium, expect } = require('@playwright/test');
+const base = process.env.MODEL_URL || 'http://127.0.0.1:5192';
+const path = '/3d-modeling/self';
+const browser = await chromium.launch();
+try {
+  const context = await browser.newContext({ viewport: { width: 1440, height: 1000 } });
+  await context.grantPermissions(['clipboard-read', 'clipboard-write'], { origin: base });
+  const page = await context.newPage(), errors = [], failedRequests = [];
+  page.on('pageerror', error => errors.push(error.message));
+  page.on('requestfailed', request => failedRequests.push(request.url()));
+  const ready = () => page.waitForFunction(() => window.__nightstand && document.body.dataset.ready === '1');
+  const design = { width: 306, depth: 297, height: 420, topHeight: 650 };
+  const room = { mode: 'bedroom', showProducts: true };
+  const url = new URL(path, base);
+  url.searchParams.set('design', JSON.stringify(design));
+  url.searchParams.set('room', JSON.stringify(room));
+  const response = await page.goto(url.href);
+  expect(response.status()).toBe(200);
+  await ready();
+  await expect(page.locator('#show-dimensions')).not.toBeChecked();
+  await expect(page.locator('#dimensions')).toHaveValue('off');
+  expect(await page.locator('.dim-label').count()).toBe(0);
+  await expect(page.locator('.scene-panel #show-dimensions')).toHaveCount(1);
+  await expect(page.locator('.scene-panel #camera-focus')).toHaveCount(1);
+  expect(await page.evaluate(() => window.__nightstand.parameters.width)).toBe(306);
+  expect(await page.evaluate(() => window.__nightstand.viewer.model.children.length)).toBe(2);
+  for (const texture of ['diff', 'nor', 'rough']) {
+    expect((await context.request.get(`${base}${path}/textures/birch_${texture}.jpg`)).status()).toBe(200);
+  }
+  expect(await page.locator('.brand').getAttribute('href')).toBe(`${path}/`);
+  await page.locator('#camera-focus').selectOption('left');
+  await ready();
+  const camera = () => page.evaluate(() => {
+    const viewer = window.__nightstand.viewer;
+    return { position: viewer.camera.position.toArray(), target: viewer.controls.target.toArray(), zoom: viewer.camera.zoom };
+  });
+  const before = await camera();
+  await page.getByRole('switch', { name: 'Toon maten en labels', exact: true }).check();
+  await ready();
+  expect(await page.locator('.dim-label').count()).toBeGreaterThan(0);
+  await page.locator('#dimensions').selectOption('all');
+  await page.getByRole('switch', { name: 'Toon maten en labels', exact: true }).uncheck();
+  await ready();
+  expect(await page.locator('.dim-label').count()).toBe(0);
+  expect(await camera()).toEqual(before);
+  await expect(page.locator('#dimensions')).toHaveValue('off');
+  await page.locator('#show-dimensions').check();
+  await expect(page.locator('#dimensions')).toHaveValue('all');
+  await page.locator('#show-dimensions').uncheck();
+  if (process.env.MODEL_SCREENSHOT) await page.screenshot({ path: process.env.MODEL_SCREENSHOT.replace('-mobile', '-desktop') });
+  await page.locator('#fullscreen').click();
+  await expect(page.locator('#fullscreen')).toHaveAttribute('aria-pressed', 'true');
+  await expect(page.locator('.sidebar')).toBeHidden();
+  await expect(page.locator('.app-header')).toBeHidden();
+  for (const overlay of ['.stage-heading', '.selection', '.canvas-note', '.orientation', '.scale', '.orbit-help', '.explode-label', '#fit']) await expect(page.locator(overlay)).toBeHidden();
+  for (const control of ['.scene-panel', '.view-switch', '#dimensions']) await expect(page.locator(control)).toBeVisible();
+  await page.waitForFunction(() => document.querySelector('.stage').getBoundingClientRect().width === innerWidth);
+  expect(await camera()).toEqual(before);
+  if (process.env.MODEL_SCREENSHOT) await page.screenshot({ path: process.env.MODEL_SCREENSHOT.replace('-mobile', '-desktop-fullscreen') });
+  await page.keyboard.press('Escape');
+  await expect(page.locator('#fullscreen')).toHaveAttribute('aria-pressed', 'false');
+  await expect(page.locator('#fullscreen')).toBeFocused();
+  await expect(page.locator('.sidebar')).toBeVisible();
+  expect(await camera()).toEqual(before);
+  // The expanded canvas also works on browsers without the Fullscreen API.
+  await page.evaluate(() => { HTMLElement.prototype.requestFullscreen = undefined; });
+  await page.locator('#fullscreen').click();
+  await expect(page.locator('body')).toHaveClass(/viewer-fullscreen/);
+  await page.locator('#fullscreen').click();
+  await expect(page.locator('body')).not.toHaveClass(/viewer-fullscreen/);
+  await page.locator('#share').click();
+  await expect(page.locator('#share')).toHaveText('Link gekopieerd');
+  const shared = new URL(await page.evaluate(() => navigator.clipboard.readText()));
+  expect(shared.origin).toBe(new URL(base).origin);
+  expect(shared.pathname).toBe(path);
+  expect(JSON.parse(shared.searchParams.get('design')).width).toBe(306);
+  expect(JSON.parse(shared.searchParams.get('room')).showProducts).toBe(true);
+  await page.goto(shared.href);
+  await ready();
+  expect(await page.evaluate(() => window.__nightstand.context.showProducts)).toBe(true);
+  expect((await context.request.get(`${base}${path}/capture.html`)).status()).toBe(200);
+  const home = await context.request.get(base);
+  expect(home.status()).toBe(200);
+  expect(await home.text()).toContain('Software engineer');
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.locator('#camera-focus').selectOption('right');
+  await page.getByRole('switch', { name: 'Toon maten en labels', exact: true }).uncheck();
+  await ready();
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+  const overlaps = await page.evaluate(() => {
+    const panel = document.querySelector('.scene-panel').getBoundingClientRect();
+    const view = document.querySelector('.view-switch').getBoundingClientRect();
+    const button = document.querySelector('#fullscreen').getBoundingClientRect();
+    return panel.right > innerWidth || view.right > button.left || panel.top < view.bottom;
+  });
+  expect(overlaps).toBe(false);
+  if (process.env.MODEL_SCREENSHOT) await page.screenshot({ path: process.env.MODEL_SCREENSHOT });
+  await page.locator('#fullscreen').click();
+  await expect(page.locator('.sidebar')).toBeHidden();
+  const compact = await page.evaluate(() => {
+    const panel = document.querySelector('.scene-panel').getBoundingClientRect();
+    const view = document.querySelector('.view-switch').getBoundingClientRect();
+    return panel.top >= view.bottom && panel.height < 150;
+  });
+  expect(compact).toBe(true);
+  if (process.env.MODEL_SCREENSHOT) await page.screenshot({ path: process.env.MODEL_SCREENSHOT.replace('.png', '-fullscreen.png') });
+  await page.keyboard.press('Escape');
+  expect(errors).toEqual([]);
+  expect(failedRequests).toEqual([]);
+  console.log('Portfolio route, textures, camera, labels, share link, URL restore, capture, homepage and mobile checks passed.');
+} finally {
+  await browser.close();
+}

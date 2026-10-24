@@ -1,0 +1,35 @@
+{
+  "name": "plywood-nightstand",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1 --port 5190",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview --port 5190",
+    "test": "tsx --test tests/*.test.ts",
+    "capture": "node scripts/capture.mjs",
+    "test:browser": "node scripts/smoke.mjs",
+    "export:presets": "tsx scripts/export-presets.ts",
+    "test:bedroom": "node scripts/bedroom-check.mjs",
+    "capture:bedroom": "node scripts/capture-bedroom.mjs",
+    "test:products": "node scripts/products-check.mjs"
+  },
+  "dependencies": {
+    "@fontsource-variable/dm-sans": "^5.3.0",
+    "@fontsource/ibm-plex-mono": "^5.3.0",
+    "polygon-clipping": "^0.15.7",
+    "three": "^0.180.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.56.0",
+    "@types/node": "^22.18.0",
+    "@types/three": "^0.180.0",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3",
+    "vite": "^7.1.0"
+  },
+  "engines": {
+    "node": ">=22.12.0"
+  }
+}
