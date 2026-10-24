@@ -67,9 +67,17 @@ try {
   if (process.env.MODEL_SCREENSHOT) await page.screenshot({ path: process.env.MODEL_SCREENSHOT.replace('-mobile', '-desktop-fullscreen') });
   await page.keyboard.press('Escape');
   await expect(page.locator('#fullscreen')).toHaveAttribute('aria-pressed', 'false');
+  await expect(page.locator('#fullscreen')).toBeEnabled();
+  await page.waitForFunction(() => !document.fullscreenElement);
   await expect(page.locator('#fullscreen')).toBeFocused();
   await expect(page.locator('.sidebar')).toBeVisible();
   expect(await camera()).toEqual(before);
+  // Escape during an in-flight native request must close after it settles.
+  await page.locator('#fullscreen').click();
+  await page.keyboard.press('Escape');
+  await expect(page.locator('#fullscreen')).toBeEnabled();
+  await page.waitForFunction(() => !document.fullscreenElement);
+  await expect(page.locator('body')).not.toHaveClass(/viewer-fullscreen/);
   // The expanded canvas also works on browsers without the Fullscreen API.
   await page.evaluate(() => { HTMLElement.prototype.requestFullscreen = undefined; });
   await page.locator('#fullscreen').click();

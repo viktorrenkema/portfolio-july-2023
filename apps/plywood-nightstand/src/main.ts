@@ -121,9 +121,19 @@ function changeDimensions(mode:string){if(mode!=='off')lastDimensions=mode;$<HTM
 $('#dimensions').onchange=()=>changeDimensions($<HTMLSelectElement>('#dimensions').value);
 $('#show-dimensions').onchange=()=>changeDimensions($<HTMLInputElement>('#show-dimensions').checked?lastDimensions:'off');
 const stage=$('.stage'),fullscreenButton=$<HTMLButtonElement>('#fullscreen');
-let expanded=false;
+let expanded=false,exitAfterTransition=false;
 function showExpanded(value:boolean){expanded=value;document.body.classList.toggle('viewer-fullscreen',value);fullscreenButton.setAttribute('aria-pressed',String(value));fullscreenButton.setAttribute('aria-label',value?'Volledig scherm sluiten':'Volledig scherm');fullscreenButton.title=value?'Volledig scherm sluiten (Esc)':'Volledig scherm';fullscreenButton.querySelector('path')!.setAttribute('d',value?'M3 7h4V3m6 0v4h4M7 17v-4H3m14 0h-4v4':'M7 3H3v4m10-4h4v4M3 13v4h4m10-4v4h-4');viewer.invalidate();}
-async function toggleFullscreen(){fullscreenButton.disabled=true;try{if(expanded){if(document.fullscreenElement===stage)await document.exitFullscreen();showExpanded(false);fullscreenButton.focus();}else{showExpanded(true);try{await stage.requestFullscreen?.();}catch{/* Keep the expanded canvas when native fullscreen is unavailable. */}}}finally{fullscreenButton.disabled=false;fullscreenButton.focus();}}
+async function toggleFullscreen(){
+  if(fullscreenButton.disabled){exitAfterTransition=true;return;}
+  fullscreenButton.disabled=true;
+  try{
+    if(expanded){if(document.fullscreenElement===stage)await document.exitFullscreen();showExpanded(false);}
+    else{showExpanded(true);try{await stage.requestFullscreen?.();}catch{/* Keep the expanded canvas when native fullscreen is unavailable. */}}
+  }finally{
+    fullscreenButton.disabled=false;fullscreenButton.focus();
+    if(exitAfterTransition){exitAfterTransition=false;if(expanded)void toggleFullscreen();}
+  }
+}
 fullscreenButton.onclick=()=>void toggleFullscreen();
 document.addEventListener('fullscreenchange',()=>{if(document.fullscreenElement===stage)showExpanded(true);else if(expanded){showExpanded(false);fullscreenButton.focus();}});
 document.addEventListener('keydown',event=>{if(event.key==='Escape'&&expanded){event.preventDefault();void toggleFullscreen();}});
