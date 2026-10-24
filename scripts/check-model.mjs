@@ -29,6 +29,7 @@ try {
   await expect(page.locator('.scene-panel #show-dimensions')).toHaveCount(1);
   await expect(page.locator('.scene-panel #camera-focus')).toHaveCount(1);
   expect(await page.evaluate(() => window.__nightstand.parameters.width)).toBe(306);
+  await page.waitForURL(current => !current.searchParams.has('design') && !current.searchParams.has('room'));
   expect(await page.evaluate(() => window.__nightstand.viewer.model.children.length)).toBe(2);
   for (const texture of ['diff', 'nor', 'rough']) {
     const textureResponse = await context.request.get(`${base}${path}/textures/birch_${texture}.jpg`);
@@ -89,11 +90,12 @@ try {
   const shared = new URL(await page.evaluate(() => navigator.clipboard.readText()));
   expect(shared.origin).toBe(new URL(base).origin);
   expect(shared.pathname).toBe(path);
-  expect(JSON.parse(shared.searchParams.get('design')).width).toBe(306);
-  expect(JSON.parse(shared.searchParams.get('room')).showProducts).toBe(true);
+  expect(shared.search).toBe('');
+  expect(await page.evaluate(() => JSON.parse(localStorage.getItem('f-form-design')).width)).toBe(306);
   await page.goto(shared.href);
   await ready();
   expect(await page.evaluate(() => window.__nightstand.context.showProducts)).toBe(true);
+  expect(await page.evaluate(() => window.__nightstand.parameters.width)).toBe(306);
   expect((await context.request.get(`${base}${path}/capture.html`)).status()).toBe(200);
   const home = await context.request.get(base);
   expect(home.status()).toBe(200);

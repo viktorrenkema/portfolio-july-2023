@@ -17,7 +17,7 @@ try {
   if(raw){const saved=JSON.parse(raw);const candidate=restoreParameters(saved);if(!validate(candidate).length)p=candidate;}
 } catch { /* An invalid saved design leaves the documented preset available. */ }
 $('#app').innerHTML=`
-<header class="app-header"><a class="brand" href="${import.meta.env.BASE_URL}" aria-label="F Form home"><strong>f<span>/</span></strong><span>FORM<span class="brand-note">Ontwerpen in multiplex</span></span></a><span class="project-title">F-nachtkastje <span>/</span> Ontwerpstudio</span><div class="header-actions"><span id="saved" role="status">Lokaal opgeslagen</span><button id="share" class="quiet">Deel ontwerp</button><button class="primary" id="parts-button">Onderdelenlijst <span>↗</span></button></div></header>
+<header class="app-header"><a class="brand" href="${import.meta.env.BASE_URL}" aria-label="F Form home"><strong>f<span>/</span></strong><span>FORM<span class="brand-note">Ontwerpen in multiplex</span></span></a><span class="project-title">F-nachtkastje <span>/</span> Ontwerpstudio</span><div class="header-actions"><span id="saved" role="status">Lokaal opgeslagen</span><button id="share" class="quiet" title="Kopieer de app-link; instellingen blijven in deze browser">Deel link</button><button class="primary" id="parts-button">Onderdelenlijst <span>↗</span></button></div></header>
 <main class="workspace"><section class="stage" aria-label="3D ontwerpcanvas"><div class="stage-heading"><div class="eyebrow">BERKEN MULTIPLEX / F-SERIE</div><h1>Een eigen F.</h1><p id="model-summary">210 × 250 × 420 mm</p></div>
 <div class="scene-panel" role="group" aria-label="Weergave-instellingen">
 <div class="context-switch" role="group" aria-label="Weergavecontext"><button data-context="bedroom">Slaapkamer</button><button data-context="single">Los kastje</button></div>
@@ -41,9 +41,10 @@ const viewer=new Viewer($('#viewport'),$('#scale'));
 let persistTimer:ReturnType<typeof setTimeout>;
 const mm=(n:number)=>new Intl.NumberFormat('nl-NL',{maximumFractionDigits:1}).format(n);
 let persistDirty=false;
+function cleanPageUrl(){const url=new URL(location.href);for(const key of ['design','room','scene'])url.searchParams.delete(key);return url;}
 function flushPersist() {
   if(!persistDirty)return;persistDirty=false;clearTimeout(persistTimer);
-  const raw=JSON.stringify(p);try {localStorage.setItem('f-form-design',raw);localStorage.setItem('f-form-room',JSON.stringify(room));const url=new URL(location.href);url.searchParams.delete('scene');url.searchParams.set('design',raw);url.searchParams.set('room',JSON.stringify(room));history.replaceState(null,'',url);$('#saved').textContent='Lokaal opgeslagen';} catch {$('#saved').textContent='Opslaan niet beschikbaar';}
+  const raw=JSON.stringify(p);try {localStorage.setItem('f-form-design',raw);localStorage.setItem('f-form-room',JSON.stringify(room));history.replaceState(null,'',cleanPageUrl());$('#saved').textContent='Lokaal opgeslagen';} catch {$('#saved').textContent='Opslaan niet beschikbaar';}
 }
 function persist() {persistDirty=true;clearTimeout(persistTimer);persistTimer=setTimeout(flushPersist,180);}
 function update(next:Parameters,save=true) {
@@ -138,7 +139,7 @@ fullscreenButton.onclick=()=>void toggleFullscreen();
 document.addEventListener('fullscreenchange',()=>{if(document.fullscreenElement===stage)showExpanded(true);else if(expanded){showExpanded(false);fullscreenButton.focus();}});
 document.addEventListener('keydown',event=>{if(event.key==='Escape'&&expanded){event.preventDefault();void toggleFullscreen();}});
 $('#explode').oninput=()=>{const value=Number($<HTMLInputElement>('#explode').value);if(value&&room.mode==='bedroom')changeContext({mode:'single'});viewer.setExplosion(value);};
-$('#share').onclick=async()=>{try{const url=new URL(location.href);url.searchParams.delete('scene');url.searchParams.set('design',JSON.stringify(p));url.searchParams.set('room',JSON.stringify(room));await navigator.clipboard.writeText(url.href);$('#share').textContent='Link gekopieerd';setTimeout(()=>$('#share').textContent='Deel ontwerp',2000);}catch{$('#saved').textContent='Kopieer de URL uit de adresbalk';}};
+$('#share').onclick=async()=>{try{flushPersist();await navigator.clipboard.writeText(cleanPageUrl().href);$('#share').textContent='Link gekopieerd';setTimeout(()=>$('#share').textContent='Deel link',2000);}catch{$('#saved').textContent='Kopieer de URL uit de adresbalk';}};
 $('#sources').onclick=()=>$<HTMLDialogElement>('#sources-dialog').showModal();
 document.querySelectorAll<HTMLButtonElement>('[data-close]').forEach(b=>b.onclick=()=>b.closest('dialog')!.close());
 for(const dialog of document.querySelectorAll('dialog'))dialog.addEventListener('click',e=>{if(e.target===dialog){const r=dialog.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)dialog.close();}});

@@ -34,7 +34,7 @@ De standaardweergave toont het bed, hoofdbord, twee kastjes, plint en stopcontac
 - Klik op een onderdeel voor naam, netto afmetingen, nerf en zichtbare kopse kanten. Kies Voor/Zij/Boven voor orthografische projectie met een 25 mm-grid en een actuele 100 mm-liniaal. Maten zijn in mm; de liniaal gebruikt CSS-pixels en is geen fysieke 1:1-printkalibratie.
 - Gebruik Exploded om onderdelen uit elkaar te schuiven. Open **Onderdelenlijst** voor de tabel en JSON/CSV-downloads voor **Per kastje / Beide kastjes**, standaard beide. Contextobjecten tellen niet mee als onderdelen. Beide exports bevatten alle parameters, verbindingen, bewerkingen en het netto oppervlak per dikte. Er is geen plaatindeling of nesting.
 
-Parameters worden in localStorage en de URL bewaard. **Deel ontwerp** kopieert de reproduceerbare URL. Reset herstelt de Maze-preset. De app doet geen netwerkaanvragen naar een backend; textures en fonts worden lokaal meegeleverd.
+Parameters worden alleen in localStorage bewaard. **Deel link** kopieert de schone app-URL, zonder je persoonlijke instellingen mee te sturen. Oude ontwerp-URLs worden nog ingelezen en daarna opgeschoond. Reset herstelt de Maze-preset. De app doet geen netwerkaanvragen naar een backend; textures en fonts worden lokaal meegeleverd.
 
 ## Maatdefinities en zaagmaten
 

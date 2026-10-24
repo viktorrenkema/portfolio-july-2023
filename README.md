@@ -3,8 +3,9 @@ This is a starter template for [Learn Next.js](https://nextjs.org/learn).
 ## 3D modeltool
 
 De broncode van de multiplex nachtkastjes staat in `apps/plywood-nightstand`.
-De tool wordt gepubliceerd op `/3js/bedroom-shelf`. Ontwerpen blijven deelbaar via
-de `design`- en `room`-parameters in de URL.
+De tool wordt gepubliceerd op `/3js/bedroom-shelf`. Instellingen blijven lokaal bewaard in je browser. **Deel link** kopieert
+alleen de schone app-URL. Oude links met ontwerpinstellingen blijven werken;
+na het laden worden hun parameters uit de adresbalk verwijderd.
 
 Gebruik Node.js 22. `yarn dev` en `yarn build` bouwen eerst de modeltool met Vite
 naar `public/3js/bedroom-shelf`. Deze uitvoer wordt automatisch gegenereerd en staat

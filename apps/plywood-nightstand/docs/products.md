@@ -6,7 +6,7 @@ De vloer gebruikt een lokale procedurele visgraattextuur met warmbruin getinte h
 
 ## Bediening
 
-**Toon producten** staat direct onder **Slaapkamer / Los kastje**, standaard uit. De toggle en producten verschijnen uitsluitend in Slaapkamer. De keuze blijft bewaard tijdens een bezoek aan Los kastje, en wordt opgeslagen als `room.showProducts` in URL, localStorage en de context van JSON/CSV-exports. Oude links krijgen `false`.
+**Toon producten** staat direct onder **Slaapkamer / Los kastje**, standaard uit. De toggle en producten verschijnen uitsluitend in Slaapkamer. De keuze blijft bewaard tijdens een bezoek aan Los kastje, en wordt opgeslagen als `room.showProducts` in localStorage en de context van JSON/CSV-exports. Oude links krijgen `false`.
 
 Aan- en uitzetten, wijzigen van kastmaten en aanpassen van de opstelling behouden de camera, pan, zoom en projectie. Expliciet **Pas in beeld** houdt rekening met de productvolumes. Producten staan los van de maakonderdelen en beïnvloeden aantallen, plaatoppervlak en zaagmaten niet.
 

@@ -44,7 +44,7 @@ Maat-, spiegelings-, rotatie- en tussenruimtewijzigingen behouden positie, orië
 
 **Hoofdmaten** toont kasthoogte, bovenbladhoogte, bedtop, verticale stopcontactafstand en de beide 400 mm zones. **Alle maten** voegt bedlagen, bedlengte/breedte, hoofdbord, plint, stopcontacthoogtes en eventuele tussenruimte toe. Selecteer een kastje om daarbij de bestaande gedetailleerde kastmaten te tonen. Klikselectie en markering horen bij één instantie; wijzigingen blijven gedeeld.
 
-De URL bevat afzonderlijke JSON-parameters `design` en `room`. localStorage gebruikt `f-form-design` en `f-form-room`. Oude ontwerp-URLs behouden hun meubelmaten en krijgen contextstandaarden. Tijdelijk vertraagd opslaan wordt ook bij verlaten of verbergen van het document uitgevoerd. `scene=single` is beschikbaar voor reproduceerbare detailcaptures; gedeelde editor-URLs worden omgezet naar de canonieke `room`-parameter.
+Instellingen worden lokaal opgeslagen met `f-form-design` en `f-form-room`; de adresbalk blijft schoon. Oude URLs met `design`, `room` of `scene` worden nog ingelezen en daarna opgeschoond. Tijdelijk vertraagd opslaan wordt ook bij verlaten of verbergen van het document uitgevoerd. Capture-URLs behouden hun parameters voor reproduceerbare afbeeldingen. **Deel link** deelt alleen de app, niet de lokaal opgeslagen instellingen.
 
 ## Onderdelen en export
 
