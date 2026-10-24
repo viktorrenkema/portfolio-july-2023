@@ -1,9 +1,24 @@
 module.exports = {
+  async headers() {
+    return [
+      {
+        source: "/3js/bedroom-shelf/:path*",
+        headers: [
+          { key: "X-Robots-Tag", value: "noindex, nofollow, nosnippet, noimageindex" },
+          { key: "Referrer-Policy", value: "no-referrer" },
+        ],
+      },
+      {
+        source: "/3d-modeling/self/:path*",
+        headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }],
+      },
+    ];
+  },
   async rewrites() {
     return [
       {
-        source: "/3d-modeling/self",
-        destination: "/3d-modeling/self/index.html",
+        source: "/3js/bedroom-shelf",
+        destination: "/3js/bedroom-shelf/index.html",
       },
     ];
   },

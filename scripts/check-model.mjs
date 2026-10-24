@@ -3,7 +3,7 @@ import { createRequire } from 'node:module';
 const require = createRequire(new URL('../apps/plywood-nightstand/package.json', import.meta.url));
 const { chromium, expect } = require('@playwright/test');
 const base = process.env.MODEL_URL || 'http://127.0.0.1:5192';
-const path = '/3d-modeling/self';
+const path = '/3js/bedroom-shelf';
 const browser = await chromium.launch();
 try {
   const context = await browser.newContext({ viewport: { width: 1440, height: 1000 } });
@@ -19,6 +19,9 @@ try {
   url.searchParams.set('room', JSON.stringify(room));
   const response = await page.goto(url.href);
   expect(response.status()).toBe(200);
+  expect(response.headers()['x-robots-tag']).toContain('noindex');
+  expect(response.headers()['referrer-policy']).toBe('no-referrer');
+  await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', /noindex/);
   await ready();
   await expect(page.locator('#show-dimensions')).not.toBeChecked();
   await expect(page.locator('#dimensions')).toHaveValue('off');
@@ -28,7 +31,9 @@ try {
   expect(await page.evaluate(() => window.__nightstand.parameters.width)).toBe(306);
   expect(await page.evaluate(() => window.__nightstand.viewer.model.children.length)).toBe(2);
   for (const texture of ['diff', 'nor', 'rough']) {
-    expect((await context.request.get(`${base}${path}/textures/birch_${texture}.jpg`)).status()).toBe(200);
+    const textureResponse = await context.request.get(`${base}${path}/textures/birch_${texture}.jpg`);
+    expect(textureResponse.status()).toBe(200);
+    expect(textureResponse.headers()['x-robots-tag']).toContain('noindex');
   }
   expect(await page.locator('.brand').getAttribute('href')).toBe(`${path}/`);
   await page.locator('#camera-focus').selectOption('left');
@@ -84,6 +89,8 @@ try {
   expect((await context.request.get(`${base}${path}/capture.html`)).status()).toBe(200);
   const home = await context.request.get(base);
   expect(home.status()).toBe(200);
+  expect(home.headers()['x-robots-tag'] || '').not.toContain('noindex');
+  expect((await context.request.get(`${base}/3d-modeling/self`)).status()).toBe(404);
   expect(await home.text()).toContain('Software engineer');
   await page.setViewportSize({ width: 390, height: 844 });
   await page.locator('#camera-focus').selectOption('right');

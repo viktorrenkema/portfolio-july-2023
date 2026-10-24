@@ -14,7 +14,7 @@
 
 # production
 /build
-/public/3d-modeling/self/
+/public/3js/bedroom-shelf/
 **/node_modules/
 **/dist/
 *.tsbuildinfo

@@ -1,6 +1,6 @@
 # F / Form
 
-Deze app is onderdeel van het portfolio en wordt gepubliceerd op `/3d-modeling/self`.
+Deze app is onderdeel van het portfolio en wordt gepubliceerd op `/3js/bedroom-shelf`.
 De buildkoppeling en browsercheck staan in de README van de portfolio-repository.
 
 Een kleine, zelfstandige ontwerptool voor twee gespiegelde F-vormige nachtkastjes in berken multiplex, met een slaapkamer op schaal en een losse detailweergave. Vite + TypeScript + Three.js, zonder backend.
