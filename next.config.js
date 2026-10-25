@@ -12,6 +12,14 @@ module.exports = {
         source: "/3d-modeling/self/:path*",
         headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }],
       },
+      {
+        source: "/tools/:path*",
+        headers: [
+          { key: "X-Robots-Tag", value: "noindex, nofollow, noarchive, nosnippet, noimageindex" },
+          // same-origin, not no-referrer: Server Actions reject the `Origin: null` that no-referrer causes.
+          { key: "Referrer-Policy", value: "same-origin" },
+        ],
+      },
     ];
   },
   async rewrites() {
@@ -19,6 +27,15 @@ module.exports = {
       {
         source: "/3js/bedroom-shelf",
         destination: "/3js/bedroom-shelf/index.html",
+      },
+      // Private tools live in their own Vercel projects, served under /tools via basePath.
+      {
+        source: "/tools/mealplan",
+        destination: "https://mealplan-hazel-two.vercel.app/tools/mealplan",
+      },
+      {
+        source: "/tools/mealplan/:path*",
+        destination: "https://mealplan-hazel-two.vercel.app/tools/mealplan/:path*",
       },
     ];
   },
